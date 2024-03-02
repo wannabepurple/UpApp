@@ -46,7 +46,7 @@
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jdC-Ly-MzM">
-                    <rect key="frame" x="147.33333333333334" y="558" width="98.333333333333343" height="36"/>
+                    <rect key="frame" x="147.33333333333334" y="568" width="98.333333333333343" height="36"/>
                     <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="18"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" title="Start">
@@ -71,7 +71,7 @@
                 <constraint firstItem="jdC-Ly-MzM" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.25" id="iF7-s7-NqY"/>
                 <constraint firstItem="0Gu-6d-i8Y" firstAttribute="top" secondItem="5Sl-B0-10z" secondAttribute="bottom" constant="50" id="sZ2-3W-lfr"/>
                 <constraint firstItem="0Gu-6d-i8Y" firstAttribute="width" secondItem="vUN-kp-3ea" secondAttribute="width" multiplier="0.25" id="xvP-6K-mey" userLabel="Start.width = 0.25 × width"/>
-                <constraint firstItem="jdC-Ly-MzM" firstAttribute="top" secondItem="0Gu-6d-i8Y" secondAttribute="bottom" constant="20" id="yMs-am-X4J"/>
+                <constraint firstItem="jdC-Ly-MzM" firstAttribute="top" secondItem="0Gu-6d-i8Y" secondAttribute="bottom" constant="30" id="yMs-am-X4J"/>
             </constraints>
             <point key="canvasLocation" x="-8.3969465648854964" y="-12.67605633802817"/>
         </view>

@@ -10,9 +10,7 @@ class SessionController: BaseController {
     
     // [ start = 0, pause = 1, resume = 2 ]
     var startPauseResume = 0
-    var timer: Timer?
-    var totalSeconds = 0
-    
+
     @IBOutlet weak var stopButton: UIButton!
     
     override func viewDidLoad() {
@@ -21,33 +19,31 @@ class SessionController: BaseController {
     }
     
     @IBAction func tapStartPauseButton(_ sender: Any) {
-        // ADDME - start the timer
-        if timer == nil {
-            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
-                self.totalSeconds += 1
-                let hours = self.totalSeconds / 3600
-                let remainingMinutes = (self.totalSeconds % 3600) / 60
-                let remainingSeconds = self.totalSeconds % 60
- 
-                self.timeLabel.text = String(format: "%02d:%02d:%02d", hours, remainingMinutes, remainingSeconds)
-            })
-        } else {
-            timer?.invalidate()
-            timer = nil
-        }
-    
-        
         switch startPauseResume {
         case 0:
             startPauseResume = 1 // set pause
             setButtonAppearance(button: startPauseButton, title: "Pause", backgroundColor: Resources.Common.Colors.yellow)
             Resources.SessionController.Animations.changeButtonVisibility(button: stopButton, willHidden: false)
+            
+            // Start timer
+            SessionTimer.startTimer() { [weak self] timeString in
+                self?.timeLabel.text = timeString
+            }
+            
         case 1:
             startPauseResume = 2 // set resume
             setButtonAppearance(button: startPauseButton, title: "Resume", backgroundColor: Resources.Common.Colors.green)
+            
+            // Pause timer
+            SessionTimer.pauseTimer()
         case 2:
             startPauseResume = 1 // set pause
             setButtonAppearance(button: startPauseButton, title: "Pause", backgroundColor: Resources.Common.Colors.yellow)
+            
+            // Resume timer
+            SessionTimer.startTimer() { [weak self] timeString in
+                self?.timeLabel.text = timeString
+            }
         default: break
         }
     }
@@ -56,6 +52,10 @@ class SessionController: BaseController {
         startPauseResume = 0 // set start
         setButtonAppearance(button: startPauseButton, title: "Start", backgroundColor: Resources.Common.Colors.green)
         Resources.SessionController.Animations.changeButtonVisibility(button: stopButton, willHidden: true)
+        
+        // Stop timer
+        SessionTimer.stopTimer()
+        timeLabel.text = "00:00:00"
     }
     
 }

@@ -11,14 +11,11 @@ enum Resources {
             static let red = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
         }
         
-        
         // MARK: Functions
         static func futura(size: CGFloat) -> UIFont {
             UIFont(name: "Futura-bold", size: size) ?? UIFont()
         }
-        
-//        static func attributeLabelText()
-        
+                
         static func setControllerAppearance(vc: UIViewController, title: String) {
             vc.title = title
         }

@@ -10,6 +10,7 @@
 		874BBDF42B925FC600934313 /* MeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874BBDF32B925FC600934313 /* MeController.swift */; };
 		874BBDF82B92662500934313 /* SessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874BBDF72B92662500934313 /* SessionController.swift */; };
 		874BBDFA2B92666500934313 /* ProgressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874BBDF92B92666500934313 /* ProgressController.swift */; };
+		8795DFEB2B93C7E100B0F593 /* SessionTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8795DFEA2B93C7E100B0F593 /* SessionTimer.swift */; };
 		879D0C542B9392B9008D8A5D /* AgendaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879D0C532B9392B9008D8A5D /* AgendaController.swift */; };
 		879D0C562B939318008D8A5D /* SessionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 879D0C552B939318008D8A5D /* SessionController.xib */; };
 		87B0AAD92B920BBA001A6794 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B0AAD82B920BBA001A6794 /* AppDelegate.swift */; };
@@ -26,6 +27,7 @@
 		874BBDF32B925FC600934313 /* MeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeController.swift; sourceTree = "<group>"; };
 		874BBDF72B92662500934313 /* SessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionController.swift; sourceTree = "<group>"; };
 		874BBDF92B92666500934313 /* ProgressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressController.swift; sourceTree = "<group>"; };
+		8795DFEA2B93C7E100B0F593 /* SessionTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTimer.swift; sourceTree = "<group>"; };
 		879D0C532B9392B9008D8A5D /* AgendaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaController.swift; sourceTree = "<group>"; };
 		879D0C552B939318008D8A5D /* SessionController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SessionController.xib; sourceTree = "<group>"; };
 		87B0AAD52B920BBA001A6794 /* UpApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UpApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,6 +66,7 @@
 		874BBDFF2B926F6B00934313 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8795DFEA2B93C7E100B0F593 /* SessionTimer.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -241,6 +244,7 @@
 				87B0AAF02B920E8C001A6794 /* TabBarController.swift in Sources */,
 				87B0AAD92B920BBA001A6794 /* AppDelegate.swift in Sources */,
 				87B0AADB2B920BBA001A6794 /* SceneDelegate.swift in Sources */,
+				8795DFEB2B93C7E100B0F593 /* SessionTimer.swift in Sources */,
 				879D0C542B9392B9008D8A5D /* AgendaController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
