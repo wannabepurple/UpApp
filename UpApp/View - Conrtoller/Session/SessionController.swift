@@ -2,16 +2,15 @@ import UIKit
 import Foundation
 
 class SessionController: BaseController {
-    
-    
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var startPauseButton: UIButton!
+    @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var targetField: UITextField!
     
     // [ start = 0, pause = 1, resume = 2 ]
     var startPauseResume = 0
-
-    @IBOutlet weak var stopButton: UIButton!
+    
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +28,6 @@ class SessionController: BaseController {
             SessionTimer.startTimer() { [weak self] timeString in
                 self?.timeLabel.text = timeString
             }
-            
         case 1:
             startPauseResume = 2 // set resume
             setButtonAppearance(button: startPauseButton, title: "Resume", backgroundColor: Resources.Common.Colors.green)
@@ -57,9 +55,7 @@ class SessionController: BaseController {
         SessionTimer.stopTimer()
         timeLabel.text = "00:00:00"
     }
-    
 }
-
 
 extension SessionController {
     private func setAppearance() {
@@ -67,13 +63,14 @@ extension SessionController {
         
         // Buttons
         setButtonAppearance(button: startPauseButton, title: "Start", backgroundColor: Resources.Common.Colors.green)
+        
         setButtonAppearance(button: stopButton, title: "Stop", backgroundColor: Resources.Common.Colors.red)
         stopButton.isHidden = true
         
-        // Timer        
-        timeLabel.backgroundColor = Resources.Common.Colors.green
-        timeLabel.layer.cornerRadius = Resources.SessionController.Sizes.cornerRadius
-        timeLabel.layer.masksToBounds = true
+        // Timer
+        setLabelAppearance()
+        
+        // Text Field = Target
     }
     
     private func setButtonAppearance(button: UIButton, title: String, backgroundColor: UIColor) {
@@ -82,6 +79,12 @@ extension SessionController {
         button.layer.cornerRadius = Resources.SessionController.Sizes.cornerRadius
         button.titleLabel?.font = Resources.Common.futura(size: 18)
         button.setTitle(title, for: .normal)
+    }
+    
+    private func setLabelAppearance() {
+        timeLabel.backgroundColor = Resources.Common.Colors.green
+        timeLabel.layer.cornerRadius = Resources.SessionController.Sizes.cornerRadius
+        timeLabel.layer.masksToBounds = true
     }
 }
 
