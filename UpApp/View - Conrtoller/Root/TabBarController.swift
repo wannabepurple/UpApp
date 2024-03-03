@@ -41,21 +41,21 @@ final class TabBarController: UITabBarController {
         let sessionNavigation = NavigationBarController(rootViewController: sessionController)
         let agendaNavigation = NavigationBarController(rootViewController: agendaController)
         let progressNavigation = NavigationBarController(rootViewController: progressController)
-
+        
         // Custom tabBarItem for each navBar
         meNavigation.tabBarItem = UITabBarItem(title: Resources.TabBar.Titles.me,
-                                                   image: Resources.TabBar.Images.me,
-                                                   tag: Tabs.me.rawValue)
+                                               image: Resources.TabBar.Images.me,
+                                               tag: Tabs.me.rawValue)
         sessionNavigation.tabBarItem = UITabBarItem(title: Resources.TabBar.Titles.session,
-                                                   image: Resources.TabBar.Images.session,
-                                                   tag: Tabs.session.rawValue)
+                                                    image: Resources.TabBar.Images.session,
+                                                    tag: Tabs.session.rawValue)
         agendaNavigation.tabBarItem = UITabBarItem(title: Resources.TabBar.Titles.agenda,
                                                    image: Resources.TabBar.Images.agenda,
                                                    tag: Tabs.agenda.rawValue)
         progressNavigation.tabBarItem = UITabBarItem(title: Resources.TabBar.Titles.progress,
-                                                   image: Resources.TabBar.Images.progress,
-                                                   tag: Tabs.progress.rawValue)
-
+                                                     image: Resources.TabBar.Images.progress,
+                                                     tag: Tabs.progress.rawValue)
+        
         // Changing font of tabBarItem titles
         let fontAttributes: [NSAttributedString.Key: Any] = [
             .font: Resources.Common.futura(size: 12) as Any

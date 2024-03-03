@@ -11,6 +11,10 @@ enum Resources {
             static let red = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
         }
         
+        enum Sizes {
+            static let cornerRadius: CGFloat = 10
+        }
+        
         // MARK: Functions
         static func futura(size: CGFloat) -> UIFont {
             UIFont(name: "Futura-bold", size: size) ?? UIFont()
@@ -49,8 +53,8 @@ enum Resources {
     }
     
     enum SessionController {
-        enum Sizes {
-            static let cornerRadius: CGFloat = 10
+        enum Images {
+            static let bin = UIImage(named: "bin")
         }
         
         enum Animations {
@@ -58,6 +62,15 @@ enum Resources {
                 UIView.transition(with: button, duration: 0.3, options: .transitionCrossDissolve, animations: {
                     button.isHidden = willHidden
                 }, completion: nil)
+            }
+            
+            static func highlightTextFieldPlaceholder(textField: UITextField) {
+                UIView.transition(with: textField, duration: 0.5) {
+                    textField.backgroundColor = Resources.Common.Colors.yellow
+                }
+                UIView.transition(with: textField, duration: 0.5) {
+                    textField.backgroundColor = nil
+                }
             }
             
         }
