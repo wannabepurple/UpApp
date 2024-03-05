@@ -1,7 +1,7 @@
 import UIKit
 
 class MeController: BaseController {
-    @IBOutlet weak var avatar: UIImageView!
+    @IBOutlet weak var topView: UIView!
     @IBOutlet weak var tableView: UITableView!
     var perks: [String] = ["First"]
     
@@ -20,16 +20,19 @@ extension MeController {
         Resources.Common.setControllerAppearance(vc: self, title: Resources.TabBar.Titles.me)
         
         // Avatar
-        setAvatar()
+        setTopView()
         
         // Table View
         setTableView()
         
     }
     
-    private func setAvatar() {
-        avatar.backgroundColor = Resources.Common.Colors.backgroundWhite
-        avatar.layer.cornerRadius = avatar.bounds.width / 2
+    private func setTopView() {
+        topView.backgroundColor = Resources.Common.Colors.backgroundWhite
+        topView.layer.cornerRadius = Resources.Common.Sizes.cornerRadius20
+//        avatar.backgroundColor = Resources.Common.Colors.backgroundWhite
+//        avatar.layer.cornerRadius = avatar.bounds.width / 2
+        
     }
     
     private func setTableView() {

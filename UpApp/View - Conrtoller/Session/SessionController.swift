@@ -93,14 +93,14 @@ extension SessionController {
     private func setButton(button: UIButton, title: String, backgroundColor: UIColor) {
         button.backgroundColor = backgroundColor
         button.layer.masksToBounds = true
-        button.layer.cornerRadius = Resources.Common.Sizes.cornerRadius
+        button.layer.cornerRadius = Resources.Common.Sizes.cornerRadius10
         button.titleLabel?.font = Resources.Common.futura(size: 18)
         button.setTitle(title, for: .normal)
     }
     
     private func setLabel() {
         timeLabel.backgroundColor = Resources.Common.Colors.green
-        timeLabel.layer.cornerRadius = Resources.Common.Sizes.cornerRadius
+        timeLabel.layer.cornerRadius = Resources.Common.Sizes.cornerRadius10
         timeLabel.layer.masksToBounds = true
     }
     
@@ -108,7 +108,7 @@ extension SessionController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGesture))
         view.addGestureRecognizer(tapGesture)
         
-        perkField.layer.cornerRadius = Resources.Common.Sizes.cornerRadius
+        perkField.layer.cornerRadius = Resources.Common.Sizes.cornerRadius10
     }
     
     @objc private func tapGesture() {

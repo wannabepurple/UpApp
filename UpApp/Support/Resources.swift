@@ -12,7 +12,8 @@ enum Resources {
         }
         
         enum Sizes {
-            static let cornerRadius: CGFloat = 10
+            static let cornerRadius10: CGFloat = 10
+            static let cornerRadius20: CGFloat = 20
         }
         
         // MARK: Functions
