@@ -12,7 +12,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MeController" customModule="UpApp" customModuleProvider="target">
             <connections>
                 <outlet property="nick" destination="b6C-Kq-NXd" id="inF-bI-pz9"/>
-                <outlet property="tableView" destination="p2k-xm-S0X" id="FCp-Iv-A0M"/>
                 <outlet property="topView" destination="naf-GZ-nh7" id="4r7-8w-tMM"/>
                 <outlet property="view" destination="iN0-l3-epB" id="C2b-uk-THm"/>
             </connections>
@@ -22,10 +21,6 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="p2k-xm-S0X">
-                    <rect key="frame" x="0.0" y="260.66666666666669" width="393" height="591.33333333333326"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="naf-GZ-nh7">
                     <rect key="frame" x="40" y="78.999999999999986" width="313" height="161.66666666666663"/>
                     <subviews>
@@ -56,15 +51,10 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="p2k-xm-S0X" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="6Mg-3p-Vaz"/>
                 <constraint firstItem="naf-GZ-nh7" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" constant="-40" id="GRr-cR-kJo"/>
                 <constraint firstItem="naf-GZ-nh7" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="Iot-wY-d2t"/>
                 <constraint firstItem="naf-GZ-nh7" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="PLv-i9-a2b"/>
-                <constraint firstAttribute="bottom" secondItem="p2k-xm-S0X" secondAttribute="bottom" id="VNn-A8-Uep"/>
-                <constraint firstItem="p2k-xm-S0X" firstAttribute="top" secondItem="naf-GZ-nh7" secondAttribute="bottom" constant="20" id="Y81-JD-b0T"/>
                 <constraint firstItem="naf-GZ-nh7" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="40" id="ik4-r4-8bL"/>
-                <constraint firstItem="p2k-xm-S0X" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="lye-WE-Qw8"/>
-                <constraint firstItem="p2k-xm-S0X" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="xnx-45-GiE"/>
             </constraints>
             <point key="canvasLocation" x="-8.3969465648854964" y="-12.67605633802817"/>
         </view>

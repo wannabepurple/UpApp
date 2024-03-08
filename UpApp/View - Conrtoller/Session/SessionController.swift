@@ -7,7 +7,7 @@ enum StartPauseResume {
     case resume
 }
 
-class SessionController: BaseController {
+final class SessionController: BaseController {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var startPauseButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!

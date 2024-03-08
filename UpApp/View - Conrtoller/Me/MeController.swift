@@ -1,21 +1,21 @@
 import UIKit
 
-class MeController: BaseController {
+final class MeController: BaseController {
     @IBOutlet weak var topView: UIView!
-    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nick: UITextField!
+    var tableView = UITableView()
     
     var perks: [String] = ["First"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setAppearance()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "PerkCard")
-        tableView.dataSource = self
     }
 
 }
 
+// MARK: Setup
 extension MeController {
     private func setAppearance() {
         Resources.Common.setControllerAppearance(vc: self, title: Resources.TabBar.Titles.me)
@@ -34,36 +34,55 @@ extension MeController {
 //        avatar.backgroundColor = Resources.Common.Colors.backgroundWhite
 //        avatar.layer.cornerRadius = avatar.bounds.width / 2
         
+        // Nick
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGesture))
+        view.addGestureRecognizer(tapGesture)
+        
+    }
+    
+    @objc private func tapGesture() {
+        nick.resignFirstResponder()
     }
     
     private func setTableView() {
-        tableView.backgroundColor = Resources.Common.Colors.backgroundGray
+        view.addSubview(tableView)
+        setTableViewDelegates()
+        tableView.rowHeight = 100
+        // set register cell
+        setTableViewConstraints()
+        
+        tableView.layer.cornerRadius = Resources.Common.Sizes.cornerRadius20
+    }
+
+    private func setTableViewDelegates() {
+        tableView.delegate = self
+        tableView.dataSource = self
     }
 }
 
-extension MeController: UITableViewDataSource {
+// MARK: Delegates
+extension MeController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell: UITableViewCell
-        if let reuseCell = tableView.dequeueReusableCell(withIdentifier: "PerkCard") {
-            cell = reuseCell
-        } else {
-            cell = UITableViewCell(style: .default, reuseIdentifier: "PerkCard")
-        }
-        configureCell(cell: &cell, indexPath: indexPath)
-        return cell
+        return UITableViewCell()
     }
     
-    private func configureCell(cell: inout UITableViewCell, indexPath: IndexPath) {
-        var config = cell.defaultContentConfiguration()
-        config.text = "hello"
-        config.secondaryText = "world"
-        cell.contentConfiguration = config
-    }
-    
-    
+     
 }
 
+// MARK: Contraints
+extension MeController {
+    private func setTableViewConstraints() {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 20),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+        ])
+        
+    }
+}
