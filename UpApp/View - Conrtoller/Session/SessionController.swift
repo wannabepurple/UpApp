@@ -1,6 +1,12 @@
 import UIKit
 import Foundation
 
+enum StartPauseResume {
+    case start
+    case pause
+    case resume
+}
+
 class SessionController: BaseController {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var startPauseButton: UIButton!
@@ -8,8 +14,7 @@ class SessionController: BaseController {
     @IBOutlet weak var perkField: UITextField!
     @IBOutlet weak var binButton: UIButton!
     
-    // [ start = 0, pause = 1, resume = 2 ]
-    var startPauseResume = 0
+    var startPauseResume = StartPauseResume.start
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,35 +22,34 @@ class SessionController: BaseController {
     }
     
     @IBAction func tapStartPauseButton(_ sender: Any) {
-        if startPauseResume == 0 && perkField.text == "" {
+        if startPauseResume == .start && perkField.text == "" {
             Resources.SessionController.Animations.highlightTextFieldPlaceholder(textField: perkField)
         }
         else {
             switch startPauseResume {
-            case 0:
-                startPauseResume = 1 // set pause
-                setButton(button: startPauseButton, title: "Pause", backgroundColor: Resources.Common.Colors.yellow)
+            case .start:
+                startPauseResume = .pause // set pause
+                setButton(button: startPauseButton, title: "Pause", backgroundColor: Resources.Common.Colors.purple)
                 Resources.SessionController.Animations.changeButtonVisibility(button: stopButton, willHidden: false)
                 
                 // Start timer
                 SessionTimer.startTimer() { [weak self] timeString in
                     self?.timeLabel.text = timeString
                 }
-            case 1:
-                startPauseResume = 2 // set resume
+            case .pause:
+                startPauseResume = .resume // set resume
                 setButton(button: startPauseButton, title: "Resume", backgroundColor: Resources.Common.Colors.green)
                 
                 // Pause timer
                 SessionTimer.pauseTimer()
-            case 2:
-                startPauseResume = 1 // set pause
-                setButton(button: startPauseButton, title: "Pause", backgroundColor: Resources.Common.Colors.yellow)
+            case .resume:
+                startPauseResume = .pause // set pause
+                setButton(button: startPauseButton, title: "Pause", backgroundColor: Resources.Common.Colors.purple)
                 
                 // Resume timer
                 SessionTimer.startTimer() { [weak self] timeString in
                     self?.timeLabel.text = timeString
                 }
-            default: break
             }
         }
     }
@@ -80,7 +84,7 @@ extension SessionController {
         setButton(button: stopButton, title: "Stop", backgroundColor: Resources.Common.Colors.red)
         stopButton.isHidden = true
         
-        setButton(button: binButton, title: "", backgroundColor: Resources.Common.Colors.yellow)
+        setButton(button: binButton, title: "", backgroundColor: Resources.Common.Colors.purple)
         binButton.setImage(Resources.SessionController.Images.bin, for: .normal)
 
         // Timer
@@ -116,7 +120,7 @@ extension SessionController {
     }
     
     private func clearAction() {
-        startPauseResume = 0 // set start
+        startPauseResume = .start // set start
         setButton(button: startPauseButton, title: "Start", backgroundColor: Resources.Common.Colors.green)
         Resources.SessionController.Animations.changeButtonVisibility(button: stopButton, willHidden: true)
         

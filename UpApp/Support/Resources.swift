@@ -4,10 +4,11 @@ enum Resources {
     
     enum Common {
         enum Colors {
-            static let backgroundWhite = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            static let backgroundCard = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             static let backgroundGray = #colorLiteral(red: 0.9206777215, green: 0.9245578647, blue: 0.9244892001, alpha: 1)
-            static let green = #colorLiteral(red: 0.4626408815, green: 0.7452270389, blue: 0.233566016, alpha: 1)
-            static let yellow = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
+            static let backgroundDark = #colorLiteral(red: 0.08416173607, green: 0.1026151553, blue: 0.1538609266, alpha: 1)
+            static let green = #colorLiteral(red: 0.340277344, green: 0.9374753237, blue: 0.578148067, alpha: 1)
+            static let purple = #colorLiteral(red: 0.5381102562, green: 0.2368915677, blue: 0.8926698565, alpha: 1)
             static let red = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
         }
         
@@ -28,8 +29,8 @@ enum Resources {
     
     enum TabBar {
         enum Colors {
-            static let active = #colorLiteral(red: 0.4626408815, green: 0.7452270389, blue: 0.233566016, alpha: 1)
-            static let inactive = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+            static let active = #colorLiteral(red: 0.340277344, green: 0.9374753237, blue: 0.578148067, alpha: 1)
+            static let inactive = #colorLiteral(red: 0.9206777215, green: 0.9245578647, blue: 0.9244892001, alpha: 1)
         }
         
         enum Titles {
@@ -49,7 +50,7 @@ enum Resources {
     
     enum NavBar {
         enum Colors {
-            static let titleColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+            static let titleColor = #colorLiteral(red: 0.9206777215, green: 0.9245578647, blue: 0.9244892001, alpha: 1)
         }
     }
     
@@ -67,7 +68,7 @@ enum Resources {
             
             static func highlightTextFieldPlaceholder(textField: UITextField) {
                 UIView.transition(with: textField, duration: 0.5) {
-                    textField.backgroundColor = Resources.Common.Colors.yellow
+                    textField.backgroundColor = Resources.Common.Colors.purple
                 }
                 UIView.transition(with: textField, duration: 0.5) {
                     textField.backgroundColor = nil

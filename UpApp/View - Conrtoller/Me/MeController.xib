@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MeController" customModule="UpApp" customModuleProvider="target">
             <connections>
+                <outlet property="nick" destination="b6C-Kq-NXd" id="inF-bI-pz9"/>
                 <outlet property="tableView" destination="p2k-xm-S0X" id="FCp-Iv-A0M"/>
                 <outlet property="topView" destination="naf-GZ-nh7" id="4r7-8w-tMM"/>
                 <outlet property="view" destination="iN0-l3-epB" id="C2b-uk-THm"/>
@@ -37,7 +38,7 @@
                         <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nick" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b6C-Kq-NXd">
                             <rect key="frame" x="109.66666666666666" y="124.00000000000001" width="93.666666666666657" height="27.666666666666671"/>
                             <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="20"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                         </textField>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>

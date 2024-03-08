@@ -3,6 +3,8 @@ import UIKit
 class MeController: BaseController {
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var nick: UITextField!
+    
     var perks: [String] = ["First"]
     
     override func viewDidLoad() {
@@ -10,7 +12,6 @@ class MeController: BaseController {
         setAppearance()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "PerkCard")
         tableView.dataSource = self
-
     }
 
 }
@@ -28,7 +29,7 @@ extension MeController {
     }
     
     private func setTopView() {
-        topView.backgroundColor = Resources.Common.Colors.backgroundWhite
+        topView.backgroundColor = Resources.Common.Colors.backgroundCard
         topView.layer.cornerRadius = Resources.Common.Sizes.cornerRadius20
 //        avatar.backgroundColor = Resources.Common.Colors.backgroundWhite
 //        avatar.layer.cornerRadius = avatar.bounds.width / 2

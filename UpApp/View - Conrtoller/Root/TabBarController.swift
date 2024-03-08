@@ -27,7 +27,7 @@ final class TabBarController: UITabBarController {
     private func configureTabBar() {
         tabBar.tintColor = Resources.TabBar.Colors.active
         tabBar.barTintColor = Resources.TabBar.Colors.inactive
-        tabBar.backgroundColor = Resources.Common.Colors.backgroundWhite
+        tabBar.backgroundColor = Resources.Common.Colors.backgroundDark
         tabBar.layer.masksToBounds = true
         
         // Making controllers

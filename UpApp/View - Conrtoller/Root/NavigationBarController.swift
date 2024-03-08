@@ -7,7 +7,7 @@ final class NavigationBarController: UINavigationController {
     }
     
     private func configureNavigationBar() {
-        view.backgroundColor = Resources.Common.Colors.backgroundWhite
+        view.backgroundColor = Resources.Common.Colors.backgroundDark
         navigationBar.isTranslucent = false
         navigationBar.standardAppearance.titleTextAttributes = [
             .foregroundColor: Resources.NavBar.Colors.titleColor,
