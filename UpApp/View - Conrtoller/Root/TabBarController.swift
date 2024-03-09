@@ -2,8 +2,7 @@ import UIKit
 
 // MARK: Project Hierarchy
 // Tab Bar - is the root
-// Nav Bar - is subview of Tab Bar
-// Controller - is subview of Nav Bar
+// Controller - is subview of Tab Bar
 
 enum Tabs: Int {
     case me
@@ -34,41 +33,52 @@ final class TabBarController: UITabBarController {
         let sessionController = SessionController()
         let agendaController = AgendaController()
         let progressController = ProgressController()
+                
+        meController.tabBarItem = UITabBarItem(title: Resources.TabBar.Titles.me,
+                                               image: Resources.TabBar.Images.me,
+                                               tag: Tabs.me.rawValue)
+        sessionController.tabBarItem = UITabBarItem(title: Resources.TabBar.Titles.session,
+                                                    image: Resources.TabBar.Images.session,
+                                                    tag: Tabs.session.rawValue)
+        agendaController.tabBarItem = UITabBarItem(title: Resources.TabBar.Titles.agenda,
+                                                   image: Resources.TabBar.Images.agenda,
+                                                   tag: Tabs.agenda.rawValue)
+        progressController.tabBarItem = UITabBarItem(title: Resources.TabBar.Titles.progress,
+                                                     image: Resources.TabBar.Images.progress,
+                                                     tag: Tabs.progress.rawValue)
         
+        let attributes = [
+            NSAttributedString.Key.font: Resources.Common.futura(size: 12) as Any,
+            NSAttributedString.Key.foregroundColor: Resources.Common.Colors.backgroundCard
+        ]
+        
+        meController.tabBarItem.setTitleTextAttributes(attributes, for: .normal)
+        sessionController.tabBarItem.setTitleTextAttributes(attributes, for: .normal)
+        agendaController.tabBarItem.setTitleTextAttributes(attributes, for: .normal)
+        progressController.tabBarItem.setTitleTextAttributes(attributes, for: .normal)
+        
+        // Nav bar example
+        /*
         // Making navigation bar for each controllers
         let meNavigation = NavigationBarController(rootViewController: meController)
-        let sessionNavigation = NavigationBarController(rootViewController: sessionController)
-        let agendaNavigation = NavigationBarController(rootViewController: agendaController)
-        let progressNavigation = NavigationBarController(rootViewController: progressController)
         
         // Custom tabBarItem for each navBar
         meNavigation.tabBarItem = UITabBarItem(title: Resources.TabBar.Titles.me,
                                                image: Resources.TabBar.Images.me,
                                                tag: Tabs.me.rawValue)
-        sessionNavigation.tabBarItem = UITabBarItem(title: Resources.TabBar.Titles.session,
-                                                    image: Resources.TabBar.Images.session,
-                                                    tag: Tabs.session.rawValue)
-        agendaNavigation.tabBarItem = UITabBarItem(title: Resources.TabBar.Titles.agenda,
-                                                   image: Resources.TabBar.Images.agenda,
-                                                   tag: Tabs.agenda.rawValue)
-        progressNavigation.tabBarItem = UITabBarItem(title: Resources.TabBar.Titles.progress,
-                                                     image: Resources.TabBar.Images.progress,
-                                                     tag: Tabs.progress.rawValue)
-        
+       
         // Changing font of tabBarItem titles
         let fontAttributes: [NSAttributedString.Key: Any] = [
             .font: Resources.Common.futura(size: 12) as Any
         ]
         meNavigation.tabBarItem.setTitleTextAttributes(fontAttributes, for: .normal)
-        sessionNavigation.tabBarItem.setTitleTextAttributes(fontAttributes, for: .normal)
-        agendaNavigation.tabBarItem.setTitleTextAttributes(fontAttributes, for: .normal)
-        progressNavigation.tabBarItem.setTitleTextAttributes(fontAttributes, for: .normal)
-        
-        // Adding navBars to tabBar
-        setViewControllers([meNavigation,
-                            sessionNavigation,
-                            agendaNavigation,
-                            progressNavigation], animated: false)
+        */
+         
+        // Adding controllers to tabBar
+        setViewControllers([meController,
+                            sessionController,
+                            agendaController,
+                            progressController], animated: false)
         
     }
 }

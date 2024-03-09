@@ -30,7 +30,7 @@ enum Resources {
     enum TabBar {
         enum Colors {
             static let active = #colorLiteral(red: 0.340277344, green: 0.9374753237, blue: 0.578148067, alpha: 1)
-            static let inactive = #colorLiteral(red: 0.9206777215, green: 0.9245578647, blue: 0.9244892001, alpha: 1)
+            static let inactive = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         }
         
         enum Titles {
