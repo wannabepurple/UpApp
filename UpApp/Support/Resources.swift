@@ -68,7 +68,7 @@ enum Resources {
             
             static func highlightTextFieldPlaceholder(textField: UITextField) {
                 UIView.transition(with: textField, duration: 0.5) {
-                    textField.backgroundColor = Resources.Common.Colors.backgroundDark
+                    textField.backgroundColor = Resources.Common.Colors.purple
                 }
                 UIView.transition(with: textField, duration: 0.5) {
                     textField.backgroundColor = nil
