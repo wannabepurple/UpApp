@@ -5,13 +5,26 @@ final class MeController: BaseController {
     @IBOutlet weak var nick: UITextField!
     var tableView = UITableView()
     
-    var perks: [String] = ["First"]
+    
+    var perks: [Perk] = [Perk(perkTitle: "FirstPerk")] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setAppearance()
     }
+    
+    @IBAction func deleteCell(_ sender: Any) {
+        perks.popLast()
+    }
+    @IBAction func updConstraints(_ sender: Any) {
+        perks.append(Perk(perkTitle: "FirstPerk"))
+    }
+    
 
 }
 
@@ -25,7 +38,6 @@ extension MeController {
         
         // Table View
         setTableView()
-        
     }
     
     private func setTopView() {
@@ -45,13 +57,17 @@ extension MeController {
     }
     
     private func setTableView() {
+        // Required
         view.addSubview(tableView)
         setTableViewDelegates()
-        tableView.rowHeight = 100
-        // set register cell
+        tableView.register(PerkCell.self, forCellReuseIdentifier: Resources.MeController.cellIdentifier)
         setTableViewConstraints()
-        
+
+        // Opt
+        tableView.separatorStyle = .none
         tableView.layer.cornerRadius = Resources.Common.Sizes.cornerRadius20
+        tableView.backgroundColor = Resources.Common.Colors.backgroundGray
+        tableView.showsVerticalScrollIndicator = false
     }
 
     private func setTableViewDelegates() {
@@ -63,26 +79,36 @@ extension MeController {
 // MARK: Delegates
 extension MeController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return perks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: Resources.MeController.cellIdentifier, for: indexPath) as! PerkCell
+        
+        let perk = perks[indexPath.row]
+        cell.set(perkObj: perk)
+        cell.backgroundColor = Resources.Common.Colors.backgroundGray
+        cell.selectionStyle = .none
+
+        return cell
     }
     
-     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+           return 220
+       }
 }
 
-// MARK: Contraints
+// MARK: Constraints
 extension MeController {
     private func setTableViewConstraints() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 20),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
-        
+            
     }
 }

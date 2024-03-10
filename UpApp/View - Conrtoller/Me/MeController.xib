@@ -22,16 +22,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="naf-GZ-nh7">
-                    <rect key="frame" x="40" y="78.999999999999986" width="313" height="161.66666666666663"/>
+                    <rect key="frame" x="60" y="78.999999999999986" width="273" height="149.66666666666663"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar" translatesAutoresizingMaskIntoConstraints="NO" id="oBh-ae-7tx">
-                            <rect key="frame" x="109.66666666666666" y="10" width="93.666666666666657" height="94"/>
+                            <rect key="frame" x="95.666666666666657" y="10" width="81.666666666666657" height="82"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="oBh-ae-7tx" secondAttribute="height" multiplier="1:1" id="gPA-ep-6rc"/>
                             </constraints>
                         </imageView>
                         <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nick" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b6C-Kq-NXd">
-                            <rect key="frame" x="109.66666666666666" y="124.00000000000001" width="93.666666666666657" height="27.666666666666671"/>
+                            <rect key="frame" x="95.666666666666657" y="112" width="81.666666666666657" height="27.666666666666657"/>
                             <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="20"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                         </textField>
@@ -47,14 +47,40 @@
                         <constraint firstItem="b6C-Kq-NXd" firstAttribute="centerX" secondItem="naf-GZ-nh7" secondAttribute="centerX" id="tDk-QJ-YQx"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JmT-El-DtO">
+                    <rect key="frame" x="291" y="16" width="75" height="35"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="75" id="RQy-SZ-Ybs"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                    <connections>
+                        <action selector="updConstraints:" destination="-1" eventType="touchUpInside" id="Hb4-kQ-0CT"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KYZ-Mb-TOa">
+                    <rect key="frame" x="27" y="16" width="75" height="35"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="75" id="u20-Lr-W7a"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                    <connections>
+                        <action selector="deleteCell:" destination="-1" eventType="touchUpInside" id="mYa-gF-jgX"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="naf-GZ-nh7" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" constant="-40" id="GRr-cR-kJo"/>
+                <constraint firstItem="naf-GZ-nh7" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" constant="-60" id="GRr-cR-kJo"/>
+                <constraint firstItem="KYZ-Mb-TOa" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="Hvz-rJ-KzY"/>
                 <constraint firstItem="naf-GZ-nh7" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="Iot-wY-d2t"/>
                 <constraint firstItem="naf-GZ-nh7" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="PLv-i9-a2b"/>
-                <constraint firstItem="naf-GZ-nh7" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="40" id="ik4-r4-8bL"/>
+                <constraint firstItem="JmT-El-DtO" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="Rqx-Lw-NLQ"/>
+                <constraint firstItem="naf-GZ-nh7" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="60" id="ik4-r4-8bL"/>
+                <constraint firstAttribute="trailing" secondItem="JmT-El-DtO" secondAttribute="trailing" constant="27" id="jGx-W8-zuz"/>
+                <constraint firstItem="KYZ-Mb-TOa" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="27" id="mKf-h7-u2u"/>
             </constraints>
             <point key="canvasLocation" x="-8.3969465648854964" y="-12.67605633802817"/>
         </view>

@@ -48,12 +48,6 @@ enum Resources {
         }
     }
     
-    enum NavBar {
-        enum Colors {
-            static let titleColor = #colorLiteral(red: 0.9206777215, green: 0.9245578647, blue: 0.9244892001, alpha: 1)
-        }
-    }
-    
     enum SessionController {
         enum Images {
             static let bin = UIImage(named: "bin")
@@ -76,5 +70,9 @@ enum Resources {
             }
             
         }
+    }
+    
+    enum MeController {
+        static let cellIdentifier = "PerkCell"
     }
 }

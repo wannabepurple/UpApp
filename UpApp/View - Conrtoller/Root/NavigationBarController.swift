@@ -1,5 +1,5 @@
 import UIKit
-
+/*
 final class NavigationBarController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -14,3 +14,4 @@ final class NavigationBarController: UINavigationController {
             .font: Resources.Common.futura(size: 20)]
     }
 }
+*/

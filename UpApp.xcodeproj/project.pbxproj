@@ -10,9 +10,10 @@
 		874BBDF42B925FC600934313 /* MeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874BBDF32B925FC600934313 /* MeController.swift */; };
 		874BBDF82B92662500934313 /* SessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874BBDF72B92662500934313 /* SessionController.swift */; };
 		874BBDFA2B92666500934313 /* ProgressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874BBDF92B92666500934313 /* ProgressController.swift */; };
-		875855982B9CDFE000E46007 /* MePerkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875855972B9CDFE000E46007 /* MePerkCell.swift */; };
+		875855982B9CDFE000E46007 /* PerkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875855972B9CDFE000E46007 /* PerkCell.swift */; };
 		8758B61A2B95009A001A2B75 /* SessionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8758B6192B95009A001A2B75 /* SessionInfo.swift */; };
 		8758B61C2B951265001A2B75 /* MeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8758B61B2B951265001A2B75 /* MeController.xib */; };
+		875946002B9DBFE600D6C621 /* Perk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875945FF2B9DBFE600D6C621 /* Perk.swift */; };
 		8795DFEB2B93C7E100B0F593 /* SessionTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8795DFEA2B93C7E100B0F593 /* SessionTimer.swift */; };
 		879D0C542B9392B9008D8A5D /* AgendaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879D0C532B9392B9008D8A5D /* AgendaController.swift */; };
 		879D0C562B939318008D8A5D /* SessionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 879D0C552B939318008D8A5D /* SessionController.xib */; };
@@ -30,9 +31,10 @@
 		874BBDF32B925FC600934313 /* MeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeController.swift; sourceTree = "<group>"; };
 		874BBDF72B92662500934313 /* SessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionController.swift; sourceTree = "<group>"; };
 		874BBDF92B92666500934313 /* ProgressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressController.swift; sourceTree = "<group>"; };
-		875855972B9CDFE000E46007 /* MePerkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MePerkCell.swift; sourceTree = "<group>"; };
+		875855972B9CDFE000E46007 /* PerkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerkCell.swift; sourceTree = "<group>"; };
 		8758B6192B95009A001A2B75 /* SessionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionInfo.swift; sourceTree = "<group>"; };
 		8758B61B2B951265001A2B75 /* MeController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeController.xib; sourceTree = "<group>"; };
+		875945FF2B9DBFE600D6C621 /* Perk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Perk.swift; sourceTree = "<group>"; };
 		8795DFEA2B93C7E100B0F593 /* SessionTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTimer.swift; sourceTree = "<group>"; };
 		879D0C532B9392B9008D8A5D /* AgendaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaController.swift; sourceTree = "<group>"; };
 		879D0C552B939318008D8A5D /* SessionController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SessionController.xib; sourceTree = "<group>"; };
@@ -72,10 +74,27 @@
 		874BBDFF2B926F6B00934313 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				8795DFEA2B93C7E100B0F593 /* SessionTimer.swift */,
-				8758B6192B95009A001A2B75 /* SessionInfo.swift */,
+				875945FE2B9DBFD000D6C621 /* Me */,
+				875945FD2B9DBFA400D6C621 /* Session */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		875945FD2B9DBFA400D6C621 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				8758B6192B95009A001A2B75 /* SessionInfo.swift */,
+				8795DFEA2B93C7E100B0F593 /* SessionTimer.swift */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
+		875945FE2B9DBFD000D6C621 /* Me */ = {
+			isa = PBXGroup;
+			children = (
+				875945FF2B9DBFE600D6C621 /* Perk.swift */,
+			);
+			path = Me;
 			sourceTree = "<group>";
 		};
 		87B0AACC2B920BBA001A6794 = {
@@ -142,7 +161,7 @@
 			children = (
 				874BBDF32B925FC600934313 /* MeController.swift */,
 				8758B61B2B951265001A2B75 /* MeController.xib */,
-				875855972B9CDFE000E46007 /* MePerkCell.swift */,
+				875855972B9CDFE000E46007 /* PerkCell.swift */,
 			);
 			path = Me;
 			sourceTree = "<group>";
@@ -250,11 +269,12 @@
 				874BBDF82B92662500934313 /* SessionController.swift in Sources */,
 				874BBDF42B925FC600934313 /* MeController.swift in Sources */,
 				87B0AAF52B922BC0001A6794 /* NavigationBarController.swift in Sources */,
+				875946002B9DBFE600D6C621 /* Perk.swift in Sources */,
 				87B0AAF32B921076001A6794 /* Resources.swift in Sources */,
 				87B0AAF02B920E8C001A6794 /* TabBarController.swift in Sources */,
 				87B0AAD92B920BBA001A6794 /* AppDelegate.swift in Sources */,
 				87B0AADB2B920BBA001A6794 /* SceneDelegate.swift in Sources */,
-				875855982B9CDFE000E46007 /* MePerkCell.swift in Sources */,
+				875855982B9CDFE000E46007 /* PerkCell.swift in Sources */,
 				8758B61A2B95009A001A2B75 /* SessionInfo.swift in Sources */,
 				8795DFEB2B93C7E100B0F593 /* SessionTimer.swift in Sources */,
 				879D0C542B9392B9008D8A5D /* AgendaController.swift in Sources */,
