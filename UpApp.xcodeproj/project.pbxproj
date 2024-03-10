@@ -14,6 +14,7 @@
 		8758B61A2B95009A001A2B75 /* SessionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8758B6192B95009A001A2B75 /* SessionInfo.swift */; };
 		8758B61C2B951265001A2B75 /* MeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8758B61B2B951265001A2B75 /* MeController.xib */; };
 		875946002B9DBFE600D6C621 /* Perk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875945FF2B9DBFE600D6C621 /* Perk.swift */; };
+		875946022B9E12F500D6C621 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875946012B9E12F500D6C621 /* Extensions.swift */; };
 		8795DFEB2B93C7E100B0F593 /* SessionTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8795DFEA2B93C7E100B0F593 /* SessionTimer.swift */; };
 		879D0C542B9392B9008D8A5D /* AgendaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879D0C532B9392B9008D8A5D /* AgendaController.swift */; };
 		879D0C562B939318008D8A5D /* SessionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 879D0C552B939318008D8A5D /* SessionController.xib */; };
@@ -35,6 +36,7 @@
 		8758B6192B95009A001A2B75 /* SessionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionInfo.swift; sourceTree = "<group>"; };
 		8758B61B2B951265001A2B75 /* MeController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeController.xib; sourceTree = "<group>"; };
 		875945FF2B9DBFE600D6C621 /* Perk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Perk.swift; sourceTree = "<group>"; };
+		875946012B9E12F500D6C621 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		8795DFEA2B93C7E100B0F593 /* SessionTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTimer.swift; sourceTree = "<group>"; };
 		879D0C532B9392B9008D8A5D /* AgendaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaController.swift; sourceTree = "<group>"; };
 		879D0C552B939318008D8A5D /* SessionController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SessionController.xib; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				87B0AAF22B921076001A6794 /* Resources.swift */,
 				87B0AAE12B920BBB001A6794 /* Assets.xcassets */,
 				87B0AAE32B920BBB001A6794 /* LaunchScreen.storyboard */,
+				875946012B9E12F500D6C621 /* Extensions.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 				87B0AAF02B920E8C001A6794 /* TabBarController.swift in Sources */,
 				87B0AAD92B920BBA001A6794 /* AppDelegate.swift in Sources */,
 				87B0AADB2B920BBA001A6794 /* SceneDelegate.swift in Sources */,
+				875946022B9E12F500D6C621 /* Extensions.swift in Sources */,
 				875855982B9CDFE000E46007 /* PerkCell.swift in Sources */,
 				8758B61A2B95009A001A2B75 /* SessionInfo.swift in Sources */,
 				8795DFEB2B93C7E100B0F593 /* SessionTimer.swift in Sources */,

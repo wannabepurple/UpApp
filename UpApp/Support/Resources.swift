@@ -68,11 +68,14 @@ enum Resources {
                     textField.backgroundColor = nil
                 }
             }
-            
         }
     }
     
     enum MeController {
-        static let cellIdentifier = "PerkCell"
+        enum PerkCell {
+            static let cellIdentifier = "PerkCell"
+            static let perkTitleFont: CGFloat = 20
+            static let lvlFont: CGFloat = 15
+        }
     }
 }

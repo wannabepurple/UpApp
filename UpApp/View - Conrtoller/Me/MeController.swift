@@ -6,7 +6,7 @@ final class MeController: BaseController {
     var tableView = UITableView()
     
     
-    var perks: [Perk] = [Perk(perkTitle: "FirstPerk")] {
+    var perks: [Perk] = [Perk(perkTitle: "FirstPerk", lvl: "10", progress: 0.5, toNextLvl: "5 h")] {
         didSet {
             tableView.reloadData()
         }
@@ -22,7 +22,7 @@ final class MeController: BaseController {
         perks.popLast()
     }
     @IBAction func updConstraints(_ sender: Any) {
-        perks.append(Perk(perkTitle: "FirstPerk"))
+        perks.append(Perk(perkTitle: "FirstPerk", lvl: "10", progress: 1.5, toNextLvl: "5 h"))
     }
     
 
@@ -60,7 +60,7 @@ extension MeController {
         // Required
         view.addSubview(tableView)
         setTableViewDelegates()
-        tableView.register(PerkCell.self, forCellReuseIdentifier: Resources.MeController.cellIdentifier)
+        tableView.register(PerkCell.self, forCellReuseIdentifier: Resources.MeController.PerkCell.cellIdentifier)
         setTableViewConstraints()
 
         // Opt
@@ -83,7 +83,7 @@ extension MeController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Resources.MeController.cellIdentifier, for: indexPath) as! PerkCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Resources.MeController.PerkCell.cellIdentifier, for: indexPath) as! PerkCell
         
         let perk = perks[indexPath.row]
         cell.set(perkObj: perk)

@@ -23,7 +23,8 @@ final class SessionController: BaseController {
     
     @IBAction func tapStartPauseButton(_ sender: Any) {
         if startPauseResume == .start && perkField.text == "" {
-            Resources.SessionController.Animations.highlightTextFieldPlaceholder(textField: perkField)
+            perkField.shake()
+            //Resources.SessionController.Animations.highlightTextFieldPlaceholder(textField: perkField)
         }
         else {
             switch startPauseResume {
