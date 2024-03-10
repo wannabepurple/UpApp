@@ -5,8 +5,7 @@ final class MeController: BaseController {
     @IBOutlet weak var nick: UITextField!
     var tableView = UITableView()
     
-    
-    var perks: [Perk] = [Perk(perkTitle: "FirstPerk", lvl: "10", progress: 0.5, toNextLvl: "5 h")] {
+    var perks: [Perk] = [Perk(perkTitle: "FirstPerk", lvl: "10", progress: 0.5, toNextLvl: 5.5)] {
         didSet {
             tableView.reloadData()
         }
@@ -14,15 +13,15 @@ final class MeController: BaseController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setAppearance()
     }
     
     @IBAction func deleteCell(_ sender: Any) {
         perks.popLast()
     }
+    
     @IBAction func updConstraints(_ sender: Any) {
-        perks.append(Perk(perkTitle: "FirstPerk", lvl: "10", progress: 1.5, toNextLvl: "5 h"))
+        perks.append(Perk(perkTitle: "FirstPerk", lvl: "10", progress: 1.5, toNextLvl: 5.5))
     }
     
 

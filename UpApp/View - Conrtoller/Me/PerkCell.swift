@@ -22,7 +22,7 @@ class PerkCell: UITableViewCell {
         perk.text = perkObj.perkTitle
         lvl.text = "lvl \(perkObj.lvl)"
         progress.progress = perkObj.progress
-        toNextLvl.text = "To next lvl: \(perkObj.toNextLvl)"
+        toNextLvl.text = "To next lvl: \(perkObj.toNextLvl) h"
     }
 
 }
