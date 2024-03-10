@@ -15,9 +15,6 @@
 		8758B61C2B951265001A2B75 /* MeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8758B61B2B951265001A2B75 /* MeController.xib */; };
 		875946002B9DBFE600D6C621 /* Perk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875945FF2B9DBFE600D6C621 /* Perk.swift */; };
 		875946022B9E12F500D6C621 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875946012B9E12F500D6C621 /* Extensions.swift */; };
-		875946082B9E1CAA00D6C621 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875946072B9E1CAA00D6C621 /* Storage.swift */; };
-		8759460A2B9E2B7100D6C621 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875946092B9E2B7100D6C621 /* StorageManager.swift */; };
-		8759460D2B9E3D8A00D6C621 /* Storage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8759460B2B9E3D8A00D6C621 /* Storage.xcdatamodeld */; };
 		8795DFEB2B93C7E100B0F593 /* SessionTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8795DFEA2B93C7E100B0F593 /* SessionTimer.swift */; };
 		879D0C542B9392B9008D8A5D /* AgendaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879D0C532B9392B9008D8A5D /* AgendaController.swift */; };
 		879D0C562B939318008D8A5D /* SessionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 879D0C552B939318008D8A5D /* SessionController.xib */; };
@@ -29,6 +26,9 @@
 		87B0AAF02B920E8C001A6794 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B0AAEF2B920E8C001A6794 /* TabBarController.swift */; };
 		87B0AAF32B921076001A6794 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B0AAF22B921076001A6794 /* Resources.swift */; };
 		87B0AAF52B922BC0001A6794 /* NavigationBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B0AAF42B922BC0001A6794 /* NavigationBarController.swift */; };
+		87E525B82B9E4CD400926F0E /* Storage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 87E525B62B9E4CD400926F0E /* Storage.xcdatamodeld */; };
+		87E525BF2B9E4F9200926F0E /* PerkStorage+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E525BD2B9E4F9200926F0E /* PerkStorage+CoreDataClass.swift */; };
+		87E525C02B9E4F9200926F0E /* PerkStorage+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E525BE2B9E4F9200926F0E /* PerkStorage+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,9 +40,6 @@
 		8758B61B2B951265001A2B75 /* MeController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeController.xib; sourceTree = "<group>"; };
 		875945FF2B9DBFE600D6C621 /* Perk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Perk.swift; sourceTree = "<group>"; };
 		875946012B9E12F500D6C621 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		875946072B9E1CAA00D6C621 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
-		875946092B9E2B7100D6C621 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
-		8759460C2B9E3D8A00D6C621 /* Storage.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Storage.xcdatamodel; sourceTree = "<group>"; };
 		8795DFEA2B93C7E100B0F593 /* SessionTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTimer.swift; sourceTree = "<group>"; };
 		879D0C532B9392B9008D8A5D /* AgendaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaController.swift; sourceTree = "<group>"; };
 		879D0C552B939318008D8A5D /* SessionController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SessionController.xib; sourceTree = "<group>"; };
@@ -56,6 +53,9 @@
 		87B0AAEF2B920E8C001A6794 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		87B0AAF22B921076001A6794 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		87B0AAF42B922BC0001A6794 /* NavigationBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarController.swift; sourceTree = "<group>"; };
+		87E525B72B9E4CD400926F0E /* Storage.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Storage.xcdatamodel; sourceTree = "<group>"; };
+		87E525BD2B9E4F9200926F0E /* PerkStorage+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PerkStorage+CoreDataClass.swift"; sourceTree = "<group>"; };
+		87E525BE2B9E4F9200926F0E /* PerkStorage+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PerkStorage+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,12 +105,17 @@
 			path = Me;
 			sourceTree = "<group>";
 		};
+		8759460E2B9E44C000D6C621 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
 		87B0AACC2B920BBA001A6794 = {
 			isa = PBXGroup;
 			children = (
-				8759460B2B9E3D8A00D6C621 /* Storage.xcdatamodeld */,
-				875946072B9E1CAA00D6C621 /* Storage.swift */,
-				875946092B9E2B7100D6C621 /* StorageManager.swift */,
+				87E525C12B9E4FA900926F0E /* Storage */,
 				87B0AAD72B920BBA001A6794 /* UpApp */,
 				87B0AAD62B920BBA001A6794 /* Products */,
 			);
@@ -127,6 +132,7 @@
 		87B0AAD72B920BBA001A6794 /* UpApp */ = {
 			isa = PBXGroup;
 			children = (
+				8759460E2B9E44C000D6C621 /* Storage */,
 				87B0AAED2B920C88001A6794 /* Application */,
 				874BBDFF2B926F6B00934313 /* Model */,
 				87B0AAF62B923006001A6794 /* View - Conrtoller */,
@@ -204,6 +210,16 @@
 			path = Agenda;
 			sourceTree = "<group>";
 		};
+		87E525C12B9E4FA900926F0E /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				87E525B62B9E4CD400926F0E /* Storage.xcdatamodeld */,
+				87E525BE2B9E4F9200926F0E /* PerkStorage+CoreDataProperties.swift */,
+				87E525BD2B9E4F9200926F0E /* PerkStorage+CoreDataClass.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -276,14 +292,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8759460A2B9E2B7100D6C621 /* StorageManager.swift in Sources */,
-				8759460D2B9E3D8A00D6C621 /* Storage.xcdatamodeld in Sources */,
 				874BBDFA2B92666500934313 /* ProgressController.swift in Sources */,
+				87E525B82B9E4CD400926F0E /* Storage.xcdatamodeld in Sources */,
 				87B0AADD2B920BBA001A6794 /* BaseController.swift in Sources */,
+				87E525C02B9E4F9200926F0E /* PerkStorage+CoreDataProperties.swift in Sources */,
 				874BBDF82B92662500934313 /* SessionController.swift in Sources */,
 				874BBDF42B925FC600934313 /* MeController.swift in Sources */,
 				87B0AAF52B922BC0001A6794 /* NavigationBarController.swift in Sources */,
 				875946002B9DBFE600D6C621 /* Perk.swift in Sources */,
+				87E525BF2B9E4F9200926F0E /* PerkStorage+CoreDataClass.swift in Sources */,
 				87B0AAF32B921076001A6794 /* Resources.swift in Sources */,
 				87B0AAF02B920E8C001A6794 /* TabBarController.swift in Sources */,
 				87B0AAD92B920BBA001A6794 /* AppDelegate.swift in Sources */,
@@ -292,7 +309,6 @@
 				875855982B9CDFE000E46007 /* PerkCell.swift in Sources */,
 				8758B61A2B95009A001A2B75 /* SessionInfo.swift in Sources */,
 				8795DFEB2B93C7E100B0F593 /* SessionTimer.swift in Sources */,
-				875946082B9E1CAA00D6C621 /* Storage.swift in Sources */,
 				879D0C542B9392B9008D8A5D /* AgendaController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -516,12 +532,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		8759460B2B9E3D8A00D6C621 /* Storage.xcdatamodeld */ = {
+		87E525B62B9E4CD400926F0E /* Storage.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				8759460C2B9E3D8A00D6C621 /* Storage.xcdatamodel */,
+				87E525B72B9E4CD400926F0E /* Storage.xcdatamodel */,
 			);
-			currentVersion = 8759460C2B9E3D8A00D6C621 /* Storage.xcdatamodel */;
+			currentVersion = 87E525B72B9E4CD400926F0E /* Storage.xcdatamodel */;
 			path = Storage.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
