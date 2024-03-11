@@ -11,11 +11,9 @@
 		874BBDF82B92662500934313 /* SessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874BBDF72B92662500934313 /* SessionController.swift */; };
 		874BBDFA2B92666500934313 /* ProgressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874BBDF92B92666500934313 /* ProgressController.swift */; };
 		875855982B9CDFE000E46007 /* PerkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875855972B9CDFE000E46007 /* PerkCell.swift */; };
-		8758B61A2B95009A001A2B75 /* SessionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8758B6192B95009A001A2B75 /* SessionInfo.swift */; };
 		8758B61C2B951265001A2B75 /* MeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8758B61B2B951265001A2B75 /* MeController.xib */; };
-		875946002B9DBFE600D6C621 /* Perk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875945FF2B9DBFE600D6C621 /* Perk.swift */; };
 		875946022B9E12F500D6C621 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875946012B9E12F500D6C621 /* Extensions.swift */; };
-		8795DFEB2B93C7E100B0F593 /* SessionTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8795DFEA2B93C7E100B0F593 /* SessionTimer.swift */; };
+		8795DFEB2B93C7E100B0F593 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8795DFEA2B93C7E100B0F593 /* Session.swift */; };
 		879D0C542B9392B9008D8A5D /* AgendaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879D0C532B9392B9008D8A5D /* AgendaController.swift */; };
 		879D0C562B939318008D8A5D /* SessionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 879D0C552B939318008D8A5D /* SessionController.xib */; };
 		87B0AAD92B920BBA001A6794 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B0AAD82B920BBA001A6794 /* AppDelegate.swift */; };
@@ -27,8 +25,7 @@
 		87B0AAF32B921076001A6794 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B0AAF22B921076001A6794 /* Resources.swift */; };
 		87B0AAF52B922BC0001A6794 /* NavigationBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B0AAF42B922BC0001A6794 /* NavigationBarController.swift */; };
 		87E525B82B9E4CD400926F0E /* Storage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 87E525B62B9E4CD400926F0E /* Storage.xcdatamodeld */; };
-		87E525BF2B9E4F9200926F0E /* PerkStorage+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E525BD2B9E4F9200926F0E /* PerkStorage+CoreDataClass.swift */; };
-		87E525C02B9E4F9200926F0E /* PerkStorage+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E525BE2B9E4F9200926F0E /* PerkStorage+CoreDataProperties.swift */; };
+		87E525CC2B9EFC3E00926F0E /* Perk+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E525CA2B9EFC3E00926F0E /* Perk+CoreDataClass.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,11 +33,9 @@
 		874BBDF72B92662500934313 /* SessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionController.swift; sourceTree = "<group>"; };
 		874BBDF92B92666500934313 /* ProgressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressController.swift; sourceTree = "<group>"; };
 		875855972B9CDFE000E46007 /* PerkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerkCell.swift; sourceTree = "<group>"; };
-		8758B6192B95009A001A2B75 /* SessionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionInfo.swift; sourceTree = "<group>"; };
 		8758B61B2B951265001A2B75 /* MeController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeController.xib; sourceTree = "<group>"; };
-		875945FF2B9DBFE600D6C621 /* Perk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Perk.swift; sourceTree = "<group>"; };
 		875946012B9E12F500D6C621 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		8795DFEA2B93C7E100B0F593 /* SessionTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTimer.swift; sourceTree = "<group>"; };
+		8795DFEA2B93C7E100B0F593 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		879D0C532B9392B9008D8A5D /* AgendaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaController.swift; sourceTree = "<group>"; };
 		879D0C552B939318008D8A5D /* SessionController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SessionController.xib; sourceTree = "<group>"; };
 		87B0AAD52B920BBA001A6794 /* UpApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UpApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,8 +49,7 @@
 		87B0AAF22B921076001A6794 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		87B0AAF42B922BC0001A6794 /* NavigationBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarController.swift; sourceTree = "<group>"; };
 		87E525B72B9E4CD400926F0E /* Storage.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Storage.xcdatamodel; sourceTree = "<group>"; };
-		87E525BD2B9E4F9200926F0E /* PerkStorage+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PerkStorage+CoreDataClass.swift"; sourceTree = "<group>"; };
-		87E525BE2B9E4F9200926F0E /* PerkStorage+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PerkStorage+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		87E525CA2B9EFC3E00926F0E /* Perk+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Perk+CoreDataClass.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,8 +85,7 @@
 		875945FD2B9DBFA400D6C621 /* Session */ = {
 			isa = PBXGroup;
 			children = (
-				8758B6192B95009A001A2B75 /* SessionInfo.swift */,
-				8795DFEA2B93C7E100B0F593 /* SessionTimer.swift */,
+				8795DFEA2B93C7E100B0F593 /* Session.swift */,
 			);
 			path = Session;
 			sourceTree = "<group>";
@@ -100,7 +93,6 @@
 		875945FE2B9DBFD000D6C621 /* Me */ = {
 			isa = PBXGroup;
 			children = (
-				875945FF2B9DBFE600D6C621 /* Perk.swift */,
 			);
 			path = Me;
 			sourceTree = "<group>";
@@ -108,6 +100,8 @@
 		8759460E2B9E44C000D6C621 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				87E525B62B9E4CD400926F0E /* Storage.xcdatamodeld */,
+				87E525CA2B9EFC3E00926F0E /* Perk+CoreDataClass.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -115,7 +109,6 @@
 		87B0AACC2B920BBA001A6794 = {
 			isa = PBXGroup;
 			children = (
-				87E525C12B9E4FA900926F0E /* Storage */,
 				87B0AAD72B920BBA001A6794 /* UpApp */,
 				87B0AAD62B920BBA001A6794 /* Products */,
 			);
@@ -210,16 +203,6 @@
 			path = Agenda;
 			sourceTree = "<group>";
 		};
-		87E525C12B9E4FA900926F0E /* Storage */ = {
-			isa = PBXGroup;
-			children = (
-				87E525B62B9E4CD400926F0E /* Storage.xcdatamodeld */,
-				87E525BE2B9E4F9200926F0E /* PerkStorage+CoreDataProperties.swift */,
-				87E525BD2B9E4F9200926F0E /* PerkStorage+CoreDataClass.swift */,
-			);
-			path = Storage;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -295,20 +278,17 @@
 				874BBDFA2B92666500934313 /* ProgressController.swift in Sources */,
 				87E525B82B9E4CD400926F0E /* Storage.xcdatamodeld in Sources */,
 				87B0AADD2B920BBA001A6794 /* BaseController.swift in Sources */,
-				87E525C02B9E4F9200926F0E /* PerkStorage+CoreDataProperties.swift in Sources */,
 				874BBDF82B92662500934313 /* SessionController.swift in Sources */,
 				874BBDF42B925FC600934313 /* MeController.swift in Sources */,
 				87B0AAF52B922BC0001A6794 /* NavigationBarController.swift in Sources */,
-				875946002B9DBFE600D6C621 /* Perk.swift in Sources */,
-				87E525BF2B9E4F9200926F0E /* PerkStorage+CoreDataClass.swift in Sources */,
 				87B0AAF32B921076001A6794 /* Resources.swift in Sources */,
+				87E525CC2B9EFC3E00926F0E /* Perk+CoreDataClass.swift in Sources */,
 				87B0AAF02B920E8C001A6794 /* TabBarController.swift in Sources */,
 				87B0AAD92B920BBA001A6794 /* AppDelegate.swift in Sources */,
 				87B0AADB2B920BBA001A6794 /* SceneDelegate.swift in Sources */,
 				875946022B9E12F500D6C621 /* Extensions.swift in Sources */,
 				875855982B9CDFE000E46007 /* PerkCell.swift in Sources */,
-				8758B61A2B95009A001A2B75 /* SessionInfo.swift in Sources */,
-				8795DFEB2B93C7E100B0F593 /* SessionTimer.swift in Sources */,
+				8795DFEB2B93C7E100B0F593 /* Session.swift in Sources */,
 				879D0C542B9392B9008D8A5D /* AgendaController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,28 +11,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
     
+    // MARK: - Core Data stack
     // persContainer - global storage on SSD
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Storage")
-        container.loadPersistentStores { description, error in
-            if let error {
-                print(error.localizedDescription)
-            } else {
-                print("DB url = \(String(describing: description.url?.absoluteString))")
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
             }
-        }
+        })
         return container
     }()
-    
+
+    // MARK: - Core Data Saving support
     // Context - copy of part of global storage
     // saveContext() - func to save context to global storage
-    func saveContext() {
+    func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
                 try context.save()
             } catch {
-                fatalError(error.localizedDescription)
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
     }

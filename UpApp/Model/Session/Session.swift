@@ -1,5 +1,15 @@
 import UIKit
 
+class SessionInfo {
+    static var perk: String = ""
+    static var time: String = ""
+    
+    static func clearPerk() {
+        SessionInfo.perk = ""
+        SessionInfo.time = ""
+    }
+}
+
 class SessionTimer {
     static var totalSeconds = 0
     static var timer: Timer?
@@ -34,3 +44,5 @@ class SessionTimer {
         SessionTimer.remainingSeconds = 0
     }
 }
+
+
