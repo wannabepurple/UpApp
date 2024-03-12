@@ -24,8 +24,8 @@
 		87B0AAF02B920E8C001A6794 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B0AAEF2B920E8C001A6794 /* TabBarController.swift */; };
 		87B0AAF32B921076001A6794 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B0AAF22B921076001A6794 /* Resources.swift */; };
 		87B0AAF52B922BC0001A6794 /* NavigationBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B0AAF42B922BC0001A6794 /* NavigationBarController.swift */; };
-		87E525B82B9E4CD400926F0E /* Storage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 87E525B62B9E4CD400926F0E /* Storage.xcdatamodeld */; };
 		87E525CC2B9EFC3E00926F0E /* Perk+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E525CA2B9EFC3E00926F0E /* Perk+CoreDataClass.swift */; };
+		87EE607D2BA062CC00158523 /* Storage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 87EE607B2BA062CC00158523 /* Storage.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,8 +48,8 @@
 		87B0AAEF2B920E8C001A6794 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		87B0AAF22B921076001A6794 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		87B0AAF42B922BC0001A6794 /* NavigationBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarController.swift; sourceTree = "<group>"; };
-		87E525B72B9E4CD400926F0E /* Storage.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Storage.xcdatamodel; sourceTree = "<group>"; };
 		87E525CA2B9EFC3E00926F0E /* Perk+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Perk+CoreDataClass.swift"; sourceTree = "<group>"; };
+		87EE607C2BA062CC00158523 /* Storage.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Storage.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +100,7 @@
 		8759460E2B9E44C000D6C621 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				87E525B62B9E4CD400926F0E /* Storage.xcdatamodeld */,
+				87EE607B2BA062CC00158523 /* Storage.xcdatamodeld */,
 				87E525CA2B9EFC3E00926F0E /* Perk+CoreDataClass.swift */,
 			);
 			path = Storage;
@@ -276,7 +276,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				874BBDFA2B92666500934313 /* ProgressController.swift in Sources */,
-				87E525B82B9E4CD400926F0E /* Storage.xcdatamodeld in Sources */,
 				87B0AADD2B920BBA001A6794 /* BaseController.swift in Sources */,
 				874BBDF82B92662500934313 /* SessionController.swift in Sources */,
 				874BBDF42B925FC600934313 /* MeController.swift in Sources */,
@@ -289,6 +288,7 @@
 				875946022B9E12F500D6C621 /* Extensions.swift in Sources */,
 				875855982B9CDFE000E46007 /* PerkCell.swift in Sources */,
 				8795DFEB2B93C7E100B0F593 /* Session.swift in Sources */,
+				87EE607D2BA062CC00158523 /* Storage.xcdatamodeld in Sources */,
 				879D0C542B9392B9008D8A5D /* AgendaController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -512,12 +512,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		87E525B62B9E4CD400926F0E /* Storage.xcdatamodeld */ = {
+		87EE607B2BA062CC00158523 /* Storage.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				87E525B72B9E4CD400926F0E /* Storage.xcdatamodel */,
+				87EE607C2BA062CC00158523 /* Storage.xcdatamodel */,
 			);
-			currentVersion = 87E525B72B9E4CD400926F0E /* Storage.xcdatamodel */;
+			currentVersion = 87EE607C2BA062CC00158523 /* Storage.xcdatamodel */;
 			path = Storage.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

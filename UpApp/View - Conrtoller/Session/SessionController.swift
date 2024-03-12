@@ -30,7 +30,7 @@ final class SessionController: BaseController {
             switch startPauseResume {
             case .start:
                 startPauseResume = .pause // set pause
-                setButton(button: startPauseButton, title: "Pause", backgroundColor: Resources.Common.Colors.purple)
+                Resources.Common.setButton(button: startPauseButton, title: "Pause", backgroundColor: Resources.Common.Colors.purple)
                 Resources.SessionController.Animations.changeButtonVisibility(button: stopButton, willHidden: false)
                 
                 // Start timer
@@ -39,13 +39,13 @@ final class SessionController: BaseController {
                 }
             case .pause:
                 startPauseResume = .resume // set resume
-                setButton(button: startPauseButton, title: "Resume", backgroundColor: Resources.Common.Colors.green)
+                Resources.Common.setButton(button: startPauseButton, title: "Resume", backgroundColor: Resources.Common.Colors.green)
                 
                 // Pause timer
                 SessionTimer.pauseTimer()
             case .resume:
                 startPauseResume = .pause // set pause
-                setButton(button: startPauseButton, title: "Pause", backgroundColor: Resources.Common.Colors.purple)
+                Resources.Common.setButton(button: startPauseButton, title: "Pause", backgroundColor: Resources.Common.Colors.purple)
                 
                 // Resume timer
                 SessionTimer.startTimer() { [weak self] timeString in
@@ -80,40 +80,33 @@ extension SessionController {
         Resources.Common.setControllerAppearance(vc: self, title: Resources.TabBar.Titles.session)
         
         // Buttons
-        setButton(button: startPauseButton, title: "Start", backgroundColor: Resources.Common.Colors.green)
+        Resources.Common.setButton(button: startPauseButton, title: "Start", backgroundColor: Resources.Common.Colors.green)
         
-        setButton(button: stopButton, title: "Stop", backgroundColor: Resources.Common.Colors.red)
+        Resources.Common.setButton(button: stopButton, title: "Stop", backgroundColor: Resources.Common.Colors.red)
         stopButton.isHidden = true
         
-        setButton(button: binButton, title: "", backgroundColor: Resources.Common.Colors.purple)
-        binButton.setImage(Resources.SessionController.Images.bin, for: .normal)
+        Resources.Common.setButton(button: binButton, title: "", backgroundColor: Resources.Common.Colors.purple)
 
         // Timer
-        setLabel()
+        Resources.Common.setLabel(label: timeLabel, size: 40, backgroundColor: Resources.Common.Colors.green, masksToBounds: true)
         
         // Text Field = Perk
         setPerkField()
     }
     
-    private func setButton(button: UIButton, title: String, backgroundColor: UIColor) {
-        button.backgroundColor = backgroundColor
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = Resources.Common.Sizes.cornerRadius10
-        button.titleLabel?.font = Resources.Common.futura(size: 18)
-        button.setTitle(title, for: .normal)
-    }
-    
-    private func setLabel() {
-        timeLabel.backgroundColor = Resources.Common.Colors.green
-        timeLabel.layer.cornerRadius = Resources.Common.Sizes.cornerRadius10
-        timeLabel.layer.masksToBounds = true
-    }
+//    private func setLabel() {
+//        timeLabel.backgroundColor = Resources.Common.Colors.green
+//        timeLabel.layer.cornerRadius = Resources.Common.Sizes.cornerRadius10
+//        timeLabel.textColor = Resources.Common.Colors.backgroundDark
+//        timeLabel.layer.masksToBounds = true
+//    }
     
     private func setPerkField() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGesture))
         view.addGestureRecognizer(tapGesture)
         
         perkField.layer.cornerRadius = Resources.Common.Sizes.cornerRadius10
+        perkField.textColor = Resources.Common.Colors.backgroundDark
     }
     
     @objc private func tapGesture() {
@@ -122,7 +115,7 @@ extension SessionController {
     
     private func clearAction() {
         startPauseResume = .start // set start
-        setButton(button: startPauseButton, title: "Start", backgroundColor: Resources.Common.Colors.green)
+        Resources.Common.setButton(button: startPauseButton, title: "Start", backgroundColor: Resources.Common.Colors.green)
         Resources.SessionController.Animations.changeButtonVisibility(button: stopButton, willHidden: true)
         
         // Stop timer

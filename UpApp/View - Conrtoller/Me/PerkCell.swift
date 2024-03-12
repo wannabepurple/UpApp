@@ -16,7 +16,6 @@ class PerkCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
     
     func set(perkObj: Perk) {
         perk.text = perkObj.perkTitle
@@ -37,10 +36,10 @@ extension PerkCell {
         addSubview(toNextLvl)
         
         setCard()
-        setPerk()
-        setProgress()
-        setLvl()
-        setToNextLvl()
+        Resources.Common.setLabel(label: perk, size: Resources.MeController.PerkCell.perkTitleFont, setPosition: setPerkConstraints)
+        Resources.Common.setLabel(label: lvl, size: Resources.MeController.PerkCell.lvlFont, setPosition: setLvlConstraints)
+        Resources.Common.setLabel(label: toNextLvl, size: Resources.MeController.PerkCell.lvlFont, setPosition: setToNextLvlConstraints)
+        setProgressLine()
     }
     
     private func setCard() {
@@ -48,28 +47,12 @@ extension PerkCell {
         card.backgroundColor = Resources.Common.Colors.backgroundCard
         card.layer.cornerRadius = Resources.Common.Sizes.cornerRadius20
     }
-    
-    private func setPerk() {
-        setPerkConstraints()
-//        perk.adjustsFontSizeToFitWidth = true
-        perk.font = Resources.Common.futura(size: Resources.MeController.PerkCell.perkTitleFont)
-    }
-    
-    private func setProgress() {
+
+    private func setProgressLine() {
         setProgressConstraints()
         progress.layer.cornerRadius = Resources.Common.Sizes.cornerRadius10
         progress.layer.masksToBounds = true
         progress.progressTintColor = Resources.Common.Colors.green
-    }
-
-    private func setLvl() {
-        setLvlConstraints()
-        lvl.font = Resources.Common.futura(size: Resources.MeController.PerkCell.lvlFont)
-    }
-    
-    private func setToNextLvl() {
-        setToNextLvlConstraints()
-        toNextLvl.font = Resources.Common.futura(size: Resources.MeController.PerkCell.lvlFont)
     }
 }
 
@@ -123,4 +106,3 @@ extension PerkCell {
         ])
     }
 }
-

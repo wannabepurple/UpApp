@@ -15,6 +15,8 @@ enum Resources {
         enum Sizes {
             static let cornerRadius10: CGFloat = 10
             static let cornerRadius20: CGFloat = 20
+            
+            static let commonLabelFontSize: CGFloat = 20
         }
         
         // MARK: Functions
@@ -24,6 +26,25 @@ enum Resources {
                 
         static func setControllerAppearance(vc: UIViewController, title: String) {
             vc.title = title
+        }
+        
+        static func setButton(button: UIButton, title: String, backgroundColor: UIColor, setPosition: () -> () = {}) {
+            setPosition()
+            button.backgroundColor = backgroundColor
+            button.layer.masksToBounds = true
+            button.layer.cornerRadius = Resources.Common.Sizes.cornerRadius10
+            button.titleLabel?.font = Resources.Common.futura(size: 18)
+            button.setTitle(title, for: .normal)
+            button.tintColor = Resources.Common.Colors.backgroundDark
+        }
+        
+        static func setLabel(label: UILabel, size: CGFloat = Resources.Common.Sizes.commonLabelFontSize, backgroundColor: UIColor = Resources.Common.Colors.backgroundCard, setPosition: () -> () = {}, masksToBounds: Bool = false) {
+            setPosition()
+            label.backgroundColor = backgroundColor
+            label.layer.cornerRadius = Resources.Common.Sizes.cornerRadius10
+            label.textColor = Resources.Common.Colors.backgroundDark
+            label.layer.masksToBounds = masksToBounds
+            label.font = Resources.Common.futura(size: size)
         }
     }
     

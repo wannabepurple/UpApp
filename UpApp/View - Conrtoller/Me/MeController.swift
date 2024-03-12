@@ -12,20 +12,17 @@ final class MeController: BaseController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setAppearance()
-        fetchPerks()
+        reloadData()
     }
     
-    // Fetch the data from Core Data to display on the tableView
-    private func fetchPerks() {
-        do {
-            self.perks = try context.fetch(Perk.fetchRequest())
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-            print(perks)
-        } catch { }
+    private func reloadData() {
+        Perk.fetchPerks(perks: &perks, context: context)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
+
     @IBAction func tapPlus(_ sender: Any) {
         let alert = UIAlertController(title: "Customize perk", message: nil, preferredStyle: .alert)
         alert.addTextField()
@@ -33,18 +30,18 @@ final class MeController: BaseController {
         let submitButton = UIAlertAction(title: "Done", style: .default) { (action) in
             let textField = alert.textFields![0]
             
-            // Create perk obj
+            // Create new perk obj
             let newPerk = Perk(context: self.context)
             newPerk.lvl = 0
             newPerk.perkTitle = textField.text
             newPerk.progress = 0
             newPerk.toNextLvl = 10
             
-            // Save the data
-            do { try self.context.save() } catch { }
+            // Save data
+            Perk.saveContext(context: self.context)
             
-            // Re-fetch the data
-            self.fetchPerks()
+            // Reload data
+            self.reloadData() 
         }
         
         // Add Done button
@@ -68,17 +65,11 @@ extension MeController {
     }
     
     private func setTopView() {
-        topView.backgroundColor = Resources.Common.Colors.backgroundCard
-        topView.layer.cornerRadius = Resources.Common.Sizes.cornerRadius20
-        
-        plusButton.layer.cornerRadius = Resources.Common.Sizes.cornerRadius10
-        plusButton.backgroundColor = Resources.Common.Colors.green
-    
-        
+        Resources.Common.setButton(button: plusButton, title: "", backgroundColor: Resources.Common.Colors.green)
+            
         // Nick
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGesture))
         view.addGestureRecognizer(tapGesture)
-        
     }
     
     @objc private func tapGesture() {
@@ -107,14 +98,18 @@ extension MeController {
 
 // MARK: Delegates
 extension MeController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return perks.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Resources.MeController.PerkCell.cellIdentifier, for: indexPath) as! PerkCell
         
-        let perk = perks[indexPath.row]
+        let perk = perks[indexPath.section]
         cell.set(perkObj: perk)
         cell.backgroundColor = Resources.Common.Colors.backgroundGray
         cell.selectionStyle = .none
@@ -123,26 +118,29 @@ extension MeController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-           return 220
+           return 200
        }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
         // Create swipe action
-        let action = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler)  in
+        let action = UIContextualAction(style: .normal, title: "Delete") { (_, _, _)  in
             
             // Which perk to remove
-            let perkToRemove = self.perks[indexPath.row]
+            let perkToRemove = self.perks[indexPath.section]
             
             // Remove the perk
-            self.context.delete(perkToRemove)
+            Perk.deletePerk(context: self.context, perkToRemove: perkToRemove)
             
             // Save the data
-            do { try self.context.save() } catch { }
+            Perk.saveContext(context: self.context)
             
             // Re-fetch the data
-            self.fetchPerks()
+            self.reloadData()
         }
+        
+        action.backgroundColor = Resources.Common.Colors.purple
+//        action.style = .
+        
         
         // Return swipe actions
         return UISwipeActionsConfiguration(actions: [action])
@@ -151,21 +149,37 @@ extension MeController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let action = UIContextualAction(style: .normal, title: "Rename") { (action, view, completionHandler)  in
             
-            // Which perk to rename
-            let perkToRemove = self.perks[indexPath.row]
-            
             // Rename the perk
-            self.perks[indexPath.row].perkTitle = "Renamed"
+            self.perks[indexPath.section].perkTitle = "Renamed"
             
             // Save the data
-            do { try self.context.save() } catch { }
+            Perk.saveContext(context: self.context)
             
             // Re-fetch the data
-            self.fetchPerks()
+            self.reloadData()
         }
         
         // Return swipe actions
         return UISwipeActionsConfiguration(actions: [action])
+    }
+    
+    
+    //
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 5
+    }
+    
+    // Make the background color show through
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.clear
+        return headerView
+    }
+    
+    // method to run when table view cell is tapped
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // note that indexPath.section is used rather than indexPath.row
+        print("You tapped cell number \(indexPath.section).")
     }
 }
 
@@ -183,3 +197,14 @@ extension MeController {
             
     }
 }
+
+
+///
+    
+    
+    
+    
+    
+    
+   
+
