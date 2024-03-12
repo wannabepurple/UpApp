@@ -5,56 +5,65 @@ final class MeController: BaseController {
     @IBOutlet weak var nick: UITextField!
     @IBOutlet weak var plusButton: UIButton!
     @IBOutlet weak var editButton: UIButton!
-    var tableView = UITableView()
     
+    var tableView = UITableView()
     var perks: [Perk] = []
     var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setAppearance()
-        reloadData()
+        refetchData()
+        reloadTableView()
     }
     
-    private func reloadData() {
+    private func refetchData() {
         Perk.fetchPerks(perks: &perks, context: context)
+    }
+    
+    private func reloadTableView() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
     
-
     @IBAction func tapPlus(_ sender: Any) {
-        let alert = UIAlertController(title: "Customize perk", message: nil, preferredStyle: .alert)
-        alert.addTextField()
-        
-        let submitButton = UIAlertAction(title: "Done", style: .default) { (action) in
-            let textField = alert.textFields![0]
+            let alert = UIAlertController(title: "Customize perk", message: nil, preferredStyle: .alert)
+            alert.addTextField()
             
-            // Create new perk obj
-            let newPerk = Perk(context: self.context)
-            newPerk.lvl = 0
-            newPerk.perkTitle = textField.text
-            newPerk.progress = 0
-            newPerk.toNextLvl = 10
+            let submitButton = UIAlertAction(title: "Done", style: .default) { (action) in
+                let textField = alert.textFields![0]
+                
+                // Create new perk obj
+                let newPerk = Perk(context: self.context)
+                newPerk.lvl = 0
+                newPerk.perkTitle = textField.text
+                newPerk.progress = 0
+                newPerk.toNextLvl = 10
+                
+                // Save data
+                Perk.saveContext(context: self.context)
+                
+                // Refetch data to upd perks
+                self.refetchData()
+                
+                self.tableView.beginUpdates()
+                self.tableView.insertSections(IndexSet(integer: self.perks.count - 1), with: .left)
+                self.tableView.endUpdates()
+            }
             
-            // Save data
-            Perk.saveContext(context: self.context)
+            // Add Done button
+            alert.addAction(submitButton)
             
-            // Reload data
-            self.reloadData() 
+            // Show alert
+            self.present(alert, animated: true)
+            
         }
-        
-        // Add Done button
-        alert.addAction(submitButton)
-        
-        // Show alert
-        self.present(alert, animated: true)
-    }
     
     @IBAction func tapEdit(_ sender: Any) {
-//        PerkCell.set(<#T##self: PerkCell##PerkCell#>)
-        addDeleteButtonToVisibleCells()
+        EditMode.switchEditMode()
+        refetchData()
+        reloadTableView()
     }
 }
 
@@ -72,10 +81,13 @@ extension MeController {
     
     private func setTopView() {
         Resources.Common.setButton(button: plusButton, title: "", image: nil, backgroundColor: Resources.Common.Colors.green)
+        Resources.Common.setButton(button: editButton, title: "", image: nil, backgroundColor: Resources.Common.Colors.purple)
             
         // Nick
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGesture))
         view.addGestureRecognizer(tapGesture)
+        
+        
     }
     
     @objc private func tapGesture() {
@@ -104,14 +116,6 @@ extension MeController {
 
 // MARK: Delegates
 extension MeController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return perks.count
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Resources.MeController.PerkCell.cellIdentifier, for: indexPath) as! PerkCell
         
@@ -119,56 +123,31 @@ extension MeController: UITableViewDelegate, UITableViewDataSource {
         cell.set(perkObj: perk)
         cell.backgroundColor = Resources.Common.Colors.backgroundGray
         cell.selectionStyle = .none
+        
+        // Edit mode
+        cell.enterExitEditMode(editModeWillHidden: EditMode.editModeWillHidden)
+        
+        // Delete moment
+        cell.deleteButtonHandler = { [weak self] in
+            self?.deleteCell(section: indexPath.section)
+        }
 
         return cell
     }
     
+    // MARK: Sup
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return perks.count
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return Resources.MeController.PerkCell.cellHeight
-       }
-    
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        // Create swipe action
-        let action = UIContextualAction(style: .normal, title: "Delete") { (_, _, _)  in
-            
-            // Which perk to remove
-            let perkToRemove = self.perks[indexPath.section]
-            
-            // Remove the perk
-            Perk.deletePerk(context: self.context, perkToRemove: perkToRemove)
-            
-            // Save the data
-            Perk.saveContext(context: self.context)
-            
-            // Re-fetch the data
-            self.reloadData()
-        }
-        
-        action.backgroundColor = Resources.Common.Colors.purple
-        
-        
-        // Return swipe actions
-        return UISwipeActionsConfiguration(actions: [action])
     }
     
-    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let action = UIContextualAction(style: .normal, title: "Rename") { (action, view, completionHandler)  in
-            
-            // Rename the perk
-            self.perks[indexPath.section].perkTitle = "Renamed"
-            
-            // Save the data
-            Perk.saveContext(context: self.context)
-            
-            // Re-fetch the data
-            self.reloadData()
-        }
-        
-        // Return swipe actions
-        return UISwipeActionsConfiguration(actions: [action])
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
     }
     
-    // Make the background color show through
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footerView = UIView()
         footerView.backgroundColor = UIColor.clear
@@ -178,7 +157,47 @@ extension MeController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return Resources.MeController.PerkCell.cellFootHeight
     }
+}
 
+// MARK: CRUD
+extension MeController {
+    private func deleteCell(section: Int) {
+        guard section < self.perks.count else { 
+            print("error in \(section)")
+            return }
+        
+        // Which perk to remove
+        let perkToRemove = self.perks[section]
+        
+        // Remove the perk
+        Perk.deletePerk(context: self.context, perkToRemove: perkToRemove)
+        
+        // Save the data
+        Perk.saveContext(context: self.context)
+        
+        // Set up the animation
+        tableView.beginUpdates()
+
+        // Remove the corresponding section
+        UIView.animate(withDuration: 0.3) {
+            self.tableView.deleteSections(IndexSet(integer: section), with: .automatic)
+        }
+        
+        // Remove the perk from the array
+        self.perks.remove(at: section)
+        
+        // End the animation
+        tableView.endUpdates()
+        
+        // Reload
+        let sectionsToUpdate = IndexSet(integersIn: 0..<self.tableView.numberOfSections)
+
+        UIView.animate(withDuration: 10) {
+            DispatchQueue.main.async {
+                self.tableView.reloadSections(sectionsToUpdate, with: .fade)
+            }
+        }
+    }
 }
 
 // MARK: Constraints
@@ -192,30 +211,5 @@ extension MeController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
-            
     }
 }
-
-
-extension MeController {
-    func addDeleteButtonToVisibleCells() {
-        guard let visibleIndexPaths = tableView.indexPathsForVisibleRows else {
-            return
-        }
-
-        for indexPath in visibleIndexPaths {
-            if let cell = tableView.cellForRow(at: indexPath) as? PerkCell {
-                // Add your delete button to the cell here
-                cell.addDeleteButton()
-            }
-        }
-    }
-}
-
-    
-    
-    
-    
-    
-   
-

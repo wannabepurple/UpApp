@@ -31,7 +31,7 @@ final class SessionController: BaseController {
             case .start:
                 startPauseResume = .pause // set pause
                 Resources.Common.setButton(button: startPauseButton, title: "Pause", image: nil, backgroundColor: Resources.Common.Colors.purple)
-                Resources.SessionController.Animations.changeButtonVisibility(button: stopButton, willHidden: false)
+                Resources.Common.Animations.changeButtonVisibility(button: stopButton, willHidden: false)
                 
                 // Start timer
                 SessionTimer.startTimer() { [weak self] timeString in
@@ -83,9 +83,9 @@ extension SessionController {
         Resources.Common.setButton(button: startPauseButton, title: "Start", image: nil, backgroundColor: Resources.Common.Colors.green)
         
         Resources.Common.setButton(button: stopButton, title: "Stop", image: nil, backgroundColor: Resources.Common.Colors.red)
-        stopButton.isHidden = true
+        stopButton.alpha = 0
         
-        Resources.Common.setButton(button: binButton, title: "", image: UIImage(named: "trash"), backgroundColor: Resources.Common.Colors.purple)
+        Resources.Common.setButton(button: binButton, title: "", image: UIImage(named: "bin"), backgroundColor: Resources.Common.Colors.red)
 
         // Timer
         Resources.Common.setLabel(label: timeLabel, size: 40, backgroundColor: Resources.Common.Colors.green, masksToBounds: true)
@@ -109,7 +109,7 @@ extension SessionController {
     private func clearAction() {
         startPauseResume = .start // set start
         Resources.Common.setButton(button: startPauseButton, title: "Start", image: nil, backgroundColor: Resources.Common.Colors.green)
-        Resources.SessionController.Animations.changeButtonVisibility(button: stopButton, willHidden: true)
+        Resources.Common.Animations.changeButtonVisibility(button: stopButton, willHidden: true)
         
         // Stop timer
         SessionTimer.stopTimer()

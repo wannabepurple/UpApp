@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		873CC53C2BA0CC6600D99F9C /* Me.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873CC53B2BA0CC6600D99F9C /* Me.swift */; };
 		874BBDF42B925FC600934313 /* MeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874BBDF32B925FC600934313 /* MeController.swift */; };
 		874BBDF82B92662500934313 /* SessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874BBDF72B92662500934313 /* SessionController.swift */; };
 		874BBDFA2B92666500934313 /* ProgressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874BBDF92B92666500934313 /* ProgressController.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		873CC53B2BA0CC6600D99F9C /* Me.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Me.swift; sourceTree = "<group>"; };
 		874BBDF32B925FC600934313 /* MeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeController.swift; sourceTree = "<group>"; };
 		874BBDF72B92662500934313 /* SessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionController.swift; sourceTree = "<group>"; };
 		874BBDF92B92666500934313 /* ProgressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressController.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 		875945FE2B9DBFD000D6C621 /* Me */ = {
 			isa = PBXGroup;
 			children = (
+				873CC53B2BA0CC6600D99F9C /* Me.swift */,
 			);
 			path = Me;
 			sourceTree = "<group>";
@@ -148,9 +151,9 @@
 			isa = PBXGroup;
 			children = (
 				87B0AAF22B921076001A6794 /* Resources.swift */,
+				875946012B9E12F500D6C621 /* Extensions.swift */,
 				87B0AAE12B920BBB001A6794 /* Assets.xcassets */,
 				87B0AAE32B920BBB001A6794 /* LaunchScreen.storyboard */,
-				875946012B9E12F500D6C621 /* Extensions.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				874BBDF82B92662500934313 /* SessionController.swift in Sources */,
 				874BBDF42B925FC600934313 /* MeController.swift in Sources */,
 				87B0AAF52B922BC0001A6794 /* NavigationBarController.swift in Sources */,
+				873CC53C2BA0CC6600D99F9C /* Me.swift in Sources */,
 				87B0AAF32B921076001A6794 /* Resources.swift in Sources */,
 				87E525CC2B9EFC3E00926F0E /* Perk+CoreDataClass.swift in Sources */,
 				87B0AAF02B920E8C001A6794 /* TabBarController.swift in Sources */,

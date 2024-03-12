@@ -8,6 +8,7 @@ class PerkCell: UITableViewCell {
     var toNextLvl = UILabel()
     var progress = UIProgressView()
     var deleteButton = UIButton()
+    var deleteButtonHandler: (() -> Void)?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -25,23 +26,13 @@ class PerkCell: UITableViewCell {
         toNextLvl.text = "To next lvl: \(perkObj.toNextLvl) h"
     }
     
-    //
-    func addDeleteButton() {
-           // Customize this method to add the delete button to your cell
-           let deleteButton = UIButton(type: .system)
-           deleteButton.setTitle("Delete", for: .normal)
-           deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
-
-        deleteButton.translatesAutoresizingMaskIntoConstraints = false
-
-           // Add the delete button to the cell's content view
-           contentView.addSubview(deleteButton)
-       }
-
-       @objc private func deleteButtonTapped() {
-           // Handle delete button tap if needed
-           print("del")
-       }
+    func enterExitEditMode(editModeWillHidden: Bool) {
+        Resources.Common.Animations.changeButtonVisibility(button: deleteButton, willHidden: editModeWillHidden)
+    }
+    
+    @objc func tapDeleteButton() {
+        deleteButtonHandler?()
+    }
 
 }
 
@@ -53,12 +44,19 @@ extension PerkCell {
         addSubview(progress)
         addSubview(lvl)
         addSubview(toNextLvl)
+        contentView.addSubview(deleteButton)
         
         setCard()
         Resources.Common.setLabel(label: perk, size: Resources.MeController.PerkCell.perkTitleFont, setPosition: setPerkConstraints)
+        
         Resources.Common.setLabel(label: lvl, size: Resources.MeController.PerkCell.lvlFont, setPosition: setLvlConstraints)
+        
         Resources.Common.setLabel(label: toNextLvl, size: Resources.MeController.PerkCell.lvlFont, setPosition: setToNextLvlConstraints)
-        Resources.Common.setButton(button: deleteButton, title: "", image: UIImage(named: "trash"), backgroundColor: Resources.Common.Colors.red/*, setPosition: setDeleteButtonConstraints*/)
+
+        Resources.Common.setButton(button: deleteButton, title: "", image: UIImage(named: "bin"), backgroundColor: Resources.Common.Colors.red, setPosition: setDeleteButtonConstraints)
+        deleteButton.addTarget(self, action: #selector(tapDeleteButton), for: .touchUpInside)
+        deleteButton.alpha = 0
+        
         setProgressLine()
     }
     
@@ -98,7 +96,6 @@ extension PerkCell {
     
     private func setProgressConstraints() {
         progress.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             progress.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
             progress.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
@@ -123,6 +120,17 @@ extension PerkCell {
         NSLayoutConstraint.activate([
             toNextLvl.centerXAnchor.constraint(equalTo: centerXAnchor),
             toNextLvl.topAnchor.constraint(equalTo: progress.bottomAnchor, constant: 10)
+        ])
+    }
+    
+    private func setDeleteButtonConstraints() {
+        deleteButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            deleteButton.widthAnchor.constraint(equalToConstant: 50),
+            deleteButton.heightAnchor.constraint(equalToConstant: 50),
+            deleteButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            deleteButton.topAnchor.constraint(equalTo: toNextLvl.bottomAnchor, constant: 10)
         ])
     }
 }
