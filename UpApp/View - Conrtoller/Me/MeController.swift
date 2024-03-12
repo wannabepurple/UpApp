@@ -53,7 +53,8 @@ final class MeController: BaseController {
     }
     
     @IBAction func tapEdit(_ sender: Any) {
-        print("heeror")
+//        PerkCell.set(<#T##self: PerkCell##PerkCell#>)
+        addDeleteButtonToVisibleCells()
     }
 }
 
@@ -70,7 +71,7 @@ extension MeController {
     }
     
     private func setTopView() {
-        Resources.Common.setButton(button: plusButton, title: "", backgroundColor: Resources.Common.Colors.green)
+        Resources.Common.setButton(button: plusButton, title: "", image: nil, backgroundColor: Resources.Common.Colors.green)
             
         // Nick
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGesture))
@@ -196,8 +197,21 @@ extension MeController {
 }
 
 
-///
-    
+extension MeController {
+    func addDeleteButtonToVisibleCells() {
+        guard let visibleIndexPaths = tableView.indexPathsForVisibleRows else {
+            return
+        }
+
+        for indexPath in visibleIndexPaths {
+            if let cell = tableView.cellForRow(at: indexPath) as? PerkCell {
+                // Add your delete button to the cell here
+                cell.addDeleteButton()
+            }
+        }
+    }
+}
+
     
     
     

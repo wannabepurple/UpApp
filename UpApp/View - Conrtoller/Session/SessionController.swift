@@ -30,7 +30,7 @@ final class SessionController: BaseController {
             switch startPauseResume {
             case .start:
                 startPauseResume = .pause // set pause
-                Resources.Common.setButton(button: startPauseButton, title: "Pause", backgroundColor: Resources.Common.Colors.purple)
+                Resources.Common.setButton(button: startPauseButton, title: "Pause", image: nil, backgroundColor: Resources.Common.Colors.purple)
                 Resources.SessionController.Animations.changeButtonVisibility(button: stopButton, willHidden: false)
                 
                 // Start timer
@@ -39,13 +39,13 @@ final class SessionController: BaseController {
                 }
             case .pause:
                 startPauseResume = .resume // set resume
-                Resources.Common.setButton(button: startPauseButton, title: "Resume", backgroundColor: Resources.Common.Colors.green)
+                Resources.Common.setButton(button: startPauseButton, title: "Resume", image: nil, backgroundColor: Resources.Common.Colors.green)
                 
                 // Pause timer
                 SessionTimer.pauseTimer()
             case .resume:
                 startPauseResume = .pause // set pause
-                Resources.Common.setButton(button: startPauseButton, title: "Pause", backgroundColor: Resources.Common.Colors.purple)
+                Resources.Common.setButton(button: startPauseButton, title: "Pause", image: nil, backgroundColor: Resources.Common.Colors.purple)
                 
                 // Resume timer
                 SessionTimer.startTimer() { [weak self] timeString in
@@ -80,12 +80,12 @@ extension SessionController {
         Resources.Common.setControllerAppearance(vc: self, title: Resources.TabBar.Titles.session)
         
         // Buttons
-        Resources.Common.setButton(button: startPauseButton, title: "Start", backgroundColor: Resources.Common.Colors.green)
+        Resources.Common.setButton(button: startPauseButton, title: "Start", image: nil, backgroundColor: Resources.Common.Colors.green)
         
-        Resources.Common.setButton(button: stopButton, title: "Stop", backgroundColor: Resources.Common.Colors.red)
+        Resources.Common.setButton(button: stopButton, title: "Stop", image: nil, backgroundColor: Resources.Common.Colors.red)
         stopButton.isHidden = true
         
-        Resources.Common.setButton(button: binButton, title: "", backgroundColor: Resources.Common.Colors.purple)
+        Resources.Common.setButton(button: binButton, title: "", image: UIImage(named: "trash"), backgroundColor: Resources.Common.Colors.purple)
 
         // Timer
         Resources.Common.setLabel(label: timeLabel, size: 40, backgroundColor: Resources.Common.Colors.green, masksToBounds: true)
@@ -108,7 +108,7 @@ extension SessionController {
     
     private func clearAction() {
         startPauseResume = .start // set start
-        Resources.Common.setButton(button: startPauseButton, title: "Start", backgroundColor: Resources.Common.Colors.green)
+        Resources.Common.setButton(button: startPauseButton, title: "Start", image: nil, backgroundColor: Resources.Common.Colors.green)
         Resources.SessionController.Animations.changeButtonVisibility(button: stopButton, willHidden: true)
         
         // Stop timer

@@ -64,7 +64,7 @@
                         <constraint firstAttribute="height" constant="50" id="mL6-AR-0ng"/>
                     </constraints>
                     <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" image="trash" catalog="system"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Bin"/>
                     <connections>
                         <action selector="tapBinButton:" destination="-1" eventType="touchUpInside" id="5Su-K5-dy9"/>
                     </connections>
@@ -93,7 +93,6 @@
         </view>
     </objects>
     <resources>
-        <image name="trash" catalog="system" width="117" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

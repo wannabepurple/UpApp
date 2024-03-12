@@ -7,6 +7,7 @@ class PerkCell: UITableViewCell {
     var lvl = UILabel()
     var toNextLvl = UILabel()
     var progress = UIProgressView()
+    var deleteButton = UIButton()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -23,6 +24,24 @@ class PerkCell: UITableViewCell {
         progress.progress = perkObj.progress
         toNextLvl.text = "To next lvl: \(perkObj.toNextLvl) h"
     }
+    
+    //
+    func addDeleteButton() {
+           // Customize this method to add the delete button to your cell
+           let deleteButton = UIButton(type: .system)
+           deleteButton.setTitle("Delete", for: .normal)
+           deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+
+        deleteButton.translatesAutoresizingMaskIntoConstraints = false
+
+           // Add the delete button to the cell's content view
+           contentView.addSubview(deleteButton)
+       }
+
+       @objc private func deleteButtonTapped() {
+           // Handle delete button tap if needed
+           print("del")
+       }
 
 }
 
@@ -39,6 +58,7 @@ extension PerkCell {
         Resources.Common.setLabel(label: perk, size: Resources.MeController.PerkCell.perkTitleFont, setPosition: setPerkConstraints)
         Resources.Common.setLabel(label: lvl, size: Resources.MeController.PerkCell.lvlFont, setPosition: setLvlConstraints)
         Resources.Common.setLabel(label: toNextLvl, size: Resources.MeController.PerkCell.lvlFont, setPosition: setToNextLvlConstraints)
+        Resources.Common.setButton(button: deleteButton, title: "", image: UIImage(named: "trash"), backgroundColor: Resources.Common.Colors.red/*, setPosition: setDeleteButtonConstraints*/)
         setProgressLine()
     }
     

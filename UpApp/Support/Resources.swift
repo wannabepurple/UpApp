@@ -28,7 +28,7 @@ enum Resources {
             vc.title = title
         }
         
-        static func setButton(button: UIButton, title: String, backgroundColor: UIColor, setPosition: () -> () = {}) {
+        static func setButton(button: UIButton, title: String, image: UIImage?, backgroundColor: UIColor, setPosition: () -> () = {}) {
             setPosition()
             button.backgroundColor = backgroundColor
             button.layer.masksToBounds = true
@@ -36,6 +36,9 @@ enum Resources {
             button.titleLabel?.font = Resources.Common.futura(size: 18)
             button.setTitle(title, for: .normal)
             button.tintColor = Resources.Common.Colors.backgroundDark
+            if let img = image {
+                button.setImage(img.withRenderingMode(.alwaysOriginal), for: .normal)
+            }
         }
         
         static func setLabel(label: UILabel, size: CGFloat = Resources.Common.Sizes.commonLabelFontSize, backgroundColor: UIColor = Resources.Common.Colors.backgroundCard, setPosition: () -> () = {}, masksToBounds: Bool = false) {
