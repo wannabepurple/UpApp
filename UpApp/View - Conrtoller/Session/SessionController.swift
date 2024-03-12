@@ -94,13 +94,6 @@ extension SessionController {
         setPerkField()
     }
     
-//    private func setLabel() {
-//        timeLabel.backgroundColor = Resources.Common.Colors.green
-//        timeLabel.layer.cornerRadius = Resources.Common.Sizes.cornerRadius10
-//        timeLabel.textColor = Resources.Common.Colors.backgroundDark
-//        timeLabel.layer.masksToBounds = true
-//    }
-    
     private func setPerkField() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGesture))
         view.addGestureRecognizer(tapGesture)

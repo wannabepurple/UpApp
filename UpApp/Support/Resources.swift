@@ -97,6 +97,8 @@ enum Resources {
             static let cellIdentifier = "PerkCell"
             static let perkTitleFont: CGFloat = 20
             static let lvlFont: CGFloat = 15
+            static let cellHeight: CGFloat = 200
+            static let cellFootHeight: CGFloat = 20
         }
     }
 }

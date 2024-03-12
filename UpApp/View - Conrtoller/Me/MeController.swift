@@ -4,6 +4,7 @@ final class MeController: BaseController {
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var nick: UITextField!
     @IBOutlet weak var plusButton: UIButton!
+    @IBOutlet weak var editButton: UIButton!
     var tableView = UITableView()
     
     var perks: [Perk] = []
@@ -49,6 +50,10 @@ final class MeController: BaseController {
         
         // Show alert
         self.present(alert, animated: true)
+    }
+    
+    @IBAction func tapEdit(_ sender: Any) {
+        print("heeror")
     }
 }
 
@@ -118,7 +123,7 @@ extension MeController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-           return 200
+        return Resources.MeController.PerkCell.cellHeight
        }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -139,7 +144,6 @@ extension MeController: UITableViewDelegate, UITableViewDataSource {
         }
         
         action.backgroundColor = Resources.Common.Colors.purple
-//        action.style = .
         
         
         // Return swipe actions
@@ -163,24 +167,17 @@ extension MeController: UITableViewDelegate, UITableViewDataSource {
         return UISwipeActionsConfiguration(actions: [action])
     }
     
-    
-    //
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 5
-    }
-    
     // Make the background color show through
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView()
-        headerView.backgroundColor = UIColor.clear
-        return headerView
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footerView = UIView()
+        footerView.backgroundColor = UIColor.clear
+        return footerView
     }
     
-    // method to run when table view cell is tapped
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // note that indexPath.section is used rather than indexPath.row
-        print("You tapped cell number \(indexPath.section).")
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return Resources.MeController.PerkCell.cellFootHeight
     }
+
 }
 
 // MARK: Constraints

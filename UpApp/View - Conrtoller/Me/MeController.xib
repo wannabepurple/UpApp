@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MeController" customModule="UpApp" customModuleProvider="target">
             <connections>
+                <outlet property="editButton" destination="GMQ-fJ-GN1" id="zTB-zM-l2x"/>
                 <outlet property="nick" destination="b6C-Kq-NXd" id="inF-bI-pz9"/>
                 <outlet property="plusButton" destination="8bk-z2-kCy" id="nSE-lu-LrM"/>
                 <outlet property="topView" destination="naf-GZ-nh7" id="4r7-8w-tMM"/>
@@ -36,22 +37,39 @@
                             <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8bk-z2-kCy">
-                            <rect key="frame" x="173" y="125.66666666666666" width="47" height="74.333333333333343"/>
+                            <rect key="frame" x="171.66666666666666" y="150" width="50" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="KMg-Up-tAy"/>
+                                <constraint firstAttribute="width" constant="50" id="pWt-Vn-Mpx"/>
+                            </constraints>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
                             <connections>
                                 <action selector="tapPlus:" destination="-1" eventType="touchUpInside" id="yaX-kF-uKg"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GMQ-fJ-GN1">
+                            <rect key="frame" x="91.666666666666671" y="150" width="50.000000000000014" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="50" id="TT4-x7-vbF"/>
+                                <constraint firstAttribute="height" constant="50" id="jJm-Ra-gik"/>
+                            </constraints>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" image="slider.horizontal.2.square" catalog="system" title=""/>
+                            <connections>
+                                <action selector="tapEdit:" destination="-1" eventType="touchUpInside" id="zOh-cJ-hsh"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <constraints>
                         <constraint firstItem="oBh-ae-7tx" firstAttribute="width" secondItem="naf-GZ-nh7" secondAttribute="width" multiplier="0.3" constant="-47.899999999999991" id="BUN-Qz-LCt"/>
                         <constraint firstItem="b6C-Kq-NXd" firstAttribute="top" secondItem="oBh-ae-7tx" secondAttribute="bottom" constant="10" id="Fhx-Zw-FpM"/>
-                        <constraint firstItem="8bk-z2-kCy" firstAttribute="top" secondItem="b6C-Kq-NXd" secondAttribute="bottom" constant="10" id="GMZ-5U-XyR"/>
                         <constraint firstItem="8bk-z2-kCy" firstAttribute="centerX" secondItem="naf-GZ-nh7" secondAttribute="centerX" id="HtD-e1-a67"/>
+                        <constraint firstAttribute="bottom" secondItem="GMQ-fJ-GN1" secondAttribute="bottom" id="IfH-zi-v7a"/>
                         <constraint firstItem="oBh-ae-7tx" firstAttribute="centerX" secondItem="naf-GZ-nh7" secondAttribute="centerX" id="Q2x-fW-fSf"/>
                         <constraint firstItem="oBh-ae-7tx" firstAttribute="top" secondItem="naf-GZ-nh7" secondAttribute="top" constant="8" id="Q9Z-cy-8gl"/>
                         <constraint firstAttribute="bottom" secondItem="8bk-z2-kCy" secondAttribute="bottom" id="VFJ-Rk-NqE"/>
+                        <constraint firstItem="8bk-z2-kCy" firstAttribute="leading" secondItem="GMQ-fJ-GN1" secondAttribute="trailing" constant="30" id="YIy-VS-h37"/>
                         <constraint firstAttribute="trailing" secondItem="b6C-Kq-NXd" secondAttribute="trailing" constant="10" id="e4J-Pz-2XV"/>
                         <constraint firstAttribute="height" constant="200" id="ezV-uW-gKL"/>
                         <constraint firstItem="b6C-Kq-NXd" firstAttribute="centerX" secondItem="naf-GZ-nh7" secondAttribute="centerX" id="tDk-QJ-YQx"/>
@@ -73,5 +91,6 @@
     <resources>
         <image name="avatar" width="100" height="100"/>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="slider.horizontal.2.square" catalog="system" width="128" height="114"/>
     </resources>
 </document>

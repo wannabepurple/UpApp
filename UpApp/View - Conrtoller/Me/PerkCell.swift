@@ -64,7 +64,7 @@ extension PerkCell {
             card.topAnchor.constraint(equalTo: topAnchor, constant: 0),
             card.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
             card.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
-            card.heightAnchor.constraint(equalToConstant: 200)
+            card.heightAnchor.constraint(equalToConstant: Resources.MeController.PerkCell.cellHeight)
         ])
     }
 
