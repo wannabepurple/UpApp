@@ -13,6 +13,11 @@ final class MeController: BaseController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setAppearance()
+//        refetchData()
+//        reloadTableView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         refetchData()
         reloadTableView()
     }
@@ -30,13 +35,15 @@ final class MeController: BaseController {
     @IBAction func tapPlus(_ sender: Any) {
             let alert = UIAlertController(title: "Customize perk", message: nil, preferredStyle: .alert)
             alert.addTextField()
+            alert.addTextField()
             
             let submitButton = UIAlertAction(title: "Done", style: .default) { (action) in
-                let textField = alert.textFields![0]
+                let title = alert.textFields![0]
+                let hours = alert.textFields![1]
                 
-                // Create new perk obj
+                // Create new perk
                 // ADDME: Нулевая строка
-                let newPerk = SessionInfo.createNewPerk(context: self.context, perkTitle: textField.text!) // CHECKME
+                SessionInfo.createNewPerk(context: self.context, perkTitle: title.text!, time: hours.text!)
                 
                 // Save data
                 Perk.saveContext(context: self.context)

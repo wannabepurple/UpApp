@@ -11,3 +11,14 @@ extension UITextField {
         layer.add(animation, forKey: "position")
     }
 }
+
+// ADDME: empty string
+extension String {
+    subscript(index: Int) -> Character {
+        guard index >= 0 && index < self.count else {
+            fatalError("Index \(index) is out of bounds for string with \(count) characters.")
+        }
+        return self[self.index(self.startIndex, offsetBy: index)]
+    }
+}
+

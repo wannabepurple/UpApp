@@ -60,7 +60,7 @@ final class SessionController: BaseController {
         SessionInfo.time = timeLabel.text!
 
         // ADDME: Saving to core data process // entry point
-        SessionInfo.calculatePerkDataFromSession()
+        SessionInfo.addOrCreatePerk()
         
         // Clear data and screen
         SessionInfo.clearPerk()

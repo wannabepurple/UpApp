@@ -10,9 +10,11 @@ class SessionInfo {
         time = ""
     }
     
-    static func calculatePerkDataFromSession() {
+    static func addOrCreatePerk() {
         var perk: [Perk] = []
-        var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        // Find match
         Perk.fetchPerkWith(title: perkTitle, perk: &perk, context: context)
 
         // Perk is exists
@@ -21,20 +23,54 @@ class SessionInfo {
             print("exists")
             
         } else {
-            let newPerk = createNewPerk(context: context, perkTitle: perkTitle, time: SessionInfo.time)
+            createNewPerk(context: context, perkTitle: perkTitle, time: SessionInfo.time)
             Perk.saveContext(context: context)
         }
         
         // If perk is exists - add info, else - create info
     }
     
-    static func createNewPerk(context: NSManagedObjectContext, perkTitle: String) -> Perk {
+    static func createNewPerk(context: NSManagedObjectContext, perkTitle: String, time: String = "00:00:00") {
         let newPerk = Perk(context: context)
-        newPerk.lvl = 0
         newPerk.perkTitle = perkTitle
-        newPerk.progress = 0
-        newPerk.toNextLvl = 10
-        return newPerk
+        (newPerk.totalHours,  newPerk.lvl, newPerk.progress, newPerk.toNextLvl) = calculatePerkDataFromSession(time: time)
+    }
+    
+    static func calculatePerkDataFromSession(time: String) -> (Int16, Int16, Float, Int16) {
+        // 0 0 : 0 0 : 0 0
+        // 0 1 2 3 4 5 6 7
+        let totalHours = Int("\(time[0])\(time[1])")!
+        var lvl: Int = 0
+        var progress: Float = 0
+        var toNextLvl: Int = 0
+        
+        switch totalHours {
+        case 0..<5: lvl = 0
+        case 5..<15: lvl = 1
+        case 15..<30: lvl = 2
+        case 30..<55: lvl = 3
+        default: lvl = Int((totalHours - 55) / 50) + 4
+        }
+
+        switch lvl {
+        case 0: toNextLvl = 5 - totalHours
+        case 1: toNextLvl = 15 - totalHours
+        case 2: toNextLvl = 30 - totalHours
+        case 3: toNextLvl = 55 - totalHours
+        default: toNextLvl = (lvl - 4) * 50 + 55 + 50 - totalHours
+        }
+        
+        switch lvl {
+        case 0: progress = Float(5 - toNextLvl) / Float(5)
+        case 1: progress = Float(10 - toNextLvl) / Float(10)
+        case 2: progress = Float(15 - toNextLvl) / Float(15)
+        case 3: progress = Float(25 - toNextLvl) / Float(25)
+        default: progress = Float(50 - toNextLvl) / Float(50)
+        }
+        print("total = \(totalHours), progress = \(progress)")
+
+        
+        return (Int16(totalHours), Int16(lvl), progress, Int16(toNextLvl))
     }
 }
 
@@ -47,13 +83,13 @@ class SessionTimer {
     
     static func startTimer(updateClosure: @escaping (String) -> Void) {
         if timer == nil {
-            SessionTimer.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-                SessionTimer.totalSeconds += 1
-                SessionTimer.hours = SessionTimer.totalSeconds / 3600
-                SessionTimer.remainingMinutes = (SessionTimer.totalSeconds % 3600) / 60
-                SessionTimer.remainingSeconds = SessionTimer.totalSeconds % 60
+            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                totalSeconds += 1
+                hours = totalSeconds / 3600
+                remainingMinutes = (totalSeconds % 3600) / 60
+                remainingSeconds = totalSeconds % 60
                 
-                let timeString = String(format: "%02d:%02d:%02d", SessionTimer.hours, SessionTimer.remainingMinutes, SessionTimer.remainingSeconds)
+                let timeString = String(format: "%02d:%02d:%02d", hours, remainingMinutes, remainingSeconds)
                 updateClosure(timeString)
             }
         }
