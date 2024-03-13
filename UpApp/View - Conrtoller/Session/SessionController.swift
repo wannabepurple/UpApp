@@ -56,10 +56,11 @@ final class SessionController: BaseController {
     
     @IBAction func tapStopButton(_ sender: Any) {
         // Saving data
-        SessionInfo.perk = perkField.text!
+        SessionInfo.perkTitle = perkField.text!
         SessionInfo.time = timeLabel.text!
 
         // ADDME: Saving to core data process // entry point
+        SessionInfo.calculatePerkDataFromSession()
         
         // Clear data and screen
         SessionInfo.clearPerk()

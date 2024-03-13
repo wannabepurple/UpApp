@@ -35,11 +35,8 @@ final class MeController: BaseController {
                 let textField = alert.textFields![0]
                 
                 // Create new perk obj
-                let newPerk = Perk(context: self.context)
-                newPerk.lvl = 0
-                newPerk.perkTitle = textField.text
-                newPerk.progress = 0
-                newPerk.toNextLvl = 10
+                // ADDME: Нулевая строка
+                let newPerk = SessionInfo.createNewPerk(context: self.context, perkTitle: textField.text!) // CHECKME
                 
                 // Save data
                 Perk.saveContext(context: self.context)

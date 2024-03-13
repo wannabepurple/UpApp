@@ -2,20 +2,39 @@ import UIKit
 import CoreData
 
 class SessionInfo {
-    static var perk: String = ""
+    static var perkTitle: String = ""
     static var time: String = ""
     
     static func clearPerk() {
-        SessionInfo.perk = ""
-        SessionInfo.time = ""
+        perkTitle = ""
+        time = ""
     }
     
     static func calculatePerkDataFromSession() {
+        var perk: [Perk] = []
         var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-//        Perk.fetchPerkWith(title: perk, perk: &<#T##[Perk]#>, context: <#T##NSManagedObjectContext#>)
+        Perk.fetchPerkWith(title: perkTitle, perk: &perk, context: context)
+
+        // Perk is exists
+        if perk.count == 1 {
+            
+            print("exists")
+            
+        } else {
+            let newPerk = createNewPerk(context: context, perkTitle: perkTitle, time: SessionInfo.time)
+            Perk.saveContext(context: context)
+        }
+        
         // If perk is exists - add info, else - create info
-        // resultPerk: [Any] = []
-        // save resultPerk to Storage
+    }
+    
+    static func createNewPerk(context: NSManagedObjectContext, perkTitle: String) -> Perk {
+        let newPerk = Perk(context: context)
+        newPerk.lvl = 0
+        newPerk.perkTitle = perkTitle
+        newPerk.progress = 0
+        newPerk.toNextLvl = 10
+        return newPerk
     }
 }
 

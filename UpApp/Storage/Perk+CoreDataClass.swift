@@ -18,8 +18,7 @@ public class Perk: NSManagedObject {
             let predicate = NSPredicate(format: "perkTitle CONTAINS %@", title)
             request.predicate = predicate
             perk = try context.fetch(request)
-            print(perk) //
-        } catch { print("error")  }
+        } catch { print("fetchPerkWith error")  } 
     }
     
     // MARK: Save
