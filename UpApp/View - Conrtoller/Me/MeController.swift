@@ -13,8 +13,6 @@ final class MeController: BaseController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setAppearance()
-//        refetchData()
-//        reloadTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -19,9 +19,12 @@ class SessionInfo {
 
         // Perk is exists
         if perk.count == 1 {
-            
-            print("exists")
-            
+            let totalTimeInHours = Int16("\(time[0])\(time[1])")! + perk[0].totalHours
+            let totalTimeInHoursStr = String(format: "%02d:%02d:%02d", totalTimeInHours, 0, 0)
+            print(totalTimeInHoursStr)
+            (perk[0].totalHours,  perk[0].lvl, perk[0].progress, perk[0].toNextLvl) = calculatePerkDataFromSession(time: totalTimeInHoursStr)
+            Perk.saveContext(context: context)
+            print("here")
         } else {
             createNewPerk(context: context, perkTitle: perkTitle, time: SessionInfo.time)
             Perk.saveContext(context: context)
