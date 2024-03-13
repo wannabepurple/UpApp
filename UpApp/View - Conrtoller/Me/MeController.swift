@@ -41,7 +41,7 @@ final class MeController: BaseController {
                 
                 // Create new perk
                 // ADDME: Нулевая строка
-                SessionInfo.createNewPerk(context: self.context, perkTitle: title.text!, time: hours.text!)
+                SessionInfo.createNewPerk(context: self.context, perkTitle: title.text!)
                 
                 // Save data
                 Perk.saveContext(context: self.context)

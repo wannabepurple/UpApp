@@ -8,7 +8,6 @@ public class Perk: NSManagedObject {
     static func fetchPerks(perks: inout [Perk], context: NSManagedObjectContext) {
         do {
             perks = try context.fetch(Perk.fetchRequest())
-//            print("\(perks)\nend\n")
         } catch { }
     }
     
