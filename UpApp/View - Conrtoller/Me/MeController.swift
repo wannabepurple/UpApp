@@ -57,7 +57,6 @@ final class MeController: BaseController {
             
             // Show alert
             self.present(alert, animated: true)
-            
         }
     
     @IBAction func tapEdit(_ sender: Any) {
@@ -86,8 +85,6 @@ extension MeController {
         // Nick
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGesture))
         view.addGestureRecognizer(tapGesture)
-        
-        
     }
     
     @objc private func tapGesture() {
@@ -120,7 +117,7 @@ extension MeController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: Resources.MeController.PerkCell.cellIdentifier, for: indexPath) as! PerkCell
         
         let perk = perks[indexPath.section]
-        cell.set(perkObj: perk)
+        cell.set(perkObj: perk) // entry point
         cell.backgroundColor = Resources.Common.Colors.backgroundGray
         cell.selectionStyle = .none
         

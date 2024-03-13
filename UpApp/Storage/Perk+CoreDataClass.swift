@@ -12,6 +12,16 @@ public class Perk: NSManagedObject {
         } catch { }
     }
     
+    static func fetchPerkWith(title: String, perk: inout [Perk], context: NSManagedObjectContext) {
+        do {
+            let request = Perk.fetchRequest() as NSFetchRequest<Perk>
+            let predicate = NSPredicate(format: "perkTitle CONTAINS %@", title)
+            request.predicate = predicate
+            perk = try context.fetch(request)
+            print(perk) //
+        } catch { print("error")  }
+    }
+    
     // MARK: Save
     static func saveContext(context: NSManagedObjectContext) {
         do { try context.save() } catch { }

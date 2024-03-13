@@ -1,5 +1,5 @@
 import UIKit
-import Foundation
+import CoreData
 
 enum StartPauseResume {
     case start
@@ -24,7 +24,6 @@ final class SessionController: BaseController {
     @IBAction func tapStartPauseButton(_ sender: Any) {
         if startPauseResume == .start && perkField.text == "" {
             perkField.shake()
-            //Resources.SessionController.Animations.highlightTextFieldPlaceholder(textField: perkField)
         }
         else {
             switch startPauseResume {
@@ -59,18 +58,17 @@ final class SessionController: BaseController {
         // Saving data
         SessionInfo.perk = perkField.text!
         SessionInfo.time = timeLabel.text!
-        print(SessionInfo.perk, SessionInfo.time)
 
-        // Clear screen
+        // ADDME: Saving to core data process // entry point
+        
+        // Clear data and screen
+        SessionInfo.clearPerk()
         clearAction()
     }
     
     @IBAction func tapBinButton(_ sender: Any) {
-        // Clear data
+        // Clear data and screen
         SessionInfo.clearPerk()
-        print(SessionInfo.perk, SessionInfo.time)
-        
-        // Clear screen
         clearAction()
     }
 }

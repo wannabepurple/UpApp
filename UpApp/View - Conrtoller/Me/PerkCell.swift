@@ -24,7 +24,7 @@ class PerkCell: UITableViewCell {
         lvl.text = "lvl \(perkObj.lvl)"
         progress.progress = perkObj.progress
         toNextLvl.text = "To next lvl: \(perkObj.toNextLvl) h"
-    }
+    } // entry point
     
     func enterExitEditMode(editModeWillHidden: Bool) {
         Resources.Common.Animations.changeButtonVisibility(button: deleteButton, willHidden: editModeWillHidden)

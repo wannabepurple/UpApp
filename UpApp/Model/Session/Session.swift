@@ -1,4 +1,5 @@
 import UIKit
+import CoreData
 
 class SessionInfo {
     static var perk: String = ""
@@ -7,6 +8,14 @@ class SessionInfo {
     static func clearPerk() {
         SessionInfo.perk = ""
         SessionInfo.time = ""
+    }
+    
+    static func calculatePerkDataFromSession() {
+        var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+//        Perk.fetchPerkWith(title: perk, perk: &<#T##[Perk]#>, context: <#T##NSManagedObjectContext#>)
+        // If perk is exists - add info, else - create info
+        // resultPerk: [Any] = []
+        // save resultPerk to Storage
     }
 }
 
@@ -44,5 +53,3 @@ class SessionTimer {
         SessionTimer.remainingSeconds = 0
     }
 }
-
-
