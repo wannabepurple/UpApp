@@ -37,11 +37,11 @@ final class MeController: BaseController {
             
             let submitButton = UIAlertAction(title: "Done", style: .default) { (action) in
                 let title = alert.textFields![0]
-                let hours = alert.textFields![1]
+                let seconds = alert.textFields![1]
                 
                 // Create new perk
                 // ADDME: Нулевая строка
-                SessionInfo.createNewPerk(context: self.context, perkTitle: title.text!)
+                SessionInfo.createNewPerk(context: self.context, perkTitle: title.text!, time: Int64(seconds.text!)!)
                 
                 // Save data
                 Perk.saveContext(context: self.context)
