@@ -1,5 +1,7 @@
 import UIKit
 import CoreData
+import BackgroundTasks
+
 
 class SessionInfo {
     static var perkTitle: String = ""
@@ -102,6 +104,7 @@ class SessionTimer {
     static var remainingMinutes = 0
     static var remainingSeconds = 0
     
+    
     static func startTimer(updateClosure: @escaping (String) -> Void) {
         if timer == nil {
             timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
@@ -115,6 +118,61 @@ class SessionTimer {
             }
         }
     }
+    
+    /*
+    /// ---
+    static func startTimer(updateClosure: @escaping (String) -> Void) {
+            if timer == nil {
+                // Регистрируем фоновую задачу
+                registerBackgroundTask()
+
+                timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                    totalSeconds += 1
+                    hours = totalSeconds / 3600
+                    remainingMinutes = (totalSeconds % 3600) / 60
+                    remainingSeconds = totalSeconds % 60
+                    
+                    let timeString = String(format: "%02d:%02d:%02d", hours, remainingMinutes, remainingSeconds)
+                    updateClosure(timeString)
+                }
+            }
+        }
+
+        // Регистрируем фоновую задачу
+        private static func registerBackgroundTask() {
+            let taskIdentifier = "com.UpApp.timer"
+
+            // Регистрируем задачу
+            BGTaskScheduler.shared.register(forTaskWithIdentifier: taskIdentifier, using: nil) { task in
+                // Выполняем обработку ваших задач в фоне
+                self.handleBackgroundTask(task: task as! BGAppRefreshTask)
+            }
+        }
+
+        // Обработка задачи в фоне
+        private static func handleBackgroundTask(task: BGAppRefreshTask) {
+            // Создаем операцию для выполнения вашей задачи в фоне
+            let operation = BlockOperation {
+                // Ваш код обработки ваших фоновых задач
+                
+                // Пример: увеличиваем totalSeconds
+                totalSeconds += 1
+
+                // Оповещаем систему о завершении задачи
+                task.setTaskCompleted(success: true)
+            }
+
+            // Устанавливаем обработчик истечения срока действия задачи
+            task.expirationHandler = {
+                operation.cancel()
+                task.setTaskCompleted(success: false)
+            }
+
+            // Добавляем операцию в очередь выполнения
+            OperationQueue().addOperation(operation)
+        }
+     */
+    /// ---
     
     static func pauseTimer() {
         SessionTimer.timer?.invalidate()
