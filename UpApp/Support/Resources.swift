@@ -46,12 +46,19 @@ enum Resources {
             vc.title = title
         }
         
-        static func setButton(button: UIButton, title: String = "", image: UIImage?, backgroundColor: UIColor, setPosition: () -> () = {}) {
+        static func setButton(button: UIButton, 
+                              size: CGFloat = 18,
+                              title: String = "",
+                              image: UIImage?,
+                              backgroundColor: UIColor,
+                              cornerRadius: CGFloat = Resources.Common.Sizes.cornerRadius10,
+                              setPosition: () -> () = {}) {
             setPosition()
             button.backgroundColor = backgroundColor
             button.layer.masksToBounds = true
-            button.layer.cornerRadius = Resources.Common.Sizes.cornerRadius10
-            button.titleLabel?.font = Resources.Common.futura(size: 18)
+            button.layer.cornerRadius = cornerRadius
+            button.titleLabel?.font = Resources.Common.futura(size: size)
+            button.setTitleColor(Resources.Common.Colors.black, for: .normal)
             button.setTitle(title, for: .normal)
             button.tintColor = Resources.Common.Colors.black
             if let img = image {
@@ -59,7 +66,13 @@ enum Resources {
             }
         }
         
-        static func setLabel(label: UILabel, size: CGFloat = Resources.Common.Sizes.commonLabelFontSize, text: String = "", backgroundColor: UIColor = Resources.Common.Colors.backgroundCard, cornerRadius: CGFloat = Resources.Common.Sizes.cornerRadius10, setPosition: () -> () = {}, masksToBounds: Bool = true) {
+        static func setLabel(label: UILabel, 
+                             size: CGFloat = Resources.Common.Sizes.commonLabelFontSize,
+                             text: String = "",
+                             backgroundColor: UIColor = Resources.Common.Colors.backgroundCard,
+                             cornerRadius: CGFloat = Resources.Common.Sizes.cornerRadius10, 
+                             setPosition: () -> () = {},
+                             masksToBounds: Bool = false) {
             setPosition()
             label.backgroundColor = backgroundColor
             label.layer.cornerRadius = cornerRadius
@@ -111,7 +124,7 @@ enum Resources {
         
         enum SessionView {
             static let perkTitleFont: CGFloat = 40
-            static let timerLabelFont: CGFloat = 30
+            static let timerButtonFont: CGFloat = 30
             static let timerSide: CGFloat = 200
             static let timerCornerRadius: CGFloat = timerSide / 2
         }

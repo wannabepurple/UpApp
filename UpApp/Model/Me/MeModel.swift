@@ -96,6 +96,7 @@ class MeModel {
 }
 
 class MeTimer {
+    static var wasPaused = false
     static var totalSeconds = 0
     static var timer: Timer?
     static var hours = 0

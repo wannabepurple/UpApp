@@ -1,5 +1,6 @@
 import UIKit
 
+// MARK: Core
 class SessionView: UIViewController {
 
     let pauseButton = UIButton()
@@ -13,43 +14,62 @@ class SessionView: UIViewController {
         timerProcess()
     }
     
-    
-    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        // Stop timer
+        MeTimer.stopTimer()
+        print(MeModel.time)
+    }
 }
 
 // MARK: UI
 extension SessionView {
     private func setUI() {
         view.backgroundColor = Resources.Common.Colors.backgroundCard
-        view.addSubview(pauseButton)
         view.addSubview(perk)
-        view.addSubview(timerLabel)
-        
-        Resources.Common.setButton(button: pauseButton, image: UIImage(named: "pause"), backgroundColor: Resources.Common.Colors.purple, setPosition: setPauseButtonConstraints)
-        pauseButton.addTarget(self, action: #selector(tapPause), for: .touchUpInside)
+        view.addSubview(timerButton)
         
         Resources.Common.setLabel(label: perk, size: Resources.MeController.SessionView.perkTitleFont, text: MeModel.perkTitle, setPosition: setPerkConstraints)
         
-        Resources.Common.setLabel(label: timerLabel, size: Resources.MeController.SessionView.timerLabelFont, text: "00:00:00", backgroundColor: Resources.Common.Colors.green, cornerRadius: Resources.MeController.SessionView.timerCornerRadius, setPosition: setTimerLabelConstraints)
-        
+        Resources.Common.setButton(button: timerButton, 
+                                   size: Resources.MeController.SessionView.timerButtonFont,
+                                   title: "00:00:00",
+                                   image: nil,
+                                   backgroundColor: Resources.Common.Colors.green,
+                                   cornerRadius: Resources.MeController.SessionView.timerCornerRadius,
+                                   setPosition: setTimerButtonConstraints)
+        timerButton.addTarget(self, action: #selector(tapTimer), for: .touchUpInside)
     }
 }
 
 // MARK: Actions
 extension SessionView {
+    
     private func timerProcess() {
         // Start timer
         MeTimer.startTimer() { [weak self] timeString in
-            self?.timerLabel.text = timeString
+            self?.timerButton.setTitle(timeString, for: .normal)
         }
     }
     
-    @objc func tapPause() {
-        // Pause timer
-        MeTimer.pauseTimer()
+    
+    @objc func tapTimer() {
+        if MeTimer.wasPaused == false {
+            MeTimer.wasPaused = true
+            MeTimer.pauseTimer()
+            timerButton.setImage(UIImage(named: "pause"), for: .normal)
+        } else {
+            MeTimer.wasPaused = false
+            MeTimer.startTimer() { [weak self] timeString in
+                self?.timerButton.setTitle(timeString, for: .normal)
+                MeModel.time = timeString
+            }
+            timerButton.setImage(nil, for: .normal)
+        }
     }
+    
+    
 }
-
 
 // MARK: Constraints
 extension SessionView {
@@ -62,27 +82,14 @@ extension SessionView {
         ])
     }
     
-    private func setPauseButtonConstraints() {
-        pauseButton.translatesAutoresizingMaskIntoConstraints = false
+    private func setTimerButtonConstraints() {
+        timerButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            pauseButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
-            pauseButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            pauseButton.widthAnchor.constraint(equalToConstant: 50),
-            pauseButton.heightAnchor.constraint(equalToConstant: 50)
-            
+            timerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            timerButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            timerButton.widthAnchor.constraint(equalToConstant: Resources.MeController.SessionView.timerSide),
+            timerButton.heightAnchor.constraint(equalToConstant: Resources.MeController.SessionView.timerSide)
         ])
     }
-    
-    private func setTimerLabelConstraints() {
-        timerLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            timerLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            timerLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            timerLabel.widthAnchor.constraint(equalToConstant: Resources.MeController.SessionView.timerSide),
-            timerLabel.heightAnchor.constraint(equalToConstant: Resources.MeController.SessionView.timerSide)
-        ])
-    }
-    
 }

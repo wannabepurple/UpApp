@@ -174,19 +174,3 @@ extension PerkCell {
 
 
 
-// Stop timer
-//MeTimer.stopTimer()
-// Saving data to model
-//MeModel.time = timerLabel.text!
-// Clear timer segment
-//clearTimerSegment()
-
-
-//private func clearTimerSegment() {
-//        MeTimer.perkIsActive = false
-//        MeTimer.activePerkTitle = ""
-//    timerLabel.text = "00:00:00"
-//    Resources.Common.Animations.changeButtonVisibility(button: startButton, willHidden: false)
-//    Resources.Common.Animations.changeButtonVisibility(button: pauseButton, willHidden: true)
-//    Resources.Common.Animations.changeButtonVisibility(button: stopButton, willHidden: true)
-//}
