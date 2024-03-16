@@ -105,6 +105,11 @@ extension MeController: UITableViewDelegate, UITableViewDataSource {
         cell.backgroundColor = Resources.Common.Colors.backgroundGray
         cell.selectionStyle = .none
         cell.contentView.isUserInteractionEnabled = false
+        cell.openSessionView = {
+            let sessionView = SessionView()
+            sessionView.modalPresentationStyle = .automatic
+            self.present(sessionView, animated: true)
+        }
         
         // Labels, progress
         let perk = perks[indexPath.section]
@@ -140,13 +145,6 @@ extension MeController: UITableViewDelegate, UITableViewDataSource {
 }
 
 // MARK: Actions
-extension MeController {
-    @objc func tapFunc() {
-        print("here")
-        
-    }
-}
-
 
 // MARK: Support
 extension MeController {

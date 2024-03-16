@@ -59,10 +59,10 @@ enum Resources {
             }
         }
         
-        static func setLabel(label: UILabel, size: CGFloat = Resources.Common.Sizes.commonLabelFontSize, text: String = "", backgroundColor: UIColor = Resources.Common.Colors.backgroundCard, setPosition: () -> () = {}, masksToBounds: Bool = false) {
+        static func setLabel(label: UILabel, size: CGFloat = Resources.Common.Sizes.commonLabelFontSize, text: String = "", backgroundColor: UIColor = Resources.Common.Colors.backgroundCard, cornerRadius: CGFloat = Resources.Common.Sizes.cornerRadius10, setPosition: () -> () = {}, masksToBounds: Bool = true) {
             setPosition()
             label.backgroundColor = backgroundColor
-            label.layer.cornerRadius = Resources.Common.Sizes.cornerRadius10
+            label.layer.cornerRadius = cornerRadius
             label.textColor = Resources.Common.Colors.backgroundDark
             label.layer.masksToBounds = masksToBounds
             label.font = Resources.Common.futura(size: size)
@@ -107,6 +107,13 @@ enum Resources {
             static let lvlFont: CGFloat = 15
             static let cellHeight: CGFloat = 300
             static let cellFootHeight: CGFloat = 20
+        }
+        
+        enum SessionView {
+            static let perkTitleFont: CGFloat = 40
+            static let timerLabelFont: CGFloat = 30
+            static let timerSide: CGFloat = 200
+            static let timerCornerRadius: CGFloat = timerSide / 2
         }
     }
 }

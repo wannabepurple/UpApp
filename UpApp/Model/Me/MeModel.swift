@@ -96,8 +96,6 @@ class MeModel {
 }
 
 class MeTimer {
-    static var perkIsActive = false
-    static var activePerkTitle = ""
     static var totalSeconds = 0
     static var timer: Timer?
     static var hours = 0
