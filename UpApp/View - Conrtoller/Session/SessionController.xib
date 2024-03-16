@@ -11,11 +11,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SessionController" customModule="UpApp" customModuleProvider="target">
             <connections>
-                <outlet property="binButton" destination="IQ7-fz-Le5" id="gSI-9d-7x2"/>
-                <outlet property="perkField" destination="Wjc-mV-P5z" id="brE-RE-O30"/>
-                <outlet property="startPauseButton" destination="0Gu-6d-i8Y" id="YBm-jE-38l"/>
-                <outlet property="stopButton" destination="jdC-Ly-MzM" id="gff-pf-nbR"/>
-                <outlet property="timeLabel" destination="5Sl-B0-10z" id="deO-Ye-57h"/>
                 <outlet property="view" destination="iN0-l3-epB" id="ONp-iH-jUh"/>
             </connections>
         </placeholder>
@@ -23,72 +18,8 @@
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Sl-B0-10z">
-                    <rect key="frame" x="88.333333333333329" y="244.33333333333337" width="216.33333333333337" height="52"/>
-                    <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="40"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Gu-6d-i8Y">
-                    <rect key="frame" x="147.33333333333334" y="346.33333333333331" width="98.333333333333343" height="36"/>
-                    <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="18"/>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" title="Start">
-                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </state>
-                    <connections>
-                        <action selector="tapStartPauseButton:" destination="-1" eventType="touchUpInside" id="Rlm-Kd-rZW"/>
-                    </connections>
-                </button>
-                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Perk" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wjc-mV-P5z">
-                    <rect key="frame" x="50" y="109" width="293" height="85.333333333333314"/>
-                    <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="25"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jdC-Ly-MzM">
-                    <rect key="frame" x="147.33333333333334" y="432.33333333333331" width="98.333333333333343" height="36"/>
-                    <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="18"/>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" title="Stop">
-                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </state>
-                    <connections>
-                        <action selector="tapStopButton:" destination="-1" eventType="touchUpInside" id="sA8-vo-Sx5"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IQ7-fz-Le5">
-                    <rect key="frame" x="171.66666666666666" y="738" width="50" height="50"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="50" id="KcY-mr-cCn"/>
-                        <constraint firstAttribute="height" constant="50" id="mL6-AR-0ng"/>
-                    </constraints>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Bin"/>
-                    <connections>
-                        <action selector="tapBinButton:" destination="-1" eventType="touchUpInside" id="5Su-K5-dy9"/>
-                    </connections>
-                </button>
-            </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-            <constraints>
-                <constraint firstItem="5Sl-B0-10z" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.55" id="597-7P-POm"/>
-                <constraint firstItem="Wjc-mV-P5z" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="50" id="Ed2-WB-WmT"/>
-                <constraint firstItem="IQ7-fz-Le5" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" constant="-30" id="Ms6-4v-KBg"/>
-                <constraint firstItem="Wjc-mV-P5z" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="50" id="N2L-rc-H0A"/>
-                <constraint firstItem="Wjc-mV-P5z" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.1" id="TLh-hR-Al2"/>
-                <constraint firstItem="0Gu-6d-i8Y" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="VQa-cB-ohJ"/>
-                <constraint firstItem="5Sl-B0-10z" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Vem-t5-sh0"/>
-                <constraint firstItem="jdC-Ly-MzM" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Vfr-dE-O2m"/>
-                <constraint firstItem="0Gu-6d-i8Y" firstAttribute="top" secondItem="5Sl-B0-10z" secondAttribute="bottom" constant="50" id="ZG9-9T-fRj"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Wjc-mV-P5z" secondAttribute="trailing" constant="50" id="e5H-oD-wdT"/>
-                <constraint firstItem="jdC-Ly-MzM" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.25" id="iF7-s7-NqY"/>
-                <constraint firstItem="IQ7-fz-Le5" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="jI0-2r-odL"/>
-                <constraint firstItem="jdC-Ly-MzM" firstAttribute="top" secondItem="0Gu-6d-i8Y" secondAttribute="bottom" constant="50" id="mhA-gk-iwo"/>
-                <constraint firstItem="5Sl-B0-10z" firstAttribute="top" secondItem="Wjc-mV-P5z" secondAttribute="bottom" constant="50" id="rZD-wI-d1z"/>
-                <constraint firstItem="0Gu-6d-i8Y" firstAttribute="width" secondItem="vUN-kp-3ea" secondAttribute="width" multiplier="0.25" id="xvP-6K-mey" userLabel="Start.width = 0.25 × width"/>
-            </constraints>
             <point key="canvasLocation" x="-8.3969465648854964" y="-12.67605633802817"/>
         </view>
     </objects>

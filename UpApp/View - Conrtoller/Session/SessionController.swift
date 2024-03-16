@@ -1,20 +1,39 @@
 import UIKit
 import CoreData
 
-enum StartPauseResume {
-    case start
-    case pause
-    case resume
-}
-
 final class SessionController: BaseController {
-    @IBOutlet weak var timeLabel: UILabel!
+    var button = UIButton()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.addSubview(button)
+        button.setTitle("tap", for: .normal)
+        button.tintColor = .blue
+        button.addTarget(self, action: #selector(tap), for: .touchUpInside)
+        set()
+        
+    }
+    
+    @objc func tap() {
+        print("tap")
+    }
+    
+    func set() {
+        button.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
+/*    @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var startPauseButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var perkField: UITextField!
     @IBOutlet weak var binButton: UIButton!
     
-    var startPauseResume = StartPauseResume.start
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,38 +41,9 @@ final class SessionController: BaseController {
     }
     
     @IBAction func tapStartPauseButton(_ sender: Any) {
-        if startPauseResume == .start && perkField.text == "" {
-            perkField.shake()
-        }
-        else {
-            switch startPauseResume {
-            case .start:
-                startPauseResume = .pause // set pause
-                Resources.Common.setButton(button: startPauseButton, title: "Pause", image: nil, backgroundColor: Resources.Common.Colors.purple)
-                Resources.Common.Animations.changeButtonVisibility(button: stopButton, willHidden: false)
-                
-                // Start timer
-                SessionTimer.startTimer() { [weak self] timeString in
-                    self?.timeLabel.text = timeString
-                }
-            case .pause:
-                startPauseResume = .resume // set resume
-                Resources.Common.setButton(button: startPauseButton, title: "Resume", image: nil, backgroundColor: Resources.Common.Colors.green)
-                
-                // Pause timer
-                SessionTimer.pauseTimer()
-            case .resume:
-                startPauseResume = .pause // set pause
-                Resources.Common.setButton(button: startPauseButton, title: "Pause", image: nil, backgroundColor: Resources.Common.Colors.purple)
-                
-                // Resume timer
-                SessionTimer.startTimer() { [weak self] timeString in
-                    self?.timeLabel.text = timeString
-                }
-            }
-        }
+        
     }
-    
+    /*
     @IBAction func tapStopButton(_ sender: Any) {
         // Saving data
         SessionInfo.perkTitle = perkField.text!
@@ -72,12 +62,11 @@ final class SessionController: BaseController {
         SessionInfo.clearPerk()
         clearAction()
     }
+     */
 }
 
 extension SessionController {
-    private func setAppearance() {
-        Resources.Common.setControllerAppearance(vc: self, title: Resources.TabBar.Titles.session)
-        
+    private func setAppearance() {        
         // Buttons
         Resources.Common.setButton(button: startPauseButton, title: "Start", image: nil, backgroundColor: Resources.Common.Colors.green)
         
@@ -114,7 +103,7 @@ extension SessionController {
         SessionTimer.stopTimer()
         timeLabel.text = "00:00:00"
         perkField.text = ""
-    }
+    }*/
 }
 
 

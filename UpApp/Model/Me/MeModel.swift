@@ -1,9 +1,7 @@
 import UIKit
 import CoreData
-import BackgroundTasks
 
-/*
-class SessionInfo {
+class MeModel {
     static var perkTitle: String = ""
     static var time: String = ""
     // 0 0 : 0 0 : 0 0
@@ -21,7 +19,7 @@ class SessionInfo {
         
         // Find match
         Perk.fetchPerkWith(title: perkTitle, perk: &perk, context: context)
-
+        
         // Perk is exists
         if perk.count == 1 {
             let totalSecWithPreviousSession = totalSec + Int64(perk[0].totalHours * 3600)
@@ -44,7 +42,7 @@ class SessionInfo {
     
     static func createNewPerk(context: NSManagedObjectContext, perkTitle: String, time: Int64 = 0) {
         let newPerk = Perk(context: context)
-       
+        
         let (totalSecReturned, lvl, progress, toNextLvl) = calculatePerkDataFromSession(totalSec: time)
         let totalHours = Float(totalSecReturned) / 3600.0
         let toNextLvlInHours = Float(toNextLvl) / 3600.0
@@ -76,7 +74,7 @@ class SessionInfo {
         case thirtySiH..<fiftyFiveSiH: lvl = 3
         default: lvl = Int64((totalSec - fiftyFiveSiH) / fiftySiH) + 4
         }
-
+        
         switch lvl {
         case 0: toNextLvl = fiveSiH - totalSec
         case 1: toNextLvl = fifteenSiH - totalSec
@@ -84,7 +82,7 @@ class SessionInfo {
         case 3: toNextLvl = fiftyFiveSiH - totalSec
         default: toNextLvl = (lvl - 4) * fiftySiH + fiftyFiveSiH + fiftySiH - totalSec
         }
-
+        
         switch lvl {
         case 0: progress = Float(fiveSiH - toNextLvl) / Float(fiveSiH)
         case 1: progress = Float(tenSiH - toNextLvl) / Float(tenSiH)
@@ -96,9 +94,10 @@ class SessionInfo {
         return (Int64(totalSec), Int64(lvl), progress, Int64(toNextLvl))
     }
 }
-*/
 
-class SessionTimer {
+class MeTimer {
+    static var perkIsActive = false
+    static var activePerkTitle = ""
     static var totalSeconds = 0
     static var timer: Timer?
     static var hours = 0
@@ -115,76 +114,24 @@ class SessionTimer {
                 remainingSeconds = totalSeconds % 60
                 
                 let timeString = String(format: "%02d:%02d:%02d", hours, remainingMinutes, remainingSeconds)
-                updateClosure(timeString)
-            }
-        }
-    }
-    
-    /*
-    /// ---
-    static func startTimer(updateClosure: @escaping (String) -> Void) {
-            if timer == nil {
-                // Регистрируем фоновую задачу
-                registerBackgroundTask()
-
-                timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-                    totalSeconds += 1
-                    hours = totalSeconds / 3600
-                    remainingMinutes = (totalSeconds % 3600) / 60
-                    remainingSeconds = totalSeconds % 60
-                    
-                    let timeString = String(format: "%02d:%02d:%02d", hours, remainingMinutes, remainingSeconds)
+                DispatchQueue.main.async {
                     updateClosure(timeString)
                 }
             }
         }
-
-        // Регистрируем фоновую задачу
-        private static func registerBackgroundTask() {
-            let taskIdentifier = "com.UpApp.timer"
-
-            // Регистрируем задачу
-            BGTaskScheduler.shared.register(forTaskWithIdentifier: taskIdentifier, using: nil) { task in
-                // Выполняем обработку ваших задач в фоне
-                self.handleBackgroundTask(task: task as! BGAppRefreshTask)
-            }
-        }
-
-        // Обработка задачи в фоне
-        private static func handleBackgroundTask(task: BGAppRefreshTask) {
-            // Создаем операцию для выполнения вашей задачи в фоне
-            let operation = BlockOperation {
-                // Ваш код обработки ваших фоновых задач
-                
-                // Пример: увеличиваем totalSeconds
-                totalSeconds += 1
-
-                // Оповещаем систему о завершении задачи
-                task.setTaskCompleted(success: true)
-            }
-
-            // Устанавливаем обработчик истечения срока действия задачи
-            task.expirationHandler = {
-                operation.cancel()
-                task.setTaskCompleted(success: false)
-            }
-
-            // Добавляем операцию в очередь выполнения
-            OperationQueue().addOperation(operation)
-        }
-     */
-    /// ---
+    }
     
     static func pauseTimer() {
-        SessionTimer.timer?.invalidate()
-        SessionTimer.timer = nil
+        timer?.invalidate()
+        timer = nil
     }
     
     static func stopTimer() {
-        SessionTimer.pauseTimer()
-        SessionTimer.totalSeconds = 0
-        SessionTimer.hours = 0
-        SessionTimer.remainingMinutes = 0
-        SessionTimer.remainingSeconds = 0
+        pauseTimer()
+        totalSeconds = 0
+        hours = 0
+        remainingMinutes = 0
+        remainingSeconds = 0
     }
+    
 }

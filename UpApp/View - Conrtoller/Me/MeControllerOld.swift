@@ -1,9 +1,11 @@
 import UIKit
 
+/*
 final class MeController: BaseController {
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var nick: UITextField!
     @IBOutlet weak var plusButton: UIButton!
+    @IBOutlet weak var editButton: UIButton!
     
     var tableView = UITableView()
     var perks: [Perk] = []
@@ -19,43 +21,59 @@ final class MeController: BaseController {
         reloadTableView()
     }
     
-    ///
-    @IBAction func tapPlus(_ sender: Any) {
-        let alert = UIAlertController(title: "Customize perk", message: nil, preferredStyle: .alert)
-        alert.addTextField()
-        alert.addTextField()
-        
-        let submitButton = UIAlertAction(title: "Done", style: .default) { (action) in
-            let title = alert.textFields![0]
-            let seconds = alert.textFields![1]
-            
-            // Create new perk
-            // ADDME: Нулевая строка
-            MeModel.createNewPerk(context: self.context, perkTitle: title.text!, time: Int64(seconds.text!)!) // FIXME
-            
-            // Save data
-            Perk.saveContext(context: self.context)
-            
-            // Refetch data to upd perks
-            self.refetchData()
-            
-            self.tableView.beginUpdates()
-            self.tableView.insertSections(IndexSet(integer: self.perks.count - 1), with: .left)
-            self.tableView.endUpdates()
-        }
-        
-        // Add Done button
-        alert.addAction(submitButton)
-        
-        // Show alert
-        self.present(alert, animated: true)
+    private func refetchData() {
+        Perk.fetchPerks(perks: &perks, context: context)
     }
-    ///
+    
+    private func reloadTableView() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    @IBAction func tapPlus(_ sender: Any) {
+            let alert = UIAlertController(title: "Customize perk", message: nil, preferredStyle: .alert)
+            alert.addTextField()
+            alert.addTextField()
+            
+            let submitButton = UIAlertAction(title: "Done", style: .default) { (action) in
+                let title = alert.textFields![0]
+                let seconds = alert.textFields![1]
+                
+                // Create new perk
+                // ADDME: Нулевая строка
+                SessionInfo.createNewPerk(context: self.context, perkTitle: title.text!, time: Int64(seconds.text!)!)
+                
+                // Save data
+                Perk.saveContext(context: self.context)
+                
+                // Refetch data to upd perks
+                self.refetchData()
+                
+                self.tableView.beginUpdates()
+                self.tableView.insertSections(IndexSet(integer: self.perks.count - 1), with: .left)
+                self.tableView.endUpdates()
+            }
+            
+            // Add Done button
+            alert.addAction(submitButton)
+            
+            // Show alert
+            self.present(alert, animated: true)
+        }
+    
+    @IBAction func tapEdit(_ sender: Any) {
+        EditMode.switchEditMode()
+        refetchData()
+        reloadTableView()
+    }
 }
 
 // MARK: Setup
 extension MeController {
     private func setAppearance() {
+        Resources.Common.setControllerAppearance(vc: self, title: Resources.TabBar.Titles.me)
+        
         // Avatar
         setTopView()
         
@@ -64,8 +82,9 @@ extension MeController {
     }
     
     private func setTopView() {
-        Resources.Common.setButton(button: plusButton, image: nil, backgroundColor: Resources.Common.Colors.green)
-
+        Resources.Common.setButton(button: plusButton, title: "", image: nil, backgroundColor: Resources.Common.Colors.green)
+        Resources.Common.setButton(button: editButton, title: "", image: nil, backgroundColor: Resources.Common.Colors.purple)
+            
         // Nick
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGesture))
         view.addGestureRecognizer(tapGesture)
@@ -81,39 +100,40 @@ extension MeController {
         setTableViewDelegates()
         tableView.register(PerkCell.self, forCellReuseIdentifier: Resources.MeController.PerkCell.cellIdentifier)
         setTableViewConstraints()
-        
+
         // Opt
-//        tableView.isScrollEnabled = false
         tableView.separatorStyle = .none
         tableView.layer.cornerRadius = Resources.Common.Sizes.cornerRadius20
         tableView.backgroundColor = Resources.Common.Colors.backgroundGray
         tableView.showsVerticalScrollIndicator = false
     }
-    
+
     private func setTableViewDelegates() {
         tableView.delegate = self
         tableView.dataSource = self
     }
 }
 
-///
 // MARK: Delegates
 extension MeController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Cell configuration
         let cell = tableView.dequeueReusableCell(withIdentifier: Resources.MeController.PerkCell.cellIdentifier, for: indexPath) as! PerkCell
-        cell.backgroundColor = Resources.Common.Colors.backgroundGray
-        cell.selectionStyle = .none
-        cell.contentView.isUserInteractionEnabled = false
         
-        // Labels, progress
         let perk = perks[indexPath.section]
         cell.set(perkObj: perk) // entry point
-            
+        cell.backgroundColor = Resources.Common.Colors.backgroundGray
+        cell.selectionStyle = .none
+        
+        // Edit mode
+        cell.enterExitEditMode(editModeWillHidden: EditMode.editModeWillHidden)
+        
+        // Delete moment
+        cell.deleteButtonHandler = { [weak self] in
+            self?.deleteCell(section: indexPath.section)
+        }
+
         return cell
     }
-    
-    ///
     
     // MARK: Sup
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -139,27 +159,8 @@ extension MeController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-// MARK: Actions
+// MARK: CRUD
 extension MeController {
-    @objc func tapFunc() {
-        print("here")
-        
-    }
-}
-
-
-// MARK: Support
-extension MeController {
-    private func refetchData() {
-        Perk.fetchPerks(perks: &perks, context: context)
-    }
-    
-    private func reloadTableView() {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
-    
     private func deleteCell(section: Int) {
         guard section < self.perks.count else {
             print("error in \(section)")
@@ -176,7 +177,7 @@ extension MeController {
         
         // Set up the animation
         tableView.beginUpdates()
-        
+
         // Remove the corresponding section
         UIView.animate(withDuration: 0.3) {
             self.tableView.deleteSections(IndexSet(integer: section), with: .automatic)
@@ -190,7 +191,7 @@ extension MeController {
         
         // Reload
         let sectionsToUpdate = IndexSet(integersIn: 0..<self.tableView.numberOfSections)
-        
+
         UIView.animate(withDuration: 10) {
             DispatchQueue.main.async {
                 self.tableView.reloadSections(sectionsToUpdate, with: .fade)
@@ -198,8 +199,6 @@ extension MeController {
         }
     }
 }
-///
-
 
 // MARK: Constraints
 extension MeController {
@@ -213,6 +212,5 @@ extension MeController {
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
     }
-   
 }
-
+*/
