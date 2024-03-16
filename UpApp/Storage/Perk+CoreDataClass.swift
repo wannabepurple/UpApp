@@ -6,9 +6,7 @@ public class Perk: NSManagedObject {
     // MARK: Read
     // Fetch the data from Core Data to display on the tableView
     static func fetchPerks(perks: inout [Perk], context: NSManagedObjectContext) {
-        do {
-            perks = try context.fetch(Perk.fetchRequest())
-        } catch { }
+        do { perks = try context.fetch(Perk.fetchRequest()) } catch { }
     }
     
     static func fetchPerkWith(title: String, perk: inout [Perk], context: NSManagedObjectContext) {

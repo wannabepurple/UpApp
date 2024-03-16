@@ -1,8 +1,13 @@
 import UIKit
+import CoreData
+
+protocol ModalViewControllerDelegate: AnyObject {
+    func didDismissModalViewController()
+}
 
 // MARK: Core
 class SessionView: UIViewController {
-
+    weak var delegate: ModalViewControllerDelegate?
     let pauseButton = UIButton()
     let perk = UILabel()
     let timerLabel = UILabel()
@@ -18,7 +23,11 @@ class SessionView: UIViewController {
         super.viewDidDisappear(animated)
         // Stop timer
         MeTimer.stopTimer()
-        print(MeModel.time)
+        MeModel.calculateAndSaveDataFromSession()
+        
+        if isBeingDismissed {
+            delegate?.didDismissModalViewController()
+        }
     }
 }
 
@@ -49,6 +58,7 @@ extension SessionView {
         // Start timer
         MeTimer.startTimer() { [weak self] timeString in
             self?.timerButton.setTitle(timeString, for: .normal)
+            MeModel.time = timeString
         }
     }
     
@@ -67,7 +77,6 @@ extension SessionView {
             timerButton.setImage(nil, for: .normal)
         }
     }
-    
     
 }
 

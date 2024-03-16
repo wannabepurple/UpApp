@@ -4,15 +4,53 @@ import CoreData
 class MeModel {
     static var perkTitle: String = ""
     static var time: String = ""
+    
     // 0 0 : 0 0 : 0 0
     // 0 1 2 3 4 5 6 7
+//    static var totalHours: Float = Float("\(time[0])\(time[1])")! + Float("\(time[3])\(time[4])")! / 60
     static var totalSec: Int64 = Int64("\(time[0])\(time[1])")! * 3600 + Int64("\(time[3])\(time[4])")! * 60 + Int64("\(time[6])\(time[7])")!
     
-    static func clearPerk() {
-        perkTitle = ""
-        time = ""
+    static func createNewPerk(context: NSManagedObjectContext, perkTitle: String, time: Int64 = 0) {
+        let newPerk = Perk(context: context)
+        
+        let (lvl, progress, toNextLvl, totalHours): (Int64, Float, Float, Float) = (0, 0, 0, 0)
+        
+        newPerk.perkTitle = perkTitle
+        newPerk.totalHours = 0.0
+        newPerk.lvl = lvl
+        newPerk.progress = progress
+        newPerk.toNextLvl = 5.0
+        
+        Perk.saveContext(context: context)
+
     }
     
+    static func calculateAndSaveDataFromSession() {
+        var perk: [Perk] = []
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        Perk.fetchPerkWith(title: perkTitle, perk: &perk, context: context)
+        
+        
+        let (totalSecReturned, lvl, progress, toNextLvl) = calculateDataFromSession(totalSec: totalSec)
+        let totalHours = Float(totalSecReturned) / 3600.0
+        let toNextLvlInHours = Float(toNextLvl) / 3600.0
+        
+        perk[0].perkTitle = perkTitle
+        perk[0].totalHours = Float(String(format: "%.1f", totalHours))!
+        perk[0].lvl = lvl
+        perk[0].progress = progress
+        perk[0].toNextLvl = Float(String(format: "%.1f", toNextLvlInHours))!
+        
+        Perk.saveContext(context: context)
+    }
+    
+    static func clearMeModel() {
+        perkTitle = ""
+        time = ""
+        totalSec = 0
+    }
+    
+    /*
     static func addOrCreatePerk() {
         var perk: [Perk] = []
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -40,23 +78,11 @@ class MeModel {
         }
     }
     
-    static func createNewPerk(context: NSManagedObjectContext, perkTitle: String, time: Int64 = 0) {
-        let newPerk = Perk(context: context)
-        
-        let (totalSecReturned, lvl, progress, toNextLvl) = calculatePerkDataFromSession(totalSec: time)
-        let totalHours = Float(totalSecReturned) / 3600.0
-        let toNextLvlInHours = Float(toNextLvl) / 3600.0
-        
-        newPerk.perkTitle = perkTitle
-        newPerk.totalHours = Float(String(format: "%.1f", totalHours))!
-        newPerk.lvl = lvl
-        newPerk.progress = progress
-        newPerk.toNextLvl = Float(String(format: "%.1f", toNextLvlInHours))!
-    }
     
-    static func calculatePerkDataFromSession(totalSec: Int64) -> (Int64, Int64, Float, Int64) {
+    */
+    static func calculateDataFromSession(totalSec: Int64) -> (Int64, Int64, Float, Int64) {
         var lvl: Int64 = 0
-        var progress: Float = 0
+        var progress: Float = 0.0
         var toNextLvl: Int64 = 0
         
         let fiveSiH: Int64 = 5 * 3600

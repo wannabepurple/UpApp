@@ -19,7 +19,7 @@ final class MeController: BaseController {
         reloadTableView()
     }
     
-    ///
+    /// Refactor
     @IBAction func tapPlus(_ sender: Any) {
         let alert = UIAlertController(title: "Customize perk", message: nil, preferredStyle: .alert)
         alert.addTextField()
@@ -83,7 +83,6 @@ extension MeController {
         setTableViewConstraints()
         
         // Opt
-//        tableView.isScrollEnabled = false
         tableView.separatorStyle = .none
         tableView.layer.cornerRadius = Resources.Common.Sizes.cornerRadius20
         tableView.backgroundColor = Resources.Common.Colors.backgroundGray
@@ -105,8 +104,10 @@ extension MeController: UITableViewDelegate, UITableViewDataSource {
         cell.backgroundColor = Resources.Common.Colors.backgroundGray
         cell.selectionStyle = .none
         cell.contentView.isUserInteractionEnabled = false
+        
         cell.openSessionView = {
             let sessionView = SessionView()
+            sessionView.delegate = self
             sessionView.modalPresentationStyle = .automatic
             self.present(sessionView, animated: true)
         }
@@ -141,6 +142,18 @@ extension MeController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return Resources.MeController.PerkCell.cellFootHeight
+    }
+}
+
+extension MeController: ModalViewControllerDelegate {
+    func didDismissModalViewController() {
+        print("Modal view dismissed, reloading table view")
+
+        refetchData()
+        print("Modal view dismissed, reloading table view")
+
+        reloadTableView()
+        print("Modal view dismissed, reloading table view")
     }
 }
 
@@ -196,8 +209,6 @@ extension MeController {
         }
     }
 }
-///
-
 
 // MARK: Constraints
 extension MeController {

@@ -8,6 +8,7 @@ class PerkCell: UITableViewCell {
     let perk = UILabel()
     let lvl = UILabel()
     let toNextLvl = UILabel()
+    let totalHours = UILabel()
     let progress = UIProgressView()
     let startButton = UIButton()
     var openSessionView: (() -> Void)?
@@ -27,8 +28,8 @@ class PerkCell: UITableViewCell {
         perk.text = perkObj.perkTitle
         lvl.text = "lvl \(perkObj.lvl)"
         progress.progress = perkObj.progress
-        toNextLvl.text = "To next lvl: \(perkObj.toNextLvl) h"
-//    ADDME: totalHours
+        toNextLvl.text = "To next lvl -> \(perkObj.toNextLvl) h"
+        totalHours.text = "Total hours -> \(perkObj.totalHours)"
     } // entry point
 }
 
