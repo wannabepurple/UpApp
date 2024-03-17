@@ -50,11 +50,11 @@ final class MeController: BaseController {
         // Show alert
         self.present(alert, animated: true)
     }
-    ///
 }
 
-// MARK: Setup
+// MARK: UI
 extension MeController {
+    
     private func setAppearance() {
         // Avatar
         setTopView()
@@ -95,9 +95,9 @@ extension MeController {
     }
 }
 
-///
 // MARK: Delegates
 extension MeController: UITableViewDelegate, UITableViewDataSource {
+    // Core
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Cell configuration
         let cell = tableView.dequeueReusableCell(withIdentifier: Resources.MeController.PerkCell.cellIdentifier, for: indexPath) as! PerkCell
@@ -119,9 +119,7 @@ extension MeController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    ///
-    
-    // MARK: Sup
+    // Sup
     func numberOfSections(in tableView: UITableView) -> Int {
         return perks.count
     }
@@ -147,13 +145,8 @@ extension MeController: UITableViewDelegate, UITableViewDataSource {
 
 extension MeController: ModalViewControllerDelegate {
     func didDismissModalViewController() {
-        print("Modal view dismissed, reloading table view")
-
         refetchData()
-        print("Modal view dismissed, reloading table view")
-
         reloadTableView()
-        print("Modal view dismissed, reloading table view")
     }
 }
 

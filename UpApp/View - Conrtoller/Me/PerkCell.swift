@@ -1,7 +1,5 @@
 import UIKit
 
-
-
 // MARK: Core
 class PerkCell: UITableViewCell {
     let card = UIView()
@@ -28,8 +26,8 @@ class PerkCell: UITableViewCell {
         perk.text = perkObj.perkTitle
         lvl.text = "lvl \(perkObj.lvl)"
         progress.progress = perkObj.progress
-        toNextLvl.text = "To next lvl -> \(perkObj.toNextLvl) h"
-        totalHours.text = "Total hours -> \(perkObj.totalHours)"
+        toNextLvl.text = "To next lvl <-> \(perkObj.toNextLvl) h"
+        totalHours.text = "Total hours <-> \(perkObj.totalHours)"
     } // entry point
 }
 
@@ -42,18 +40,27 @@ extension PerkCell {
         addSubview(lvl)
         addSubview(toNextLvl)
         addSubview(startButton)
+        addSubview(totalHours)
 
+        // cardView
         setCard()
 
+        // progressLine
         setProgressLine()
 
+        // perkTitle
         Resources.Common.setLabel(label: perk, size: Resources.MeController.PerkCell.perkTitleFont, setPosition: setPerkConstraints)
         
+        // lvlLabel
         Resources.Common.setLabel(label: lvl, size: Resources.MeController.PerkCell.lvlFont,  setPosition: setLvlConstraints)
         
+        // toNextLvlLable
         Resources.Common.setLabel(label: toNextLvl, size: Resources.MeController.PerkCell.lvlFont, setPosition: setToNextLvlConstraints)
         
-        // startStopPauseButton
+        // totalHours
+        Resources.Common.setLabel(label: totalHours, size: Resources.Common.Sizes.font20, setPosition: setTotalHoursConstraints)
+        
+        // startButton
         Resources.Common.setButton(button: startButton, image: UIImage(named: "start"), backgroundColor: Resources.Common.Colors.green, setPosition: setStartButtonConstraints)
         startButton.addTarget(self, action: #selector(tapStart), for: .touchUpInside)
     }
@@ -82,6 +89,15 @@ extension PerkCell {
 
 // MARK: Constraints
 extension PerkCell {
+    private func setTotalHoursConstraints() {
+        totalHours.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            totalHours.bottomAnchor.constraint(equalTo: startButton.topAnchor, constant: -20),
+            totalHours.centerXAnchor.constraint(equalTo: centerXAnchor)
+        ])
+    }
+    
     private func setCardConstraints() {
         card.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

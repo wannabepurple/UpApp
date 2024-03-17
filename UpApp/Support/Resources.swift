@@ -17,7 +17,8 @@ enum Resources {
             static let cornerRadius10: CGFloat = 10
             static let cornerRadius20: CGFloat = 20
             
-            static let commonLabelFontSize: CGFloat = 20
+            static let font40: CGFloat = 40
+            static let font20: CGFloat = 20
         }
         
         enum Animations {
@@ -67,7 +68,7 @@ enum Resources {
         }
         
         static func setLabel(label: UILabel, 
-                             size: CGFloat = Resources.Common.Sizes.commonLabelFontSize,
+                             size: CGFloat = Resources.Common.Sizes.font20,
                              text: String = "",
                              backgroundColor: UIColor = Resources.Common.Colors.backgroundCard,
                              cornerRadius: CGFloat = Resources.Common.Sizes.cornerRadius10, 

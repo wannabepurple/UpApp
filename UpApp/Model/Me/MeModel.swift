@@ -8,18 +8,17 @@ class MeModel {
     // 0 0 : 0 0 : 0 0
     // 0 1 2 3 4 5 6 7
 //    static var totalHours: Float = Float("\(time[0])\(time[1])")! + Float("\(time[3])\(time[4])")! / 60
-    static var totalSec: Int64 = Int64("\(time[0])\(time[1])")! * 3600 + Int64("\(time[3])\(time[4])")! * 60 + Int64("\(time[6])\(time[7])")!
+    static var totalSecFromSession: Int64 = Int64("\(time[0])\(time[1])")! * 3600 + Int64("\(time[3])\(time[4])")! * 60 + Int64("\(time[6])\(time[7])")!
     
     static func createNewPerk(context: NSManagedObjectContext, perkTitle: String, time: Int64 = 0) {
         let newPerk = Perk(context: context)
         
-        let (lvl, progress, toNextLvl, totalHours): (Int64, Float, Float, Float) = (0, 0, 0, 0)
-        
         newPerk.perkTitle = perkTitle
         newPerk.totalHours = 0.0
-        newPerk.lvl = lvl
-        newPerk.progress = progress
+        newPerk.lvl = 0
+        newPerk.progress = 0.0
         newPerk.toNextLvl = 5.0
+        newPerk.totalSeconds = 0
         
         Perk.saveContext(context: context)
 
@@ -28,10 +27,11 @@ class MeModel {
     static func calculateAndSaveDataFromSession() {
         var perk: [Perk] = []
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
         Perk.fetchPerkWith(title: perkTitle, perk: &perk, context: context)
+        perk[0].totalSeconds += totalSecFromSession // update totalSeconds from all previous sessions in this perk
         
-        
-        let (totalSecReturned, lvl, progress, toNextLvl) = calculateDataFromSession(totalSec: totalSec)
+        let (totalSecReturned, lvl, progress, toNextLvl) = calculateDataFromSession(totalSeconds: perk[0].totalSeconds)
         let totalHours = Float(totalSecReturned) / 3600.0
         let toNextLvlInHours = Float(toNextLvl) / 3600.0
         
@@ -47,40 +47,10 @@ class MeModel {
     static func clearMeModel() {
         perkTitle = ""
         time = ""
-        totalSec = 0
+        totalSecFromSession = 0
     }
     
-    /*
-    static func addOrCreatePerk() {
-        var perk: [Perk] = []
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        
-        // Find match
-        Perk.fetchPerkWith(title: perkTitle, perk: &perk, context: context)
-        
-        // Perk is exists
-        if perk.count == 1 {
-            let totalSecWithPreviousSession = totalSec + Int64(perk[0].totalHours * 3600)
-            
-            let (totalSecReturned, lvl, progress, toNextLvl) = calculatePerkDataFromSession(totalSec: totalSecWithPreviousSession)
-            let totalHours = Float(totalSecReturned) / 3600.0
-            let toNextLvlInHours = Float(toNextLvl) / 3600.0
-            
-            perk[0].totalHours = Float(String(format: "%.1f", totalHours))!
-            perk[0].lvl = lvl
-            perk[0].progress = progress
-            perk[0].toNextLvl = Float(String(format: "%.1f", toNextLvlInHours))!
-            
-            Perk.saveContext(context: context)
-        } else {
-            createNewPerk(context: context, perkTitle: perkTitle, time: totalSec)
-            Perk.saveContext(context: context)
-        }
-    }
-    
-    
-    */
-    static func calculateDataFromSession(totalSec: Int64) -> (Int64, Int64, Float, Int64) {
+    static func calculateDataFromSession(totalSeconds: Int64) -> (Int64, Int64, Float, Int64) {
         var lvl: Int64 = 0
         var progress: Float = 0.0
         var toNextLvl: Int64 = 0
@@ -93,20 +63,20 @@ class MeModel {
         let fiftySiH: Int64 = 50 * 3600
         let fiftyFiveSiH: Int64 = 55 * 3600
         
-        switch totalSec {
+        switch totalSeconds {
         case 0..<fiveSiH: lvl = 0
         case fiveSiH..<fifteenSiH: lvl = 1
         case fifteenSiH..<thirtySiH: lvl = 2
         case thirtySiH..<fiftyFiveSiH: lvl = 3
-        default: lvl = Int64((totalSec - fiftyFiveSiH) / fiftySiH) + 4
+        default: lvl = Int64((totalSeconds - fiftyFiveSiH) / fiftySiH) + 4
         }
         
         switch lvl {
-        case 0: toNextLvl = fiveSiH - totalSec
-        case 1: toNextLvl = fifteenSiH - totalSec
-        case 2: toNextLvl = thirtySiH - totalSec
-        case 3: toNextLvl = fiftyFiveSiH - totalSec
-        default: toNextLvl = (lvl - 4) * fiftySiH + fiftyFiveSiH + fiftySiH - totalSec
+        case 0: toNextLvl = fiveSiH - totalSeconds
+        case 1: toNextLvl = fifteenSiH - totalSeconds
+        case 2: toNextLvl = thirtySiH - totalSeconds
+        case 3: toNextLvl = fiftyFiveSiH - totalSeconds
+        default: toNextLvl = (lvl - 4) * fiftySiH + fiftyFiveSiH + fiftySiH - totalSeconds
         }
         
         switch lvl {
@@ -117,11 +87,12 @@ class MeModel {
         default: progress = Float(fiftySiH - toNextLvl) / Float(fiftySiH)
         }
         
-        return (Int64(totalSec), Int64(lvl), progress, Int64(toNextLvl))
+        return (Int64(totalSeconds), Int64(lvl), progress, Int64(toNextLvl))
     }
 }
 
 class MeTimer {
+    
     static var wasPaused = false
     static var totalSeconds = 0
     static var timer: Timer?
@@ -134,7 +105,7 @@ class MeTimer {
         if timer == nil {
             timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
                 totalSeconds += 1
-                hours = totalSeconds / 3600
+                hours = 1 + totalSeconds / 3600
                 remainingMinutes = (totalSeconds % 3600) / 60
                 remainingSeconds = totalSeconds % 60
                 
