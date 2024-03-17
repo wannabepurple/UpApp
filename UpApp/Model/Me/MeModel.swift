@@ -21,7 +21,6 @@ class MeModel {
         newPerk.totalSeconds = 0
         
         Perk.saveContext(context: context)
-
     }
     
     static func calculateAndSaveDataFromSession() {

@@ -9,8 +9,6 @@ final class MeController: BaseController {
     private var perks: [Perk] = [] {
         didSet {
             print(perks.count)
-
-            reloadSections()
             reloadTableView()
         }
     }
@@ -124,6 +122,17 @@ extension MeController: UITableViewDelegate, UITableViewDataSource {
         return UIContextMenuConfiguration(actionProvider: { _ in self.cellMenu })
     }
     
+    /*
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.transform = CGAffineTransform(translationX: cell.contentView.frame.width, y: 0)
+        UIView.animate(withDuration: 0.5,
+                       delay: 0.05 * Double(indexPath.section),
+                       options: [.curveEaseInOut]) {
+            cell.transform = CGAffineTransform(translationX: 0, y: 0)
+        }
+    }
+    */
+    
     // Sup
     func numberOfSections(in tableView: UITableView) -> Int {
         return perks.count
@@ -159,30 +168,67 @@ extension MeController: ModalViewControllerDelegate {
 extension MeController {
     private func setCellMenu(indexPath: IndexPath) {
         
-        let renameTitle = NSAttributedString(string: "Rename", attributes: [NSAttributedString.Key.font: Resources.Common.futura(size: Resources.Common.Sizes.fon16)])
-        let rename = UIAction(title: "", image: UIImage(named: "rename")) { _ in }
+        // Rename
+        let renameTitle = Resources.Common.returnStringWithAttributes(title: "Rename")
+        let rename = UIAction(title: "", image: UIImage(named: "rename")) { _ in
+            let alertTitle = Resources.Common.returnStringWithAttributes(title: "Type a new perk title")
+            let alert = UIAlertController(title: "", message: nil, preferredStyle: .alert)
+            alert.setValue(alertTitle, forKey: "attributedTitle")
+            alert.addTextField()
+            
+            let submitButton = UIAlertAction(title: "Done", style: .default) { (action) in
+                let text = alert.textFields?[0].text!
+                if text != "" {
+                    self.perks[indexPath.section].perkTitle = text
+                    Perk.saveContext(context: self.context)
+                    Perk.fetchPerks(perks: &self.perks, context: self.context)
+                } else {
+                    print("Empty text field")
+                }
+            }
+            
+            alert.addAction(submitButton)
+            self.present(alert, animated: true)
+        }
         rename.setValue(renameTitle, forKey: "attributedTitle")
         
         
-        let recalculateTitle = NSAttributedString(string: "Recalculate", attributes: [NSAttributedString.Key.font: Resources.Common.futura(size: Resources.Common.Sizes.fon16)])
-        let recalculate = UIAction(title: "", image: UIImage(named: "session")) { _ in }
+        // Recalculate
+        let recalculateTitle = Resources.Common.returnStringWithAttributes(title: "Recalculation")
+        let recalculate = UIAction(title: "", image: UIImage(named: "session")) { _ in
+            let alertTitle = Resources.Common.returnStringWithAttributes(title: "Type the total hours")
+            let alert = UIAlertController(title: "", message: nil, preferredStyle: .alert)
+            alert.setValue(alertTitle, forKey: "attributedTitle")
+            alert.addTextField()
+
+            let submitButton = UIAlertAction(title: "Done", style: .default) { (action) in
+                if let text = Int64(alert.textFields![0].text!) {
+                    self.perks[indexPath.section].perkTitle = String(text)
+                    Perk.saveContext(context: self.context)
+                    Perk.fetchPerks(perks: &self.perks, context: self.context)
+                } else {
+                    print("Not time")
+                }
+            }
+            
+            alert.addAction(submitButton)
+            self.present(alert, animated: true)
+        }
         recalculate.setValue(recalculateTitle, forKey: "attributedTitle")
 
         
-        let deleteTitle = NSAttributedString(string: "Delete", attributes: [NSAttributedString.Key.font: Resources.Common.futura(size: Resources.Common.Sizes.fon16), NSAttributedString.Key.foregroundColor: Resources.Common.Colors.red])
+        // Delete
+        let deleteTitle = Resources.Common.returnStringWithAttributes(title: "Delete", color: Resources.Common.Colors.red)
         let delete = UIAction(title: " ", image: UIImage(named: "bin")?.withTintColor(Resources.Common.Colors.red)) { _ in
-            
             Perk.deletePerk(context: self.context, perkToRemove: self.perks[indexPath.section])
             Perk.saveContext(context: self.context)
             self.refetchData()
             
         }
         delete.setValue(deleteTitle, forKey: "attributedTitle")
-
         
         cellMenu = UIMenu(title: "", children: [rename, recalculate, delete])
     }
-
 }
 
 // MARK: Support
@@ -190,15 +236,17 @@ extension MeController {
     private func refetchData() {
         Perk.fetchPerks(perks: &perks, context: context)
     }
-    
+
     private func reloadTableView() {
-//        DispatchQueue.main.async {
+        DispatchQueue.main.async {
             self.tableView.reloadData()
-//        }
+        }
         
+        /*
         let cells = tableView.visibleCells
         let tableViewHeight = tableView.bounds.height
         var delay: Double = 0
+        
         
         for cell in cells {
             cell.transform = CGAffineTransform(translationX: 0, y: tableViewHeight)
@@ -207,16 +255,14 @@ extension MeController {
                            delay: delay * 0.05,
                            usingSpringWithDamping: 0.8,
                            initialSpringVelocity: 0,
-                           options: .curveEaseInOut) {
+                           options: .transitionCurlUp) {
                 cell.transform = CGAffineTransform.identity
             }
+            
             delay += 1
         }
-    }
-    
-    private func reloadSections() {
         
-        
+            */
     }
     
     /*

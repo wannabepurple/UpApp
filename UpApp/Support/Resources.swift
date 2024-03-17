@@ -1,4 +1,5 @@
 import UIKit
+import CoreData
 
 enum Resources {
     
@@ -17,7 +18,7 @@ enum Resources {
             static let cornerRadius10: CGFloat = 10
             static let cornerRadius20: CGFloat = 20
             
-            static let fon16: CGFloat = 16
+            static let font16: CGFloat = 16
             static let font40: CGFloat = 40
             static let font20: CGFloat = 20
         }
@@ -46,6 +47,15 @@ enum Resources {
                 
         static func setControllerAppearance(vc: UIViewController, title: String) {
             vc.title = title
+        }
+        
+        static func returnStringWithAttributes(title: String, color: UIColor? = nil) -> NSAttributedString {
+            if color != nil {
+                return NSAttributedString(string: title, attributes: [NSAttributedString.Key.font: Resources.Common.futura(size: Resources.Common.Sizes.font16), NSAttributedString.Key.foregroundColor: color!])
+            } else {
+                return NSAttributedString(string: title, attributes: [NSAttributedString.Key.font: Resources.Common.futura(size: Resources.Common.Sizes.font16)])
+            }
+            
         }
         
         static func setButton(button: UIButton, 
