@@ -5,9 +5,10 @@ final class MeController: BaseController {
     @IBOutlet weak var nick: UITextField!
     @IBOutlet weak var plusButton: UIButton!
     
-    var tableView = UITableView()
-    var perks: [Perk] = []
-    var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private var tableView = UITableView()
+    private var perks: [Perk] = []
+    private var cellMenu = UIMenu()
+    private var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +62,25 @@ extension MeController {
         
         // Table View
         setTableView()
+        
+        // Cell Menu
+        setCellMenu()
+    }
+    
+    private func setCellMenu() {
+        let renameTitle = NSAttributedString(string: "Rename", attributes: [NSAttributedString.Key.font: Resources.Common.futura(size: Resources.Common.Sizes.fon16)])
+        let rename = UIAction(title: "", image: UIImage(named: "rename")) { _ in }
+        rename.setValue(renameTitle, forKey: "attributedTitle")
+        
+        let recalculateTitle = NSAttributedString(string: "Recalculate", attributes: [NSAttributedString.Key.font: Resources.Common.futura(size: Resources.Common.Sizes.fon16)])
+        let recalculate = UIAction(title: "", image: UIImage(named: "session")) { _ in }
+        recalculate.setValue(recalculateTitle, forKey: "attributedTitle")
+
+        let deleteTitle = NSAttributedString(string: "Delete", attributes: [NSAttributedString.Key.font: Resources.Common.futura(size: Resources.Common.Sizes.fon16), NSAttributedString.Key.foregroundColor: Resources.Common.Colors.red])
+        let delete = UIAction(title: " ", image: UIImage(named: "bin")?.withTintColor(Resources.Common.Colors.red)) { _ in }
+        delete.setValue(deleteTitle, forKey: "attributedTitle")
+
+        cellMenu = UIMenu(title: "", children: [rename, recalculate, delete])
     }
     
     private func setTopView() {
@@ -97,6 +117,7 @@ extension MeController {
 
 // MARK: Delegates
 extension MeController: UITableViewDelegate, UITableViewDataSource {
+    
     // Core
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Cell configuration
@@ -104,6 +125,7 @@ extension MeController: UITableViewDelegate, UITableViewDataSource {
         cell.backgroundColor = Resources.Common.Colors.backgroundGray
         cell.selectionStyle = .none
         cell.contentView.isUserInteractionEnabled = false
+        cell.layer.cornerRadius = Resources.Common.Sizes.cornerRadius20
         
         cell.openSessionView = {
             let sessionView = SessionView()
@@ -117,6 +139,10 @@ extension MeController: UITableViewDelegate, UITableViewDataSource {
         cell.set(perkObj: perk) // entry point
             
         return cell
+    }
+     
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        UIContextMenuConfiguration(actionProvider: { _ in self.cellMenu })
     }
     
     // Sup
@@ -144,6 +170,7 @@ extension MeController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension MeController: ModalViewControllerDelegate {
+    // Method starts when modal view did dissapear
     func didDismissModalViewController() {
         refetchData()
         reloadTableView()
@@ -151,6 +178,10 @@ extension MeController: ModalViewControllerDelegate {
 }
 
 // MARK: Actions
+extension MeController {
+    
+}
+
 
 // MARK: Support
 extension MeController {

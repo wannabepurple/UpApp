@@ -17,6 +17,7 @@ enum Resources {
             static let cornerRadius10: CGFloat = 10
             static let cornerRadius20: CGFloat = 20
             
+            static let fon16: CGFloat = 16
             static let font40: CGFloat = 40
             static let font20: CGFloat = 20
         }

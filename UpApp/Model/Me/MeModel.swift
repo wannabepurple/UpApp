@@ -7,10 +7,10 @@ class MeModel {
     
     // 0 0 : 0 0 : 0 0
     // 0 1 2 3 4 5 6 7
-//    static var totalHours: Float = Float("\(time[0])\(time[1])")! + Float("\(time[3])\(time[4])")! / 60
     static var totalSecFromSession: Int64 = Int64("\(time[0])\(time[1])")! * 3600 + Int64("\(time[3])\(time[4])")! * 60 + Int64("\(time[6])\(time[7])")!
     
     static func createNewPerk(context: NSManagedObjectContext, perkTitle: String, time: Int64 = 0) {
+        
         let newPerk = Perk(context: context)
         
         newPerk.perkTitle = perkTitle
@@ -92,7 +92,6 @@ class MeModel {
 }
 
 class MeTimer {
-    
     static var wasPaused = false
     static var totalSeconds = 0
     static var timer: Timer?

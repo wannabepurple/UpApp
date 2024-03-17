@@ -144,33 +144,7 @@ extension PerkCell {
             toNextLvl.topAnchor.constraint(equalTo: progress.bottomAnchor, constant: 10)
         ])
     }
-
-    /*
-    private func setTimerLabelConstraints() {
-            timerLabel.translatesAutoresizingMaskIntoConstraints = false
-            
-            NSLayoutConstraint.activate([
-                timerLabel.bottomAnchor.constraint(equalTo: startButton.topAnchor, constant: -20),
-                timerLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-                timerLabel.heightAnchor.constraint(equalToConstant: 50),
-                timerLabel.widthAnchor.constraint(equalToConstant: 170)
-            ])
-    }
-     private func setStopButtonConstraints() {
-         stopButton.translatesAutoresizingMaskIntoConstraints = false
-         
-         NSLayoutConstraint.activate([
-             stopButton.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -10),
-             stopButton.leadingAnchor.constraint(equalTo: startButton.trailingAnchor, constant: 10),
-             stopButton.widthAnchor.constraint(equalToConstant: 50),
-             stopButton.heightAnchor.constraint(equalToConstant: 50)
-         ])
-     }
-     
     
-     
-     
-    */
     private func setStartButtonConstraints() {
         startButton.translatesAutoresizingMaskIntoConstraints = false
         
