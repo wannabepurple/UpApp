@@ -6,7 +6,12 @@ final class MeController: BaseController {
     @IBOutlet weak var plusButton: UIButton!
     
     private var tableView = UITableView()
-    private var perks: [Perk] = []
+    private var perks: [Perk] = [] {
+        didSet {
+//            reloadSections()
+            reloadTableView()
+        }
+    }
     private var cellMenu = UIMenu()
     private var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -32,17 +37,8 @@ final class MeController: BaseController {
             
             // Create new perk
             // ADDME: Нулевая строка
-            MeModel.createNewPerk(context: self.context, perkTitle: title.text!, time: Int64(seconds.text!)!) // FIXME
-            
-            // Save data
-            Perk.saveContext(context: self.context)
-            
-            // Refetch data to upd perks
+            MeModel.createNewPerk(context: self.context, perkTitle: title.text!, time: Int64(seconds.text!)!)
             self.refetchData()
-            
-            self.tableView.beginUpdates()
-            self.tableView.insertSections(IndexSet(integer: self.perks.count - 1), with: .left)
-            self.tableView.endUpdates()
         }
         
         // Add Done button
@@ -62,25 +58,6 @@ extension MeController {
         
         // Table View
         setTableView()
-        
-        // Cell Menu
-        setCellMenu()
-    }
-    
-    private func setCellMenu() {
-        let renameTitle = NSAttributedString(string: "Rename", attributes: [NSAttributedString.Key.font: Resources.Common.futura(size: Resources.Common.Sizes.fon16)])
-        let rename = UIAction(title: "", image: UIImage(named: "rename")) { _ in }
-        rename.setValue(renameTitle, forKey: "attributedTitle")
-        
-        let recalculateTitle = NSAttributedString(string: "Recalculate", attributes: [NSAttributedString.Key.font: Resources.Common.futura(size: Resources.Common.Sizes.fon16)])
-        let recalculate = UIAction(title: "", image: UIImage(named: "session")) { _ in }
-        recalculate.setValue(recalculateTitle, forKey: "attributedTitle")
-
-        let deleteTitle = NSAttributedString(string: "Delete", attributes: [NSAttributedString.Key.font: Resources.Common.futura(size: Resources.Common.Sizes.fon16), NSAttributedString.Key.foregroundColor: Resources.Common.Colors.red])
-        let delete = UIAction(title: " ", image: UIImage(named: "bin")?.withTintColor(Resources.Common.Colors.red)) { _ in }
-        delete.setValue(deleteTitle, forKey: "attributedTitle")
-
-        cellMenu = UIMenu(title: "", children: [rename, recalculate, delete])
     }
     
     private func setTopView() {
@@ -122,7 +99,7 @@ extension MeController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Cell configuration
         let cell = tableView.dequeueReusableCell(withIdentifier: Resources.MeController.PerkCell.cellIdentifier, for: indexPath) as! PerkCell
-        cell.backgroundColor = Resources.Common.Colors.backgroundGray
+        cell.backgroundColor = Resources.Common.Colors.backgroundCard
         cell.selectionStyle = .none
         cell.contentView.isUserInteractionEnabled = false
         cell.layer.cornerRadius = Resources.Common.Sizes.cornerRadius20
@@ -133,16 +110,16 @@ extension MeController: UITableViewDelegate, UITableViewDataSource {
             sessionView.modalPresentationStyle = .automatic
             self.present(sessionView, animated: true)
         }
-        
+            
         // Labels, progress
         let perk = perks[indexPath.section]
         cell.set(perkObj: perk) // entry point
-            
         return cell
     }
      
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        UIContextMenuConfiguration(actionProvider: { _ in self.cellMenu })
+        setCellMenu(indexPath: indexPath)
+        return UIContextMenuConfiguration(actionProvider: { _ in self.cellMenu })
     }
     
     // Sup
@@ -173,15 +150,38 @@ extension MeController: ModalViewControllerDelegate {
     // Method starts when modal view did dissapear
     func didDismissModalViewController() {
         refetchData()
-        reloadTableView()
     }
 }
 
 // MARK: Actions
 extension MeController {
-    
-}
+    private func setCellMenu(indexPath: IndexPath) {
+        
+        let renameTitle = NSAttributedString(string: "Rename", attributes: [NSAttributedString.Key.font: Resources.Common.futura(size: Resources.Common.Sizes.fon16)])
+        let rename = UIAction(title: "", image: UIImage(named: "rename")) { _ in }
+        rename.setValue(renameTitle, forKey: "attributedTitle")
+        
+        
+        let recalculateTitle = NSAttributedString(string: "Recalculate", attributes: [NSAttributedString.Key.font: Resources.Common.futura(size: Resources.Common.Sizes.fon16)])
+        let recalculate = UIAction(title: "", image: UIImage(named: "session")) { _ in }
+        recalculate.setValue(recalculateTitle, forKey: "attributedTitle")
 
+        
+        let deleteTitle = NSAttributedString(string: "Delete", attributes: [NSAttributedString.Key.font: Resources.Common.futura(size: Resources.Common.Sizes.fon16), NSAttributedString.Key.foregroundColor: Resources.Common.Colors.red])
+        let delete = UIAction(title: " ", image: UIImage(named: "bin")?.withTintColor(Resources.Common.Colors.red)) { _ in
+            
+            Perk.deletePerk(context: self.context, perkToRemove: self.perks[indexPath.section])
+            Perk.saveContext(context: self.context)
+            self.refetchData()
+            
+        }
+        delete.setValue(deleteTitle, forKey: "attributedTitle")
+
+        
+        cellMenu = UIMenu(title: "", children: [rename, recalculate, delete])
+    }
+
+}
 
 // MARK: Support
 extension MeController {
@@ -195,6 +195,12 @@ extension MeController {
         }
     }
     
+    private func reloadSections() {
+        print(perks.count)
+        tableView.reloadSections(IndexSet(0..<perks.count), with: .fade)
+    }
+    
+    /*
     private func deleteCell(section: Int) {
         guard section < self.perks.count else {
             print("error in \(section)")
@@ -232,7 +238,10 @@ extension MeController {
             }
         }
     }
+     */
+     
 }
+     
 
 // MARK: Constraints
 extension MeController {
@@ -246,6 +255,4 @@ extension MeController {
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
     }
-   
 }
-

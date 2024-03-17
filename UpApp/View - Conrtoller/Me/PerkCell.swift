@@ -2,7 +2,6 @@ import UIKit
 
 // MARK: Core
 class PerkCell: UITableViewCell {
-    let card = UIView()
     let perk = UILabel()
     let lvl = UILabel()
     let toNextLvl = UILabel()
@@ -10,9 +9,7 @@ class PerkCell: UITableViewCell {
     let progress = UIProgressView()
     let startButton = UIButton()
     var openSessionView: (() -> Void)?
-    
-    var cardConstrSmall: [NSLayoutConstraint] = []
-    
+        
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setAppearance()
@@ -34,16 +31,12 @@ class PerkCell: UITableViewCell {
 // MARK: UI
 extension PerkCell {
     private func setAppearance() {
-        addSubview(card)
         addSubview(perk)
         addSubview(progress)
         addSubview(lvl)
         addSubview(toNextLvl)
         addSubview(startButton)
         addSubview(totalHours)
-
-        // cardView
-        setCard()
 
         // progressLine
         setProgressLine()
@@ -65,12 +58,6 @@ extension PerkCell {
         startButton.addTarget(self, action: #selector(tapStart), for: .touchUpInside)
     }
     
-    private func setCard() {
-        setCardConstraints()
-        card.backgroundColor = Resources.Common.Colors.backgroundCard
-        card.layer.cornerRadius = Resources.Common.Sizes.cornerRadius20
-    }
-
     private func setProgressLine() {
         setProgressConstraints()
         progress.layer.cornerRadius = Resources.Common.Sizes.cornerRadius10
@@ -95,16 +82,6 @@ extension PerkCell {
         NSLayoutConstraint.activate([
             totalHours.bottomAnchor.constraint(equalTo: startButton.topAnchor, constant: -20),
             totalHours.centerXAnchor.constraint(equalTo: centerXAnchor)
-        ])
-    }
-    
-    private func setCardConstraints() {
-        card.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            card.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-            card.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            card.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
-            card.heightAnchor.constraint(equalToConstant: Resources.MeController.PerkCell.cellHeight)
         ])
     }
 
@@ -150,12 +127,11 @@ extension PerkCell {
         
         NSLayoutConstraint.activate([
             startButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            startButton.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -10),
+            startButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
             startButton.heightAnchor.constraint(equalToConstant: 50),
             startButton.widthAnchor.constraint(equalToConstant: 50)
         ])
     }
-    
     
 }
 
