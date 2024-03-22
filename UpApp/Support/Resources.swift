@@ -24,7 +24,7 @@ enum Resources {
         }
         
         enum Animations {
-            static func changeButtonVisibility(button: UIButton, willHidden: Bool) {
+            static func changeElementVisibility(button: UIButton, willHidden: Bool) {
                 UIView.transition(with: button, duration: 0.2, options: .transitionCrossDissolve, animations: {
                     button.alpha = willHidden ? 0.0 : 1.0
                 }, completion: nil)

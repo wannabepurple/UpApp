@@ -10,15 +10,16 @@ class MeModel {
     static var totalSecFromSession: Int64 = Int64("\(time[0])\(time[1])")! * 3600 + Int64("\(time[3])\(time[4])")! * 60 + Int64("\(time[6])\(time[7])")!
     
     static func createNewPerk(context: NSManagedObjectContext, perkTitle: String, time: Int64 = 0) {
-        
         let newPerk = Perk(context: context)
         
+        let (totalSecondsNewPerk, totalHoursNewPerk, lvlNewPerk, progressNewPerk, toNextLvlNewPerk) = calculatePerkInfo(totalSeconds: time)
+                
         newPerk.perkTitle = perkTitle
-        newPerk.totalHours = 0.0
-        newPerk.lvl = 0
-        newPerk.progress = 0.0
-        newPerk.toNextLvl = 5.0
-        newPerk.totalSeconds = 0
+        newPerk.totalHours = totalHoursNewPerk
+        newPerk.lvl = lvlNewPerk
+        newPerk.progress = progressNewPerk
+        newPerk.toNextLvl = toNextLvlNewPerk
+        newPerk.totalSeconds = totalSecondsNewPerk
         
         Perk.saveContext(context: context)
     }
@@ -30,15 +31,13 @@ class MeModel {
         Perk.fetchPerkWith(title: perkTitle, perk: &perk, context: context)
         perk[0].totalSeconds += totalSecFromSession // update totalSeconds from all previous sessions in this perk
         
-        let (totalSecReturned, lvl, progress, toNextLvl) = calculateDataFromSession(totalSeconds: perk[0].totalSeconds)
-        let totalHours = Float(totalSecReturned) / 3600.0
-        let toNextLvlInHours = Float(toNextLvl) / 3600.0
+        let (totalSecondsFromSession, totalHoursFromSession, lvlFromSession, progressFromSession, toNextLvlFromSession) = calculatePerkInfo(totalSeconds: perk[0].totalSeconds)
         
         perk[0].perkTitle = perkTitle
-        perk[0].totalHours = Float(String(format: "%.1f", totalHours))!
-        perk[0].lvl = lvl
-        perk[0].progress = progress
-        perk[0].toNextLvl = Float(String(format: "%.1f", toNextLvlInHours))!
+        perk[0].totalHours = totalHoursFromSession
+        perk[0].lvl = lvlFromSession
+        perk[0].progress = progressFromSession
+        perk[0].toNextLvl = toNextLvlFromSession
         
         Perk.saveContext(context: context)
     }
@@ -49,10 +48,13 @@ class MeModel {
         totalSecFromSession = 0
     }
     
-    static func calculateDataFromSession(totalSeconds: Int64) -> (Int64, Int64, Float, Int64) {
+    static func calculatePerkInfo(totalSeconds: Int64) -> (Int64, Float, Int64, Float, Float) {
         var lvl: Int64 = 0
         var progress: Float = 0.0
         var toNextLvl: Int64 = 0
+        var totalHours: Float = 0.0
+        var toNextLvlInHours: Float = 0.0
+        
         
         let fiveSiH: Int64 = 5 * 3600
         let tenSiH: Int64 = 10 * 3600
@@ -86,7 +88,10 @@ class MeModel {
         default: progress = Float(fiftySiH - toNextLvl) / Float(fiftySiH)
         }
         
-        return (Int64(totalSeconds), Int64(lvl), progress, Int64(toNextLvl))
+        totalHours = Float(String(format: "%.1f", Float(totalSeconds) / 3600.0))!
+        toNextLvlInHours = Float(String(format: "%.1f", Float(toNextLvl) / 3600.0))!
+        
+        return (Int64(totalSeconds), totalHours, Int64(lvl), progress, toNextLvlInHours)
     }
 }
 
@@ -103,7 +108,7 @@ class MeTimer {
         if timer == nil {
             timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
                 totalSeconds += 1
-                hours = 1 + totalSeconds / 3600
+                hours = totalSeconds / 3600
                 remainingMinutes = (totalSeconds % 3600) / 60
                 remainingSeconds = totalSeconds % 60
                 

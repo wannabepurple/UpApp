@@ -4,11 +4,11 @@ final class MeController: BaseController {
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var nick: UITextField!
     @IBOutlet weak var plusButton: UIButton!
-    
+
+    private let incorrectDataLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 50))
     private var tableView = UITableView()
     private var perks: [Perk] = [] {
         didSet {
-            print(perks.count)
             reloadTableView()
         }
     }
@@ -27,18 +27,56 @@ final class MeController: BaseController {
     
     /// Refactor
     @IBAction func tapPlus(_ sender: Any) {
-        let alert = UIAlertController(title: "Customize perk", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Customize your perk", message: nil, preferredStyle: .alert)
         alert.addTextField()
         alert.addTextField()
+        alert.textFields![0].placeholder = "Name of the perk (ex: Perk)"
+        alert.textFields![1].placeholder = "Hours, spent on this perk (ex: 45.3)"
+
         
         let submitButton = UIAlertAction(title: "Done", style: .default) { (action) in
-            let title = alert.textFields![0]
-            let seconds = alert.textFields![1]
+            let perkTitleTextField = alert.textFields![0]
+            let totalHoursTextField = alert.textFields![1]
             
             // Create new perk
-            // ADDME: Нулевая строка
-            MeModel.createNewPerk(context: self.context, perkTitle: title.text!, time: Int64(seconds.text!)!)
-            self.refetchData()
+            var incorrectDataFlag = false
+            if perkTitleTextField.text != "" && totalHoursTextField.text != "" {
+                var checkPerk: [Perk] = []
+                Perk.fetchPerkWith(title: perkTitleTextField.text!, perk: &checkPerk, context: self.context)
+                
+                if checkPerk.count > 0 {
+                    incorrectDataFlag = true
+                } else if let hours = Float(totalHoursTextField.text!) {
+                    if hours > 10100 {
+                        print("Too many hours")
+                    } else {
+                        let totalSecondsFromTextField = Int64(hours * 3600)
+                        
+                        MeModel.createNewPerk(context: self.context, perkTitle: perkTitleTextField.text!, time: totalSecondsFromTextField)
+                        self.refetchData()
+                    }
+                } else {
+                    incorrectDataFlag = true
+                }
+            } else {
+                incorrectDataFlag = true
+            }
+            
+            if incorrectDataFlag {
+                self.setWarningLabel()
+                
+                
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.incorrectDataLabel.alpha = 1
+                }) { _ in
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        UIView.animate(withDuration: 0.5) {
+                            self.incorrectDataLabel.alpha = 0
+                        }
+                    }
+                }
+
+            }
         }
         
         // Add Done button
@@ -90,6 +128,29 @@ extension MeController {
         tableView.delegate = self
         tableView.dataSource = self
     }
+    
+    private func setWarningLabel() {
+        incorrectDataLabel.textAlignment = .center
+        incorrectDataLabel.backgroundColor = Resources.Common.Colors.purple
+        incorrectDataLabel.text = "Incorrect data or perk duplicate"
+        incorrectDataLabel.layer.masksToBounds = true
+        incorrectDataLabel.layer.cornerRadius = Resources.Common.Sizes.cornerRadius20
+        incorrectDataLabel.numberOfLines = 2
+        incorrectDataLabel.font = Resources.Common.futura(size: Resources.Common.Sizes.font16)
+        incorrectDataLabel.textColor = Resources.Common.Colors.backgroundCard
+        incorrectDataLabel.alpha = 0
+        incorrectDataLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.view.addSubview(incorrectDataLabel)
+
+        NSLayoutConstraint.activate([
+            incorrectDataLabel.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            incorrectDataLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
+            incorrectDataLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
+            incorrectDataLabel.heightAnchor.constraint(equalToConstant: 50)])
+    }
+    
+
 }
 
 // MARK: Delegates
@@ -121,17 +182,6 @@ extension MeController: UITableViewDelegate, UITableViewDataSource {
         setCellMenu(indexPath: indexPath)
         return UIContextMenuConfiguration(actionProvider: { _ in self.cellMenu })
     }
-    
-    /*
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.transform = CGAffineTransform(translationX: cell.contentView.frame.width, y: 0)
-        UIView.animate(withDuration: 0.5,
-                       delay: 0.05 * Double(indexPath.section),
-                       options: [.curveEaseInOut]) {
-            cell.transform = CGAffineTransform(translationX: 0, y: 0)
-        }
-    }
-    */
     
     // Sup
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -241,70 +291,7 @@ extension MeController {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
-        
-        /*
-        let cells = tableView.visibleCells
-        let tableViewHeight = tableView.bounds.height
-        var delay: Double = 0
-        
-        
-        for cell in cells {
-            cell.transform = CGAffineTransform(translationX: 0, y: tableViewHeight)
-            
-            UIView.animate(withDuration: 1.5,
-                           delay: delay * 0.05,
-                           usingSpringWithDamping: 0.8,
-                           initialSpringVelocity: 0,
-                           options: .transitionCurlUp) {
-                cell.transform = CGAffineTransform.identity
-            }
-            
-            delay += 1
-        }
-        
-            */
     }
-    
-    /*
-    private func deleteCell(section: Int) {
-        guard section < self.perks.count else {
-            print("error in \(section)")
-            return }
-        
-        // Which perk to remove
-        let perkToRemove = self.perks[section]
-        
-        // Remove the perk
-        Perk.deletePerk(context: self.context, perkToRemove: perkToRemove)
-        
-        // Save the data
-        Perk.saveContext(context: self.context)
-        
-        // Set up the animation
-        tableView.beginUpdates()
-        
-        // Remove the corresponding section
-        UIView.animate(withDuration: 0.3) {
-            self.tableView.deleteSections(IndexSet(integer: section), with: .automatic)
-        }
-        
-        // Remove the perk from the array
-        self.perks.remove(at: section)
-        
-        // End the animation
-        tableView.endUpdates()
-        
-        // Reload
-        let sectionsToUpdate = IndexSet(integersIn: 0..<self.tableView.numberOfSections)
-        
-        UIView.animate(withDuration: 10) {
-            DispatchQueue.main.async {
-                self.tableView.reloadSections(sectionsToUpdate, with: .fade)
-            }
-        }
-    }
-     */
-     
 }
      
 
@@ -314,10 +301,10 @@ extension MeController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 20),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+            tableView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 10),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10)
         ])
     }
 }
