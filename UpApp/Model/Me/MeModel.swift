@@ -12,14 +12,14 @@ class MeModel {
     static func createNewPerk(context: NSManagedObjectContext, perkTitle: String, time: Int64 = 0) {
         let newPerk = Perk(context: context)
         
-        let (totalSecondsNewPerk, totalHoursNewPerk, lvlNewPerk, progressNewPerk, toNextLvlNewPerk) = calculatePerkInfo(totalSeconds: time)
+        let (totalHoursNewPerk, lvlNewPerk, progressNewPerk, toNextLvlNewPerk) = calculatePerkInfo(totalSeconds: time)
                 
         newPerk.perkTitle = perkTitle
         newPerk.totalHours = totalHoursNewPerk
         newPerk.lvl = lvlNewPerk
         newPerk.progress = progressNewPerk
         newPerk.toNextLvl = toNextLvlNewPerk
-        newPerk.totalSeconds = totalSecondsNewPerk
+        newPerk.totalSeconds = time
         
         Perk.saveContext(context: context)
     }
@@ -31,7 +31,7 @@ class MeModel {
         Perk.fetchPerkWith(title: perkTitle, perk: &perk, context: context)
         perk[0].totalSeconds += totalSecFromSession // update totalSeconds from all previous sessions in this perk
         
-        let (totalSecondsFromSession, totalHoursFromSession, lvlFromSession, progressFromSession, toNextLvlFromSession) = calculatePerkInfo(totalSeconds: perk[0].totalSeconds)
+        let (totalHoursFromSession, lvlFromSession, progressFromSession, toNextLvlFromSession) = calculatePerkInfo(totalSeconds: perk[0].totalSeconds)
         
         perk[0].perkTitle = perkTitle
         perk[0].totalHours = totalHoursFromSession
@@ -42,13 +42,20 @@ class MeModel {
         Perk.saveContext(context: context)
     }
   
-    static func recalculateData(context: NSManagedObjectContext, perk: Perk, correctHours: Int64) {
-        let correctSeconds = correctHours * 3600
-        let (_, totalHoursNewPerk, lvlNewPerk, progressNewPerk, toNextLvlNewPerk) = calculatePerkInfo(totalSeconds: correctSeconds)
+    static func recalculateData(context: NSManagedObjectContext, perk: inout Perk, correctHours: Float) {
+        let correctSeconds = Int64(correctHours * 3600)
+        let (correctHours, correctLvl, correctProgress, correctToNextLvl) = calculatePerkInfo(totalSeconds: correctSeconds)
         
+        perk.totalSeconds = correctSeconds
+        perk.totalHours = correctHours
+        perk.lvl = correctLvl
+        perk.progress = correctProgress
+        perk.toNextLvl = correctToNextLvl
+        
+        Perk.saveContext(context: context)
     }
     
-    static func calculatePerkInfo(totalSeconds: Int64) -> (Int64, Float, Int64, Float, Float) {
+    static func calculatePerkInfo(totalSeconds: Int64) -> (Float, Int64, Float, Float) {
         var lvl: Int64 = 0
         var progress: Float = 0.0
         var toNextLvl: Int64 = 0
@@ -91,7 +98,7 @@ class MeModel {
         totalHours = Float(String(format: "%.1f", Float(totalSeconds) / 3600.0))!
         toNextLvlInHours = Float(String(format: "%.1f", Float(toNextLvl) / 3600.0))!
         
-        return (Int64(totalSeconds), totalHours, Int64(lvl), progress, toNextLvlInHours)
+        return (totalHours, Int64(lvl), progress, toNextLvlInHours)
     }
     
     static func clearMeModel() {

@@ -257,7 +257,8 @@ extension MeController {
                 if hours == nil || hours! < 0 {
                     self.showIncorrectDataLabel()
                 } else {
-                    
+                    MeModel.recalculateData(context: self.context, perk: &self.perks[indexPath.section], correctHours: hours!)
+                    self.refetchData()
                 }
 //                    self.perks[indexPath.section].perkTitle = String(text)
 //                    Perk.saveContext(context: self.context)
