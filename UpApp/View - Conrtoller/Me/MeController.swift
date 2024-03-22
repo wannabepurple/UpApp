@@ -1,10 +1,11 @@
 import UIKit
 
 final class MeController: BaseController {
-    @IBOutlet weak var topView: UIView!
-    @IBOutlet weak var nick: UITextField!
-    @IBOutlet weak var plusButton: UIButton!
-
+//    @IBOutlet weak var topView: UIView!
+//    @IBOutlet weak var nick: UITextField!
+//    @IBOutlet weak var plusButton: UIButton!
+    
+    private let addPerkButton = UIButton()
     private let incorrectDataLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 50))
     private var tableView = UITableView()
     private var perks: [Perk] = [] {
@@ -24,82 +25,19 @@ final class MeController: BaseController {
         refetchData()
         reloadTableView()
     }
-    
-    @IBAction func tapPlus(_ sender: Any) {
-        let alert = UIAlertController(title: "", message: nil, preferredStyle: .alert)
-        DispatchQueue.main.async {
-            alert.addTextField { tf in
-                tf.placeholder = "Perk title"
-                tf.delegate = self
-            }
-            alert.addTextField { tf in
-                tf.placeholder = "Spent hours (ex: 45.3)"
-                tf.delegate = self
-            }
-        }
-        alert.setValue(Resources.Common.returnStringWithAttributes(title: "Customize your perk"), forKey: "attributedTitle")
-        
-        let submitButton = UIAlertAction(title: "Done", style: .default) { (action) in
-            let perkTitleTextField = alert.textFields![0]
-            let totalHoursTextField = alert.textFields![1]
-            
-            // Create new perk
-            var incorrectDataFlag = false
-            
-            var checkPerk: [Perk] = []
-            Perk.fetchPerkWith(title: perkTitleTextField.text!, perk: &checkPerk, context: self.context)
-            
-            if Float(totalHoursTextField.text!) == nil || Float(totalHoursTextField.text!)! < 0 ||
-                perkTitleTextField.text == "" ||
-                totalHoursTextField.text == "" ||
-                checkPerk.count > 0 {
-                incorrectDataFlag = true
-            } else {
-                let totalSecondsFromTextField = Int64(Float(totalHoursTextField.text!)! * 3600)
-                
-                MeModel.createNewPerk(context: self.context, perkTitle: perkTitleTextField.text!, time: totalSecondsFromTextField)
-                self.refetchData()
-            }
-            
-            
-            // insert here
-            if incorrectDataFlag {
-                self.showIncorrectDataLabel()
-            }
-        }
-        
-        // Add Done button
-        alert.addAction(submitButton)
-        
-        // Show alert
-        self.present(alert, animated: true)
-    }
 }
 
 // MARK: UI
 extension MeController {
     
     private func setAppearance() {
-        // Avatar
-        setTopView()
+        setAddPerkButton()
         
         // Table View
         setTableView()
         
         // Warning
         setWarningLabel()
-    }
-    
-    private func setTopView() {
-        Resources.Common.setButton(button: plusButton, image: nil, backgroundColor: Resources.Common.Colors.green)
-
-        // Nick
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGesture))
-        view.addGestureRecognizer(tapGesture)
-    }
-    
-    @objc private func tapGesture() {
-        nick.resignFirstResponder()
     }
     
     private func setTableView() {
@@ -141,8 +79,6 @@ extension MeController {
             incorrectDataLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
             incorrectDataLabel.heightAnchor.constraint(equalToConstant: 50)])
     }
-    
-
 }
 
 // MARK: Delegates
@@ -260,15 +196,7 @@ extension MeController {
                     MeModel.recalculateData(context: self.context, perk: &self.perks[indexPath.section], correctHours: hours!)
                     self.refetchData()
                 }
-//                    self.perks[indexPath.section].perkTitle = String(text)
-//                    Perk.saveContext(context: self.context)
-//                    Perk.fetchPerks(perks: &self.perks, context: self.context)
-//                } else {
-//                    print("Not time")
-//                }
             }
-            
-            
             
             alert.addAction(submitButton)
             self.present(alert, animated: true)
@@ -285,6 +213,63 @@ extension MeController {
         delete.setValue(Resources.Common.returnStringWithAttributes(title: "Delete", color: Resources.Common.Colors.red), forKey: "attributedTitle")
         
         cellMenu = UIMenu(title: "", children: [rename, recalculate, delete])
+    }
+    
+    private func setAddPerkButton() {
+        view.addSubview(addPerkButton)
+        Resources.Common.setButton(button: addPerkButton, image: nil, backgroundColor: Resources.Common.Colors.green, setPosition: setAddPerkButtonConstraints)
+        addPerkButton.setTitle("Add perk +", for: .normal)
+        addPerkButton.addTarget(self, action: #selector(tapAddPerk), for: .touchUpInside)
+    }
+
+    @objc func tapAddPerk() {
+        let alert = UIAlertController(title: "", message: nil, preferredStyle: .alert)
+        DispatchQueue.main.async {
+            alert.addTextField { tf in
+                tf.placeholder = "Perk title"
+                tf.delegate = self
+            }
+            alert.addTextField { tf in
+                tf.placeholder = "Spent hours (ex: 45.3)"
+                tf.delegate = self
+            }
+        }
+        alert.setValue(Resources.Common.returnStringWithAttributes(title: "Customize your perk"), forKey: "attributedTitle")
+        
+        let submitButton = UIAlertAction(title: "Done", style: .default) { (action) in
+            let perkTitleTextField = alert.textFields![0]
+            let totalHoursTextField = alert.textFields![1]
+            
+            // Create new perk
+            var incorrectDataFlag = false
+            
+            var checkPerk: [Perk] = []
+            Perk.fetchPerkWith(title: perkTitleTextField.text!, perk: &checkPerk, context: self.context)
+            
+            if Float(totalHoursTextField.text!) == nil || Float(totalHoursTextField.text!)! < 0 ||
+                perkTitleTextField.text == "" ||
+                totalHoursTextField.text == "" ||
+                checkPerk.count > 0 {
+                incorrectDataFlag = true
+            } else {
+                let totalSecondsFromTextField = Int64(Float(totalHoursTextField.text!)! * 3600)
+                
+                MeModel.createNewPerk(context: self.context, perkTitle: perkTitleTextField.text!, time: totalSecondsFromTextField)
+                self.refetchData()
+            }
+            
+            
+            // insert here
+            if incorrectDataFlag {
+                self.showIncorrectDataLabel()
+            }
+        }
+        
+        // Add Done button
+        alert.addAction(submitButton)
+        
+        // Show alert
+        self.present(alert, animated: true)
     }
 }
 
@@ -317,11 +302,22 @@ extension MeController {
 
 // MARK: Constraints
 extension MeController {
+    private func setAddPerkButtonConstraints() {
+        addPerkButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            addPerkButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            addPerkButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            addPerkButton.widthAnchor.constraint(equalToConstant: 130),
+            addPerkButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+    }
+    
     private func setTableViewConstraints() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 10),
+            tableView.topAnchor.constraint(equalTo: addPerkButton.bottomAnchor, constant: 10),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10)

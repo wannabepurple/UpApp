@@ -30,16 +30,12 @@ final class TabBarController: UITabBarController {
         
         // Making controllers
         let meController = MeController()
-        let sessionController = SessionController()
         let agendaController = AgendaController()
         let progressController = ProgressController()
                 
         meController.tabBarItem = UITabBarItem(title: Resources.TabBar.Titles.me,
                                                image: Resources.TabBar.Images.me,
                                                tag: Tabs.me.rawValue)
-        sessionController.tabBarItem = UITabBarItem(title: Resources.TabBar.Titles.session,
-                                                    image: Resources.TabBar.Images.session,
-                                                    tag: Tabs.session.rawValue)
         agendaController.tabBarItem = UITabBarItem(title: Resources.TabBar.Titles.agenda,
                                                    image: Resources.TabBar.Images.agenda,
                                                    tag: Tabs.agenda.rawValue)
@@ -53,7 +49,6 @@ final class TabBarController: UITabBarController {
         ]
         
         meController.tabBarItem.setTitleTextAttributes(attributes, for: .normal)
-        sessionController.tabBarItem.setTitleTextAttributes(attributes, for: .normal)
         agendaController.tabBarItem.setTitleTextAttributes(attributes, for: .normal)
         progressController.tabBarItem.setTitleTextAttributes(attributes, for: .normal)
         
@@ -76,7 +71,6 @@ final class TabBarController: UITabBarController {
          
         // Adding controllers to tabBar
         setViewControllers([meController,
-                            sessionController,
                             agendaController,
                             progressController], animated: false)
         

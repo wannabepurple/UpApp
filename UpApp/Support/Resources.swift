@@ -10,6 +10,7 @@ enum Resources {
             static let backgroundDark = #colorLiteral(red: 0.08416173607, green: 0.1026151553, blue: 0.1538609266, alpha: 1)
             static let black = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             static let green = #colorLiteral(red: 0.340277344, green: 0.9374753237, blue: 0.578148067, alpha: 1)
+            static let greenLight = #colorLiteral(red: 0.2608105242, green: 0.9381259084, blue: 0.6957440972, alpha: 1)
             static let purple = #colorLiteral(red: 0.5381102562, green: 0.2368915677, blue: 0.8926698565, alpha: 1)
             static let red = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
         }
@@ -63,7 +64,7 @@ enum Resources {
                               title: String = "",
                               image: UIImage?,
                               backgroundColor: UIColor,
-                              cornerRadius: CGFloat = Resources.Common.Sizes.cornerRadius10,
+                              cornerRadius: CGFloat = Resources.Common.Sizes.cornerRadius20,
                               setPosition: () -> () = {}) {
             setPosition()
             button.backgroundColor = backgroundColor
