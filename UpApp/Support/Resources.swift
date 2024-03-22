@@ -93,6 +93,8 @@ enum Resources {
             label.font = Resources.Common.futura(size: size)
             label.text = text
             label.textAlignment = .center
+            label.adjustsFontSizeToFitWidth = true
+            label.minimumScaleFactor = 0.5
         }
     }
     

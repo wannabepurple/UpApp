@@ -81,7 +81,9 @@ extension PerkCell {
         
         NSLayoutConstraint.activate([
             totalHours.bottomAnchor.constraint(equalTo: startButton.topAnchor, constant: -20),
-            totalHours.centerXAnchor.constraint(equalTo: centerXAnchor)
+            totalHours.centerXAnchor.constraint(equalTo: centerXAnchor),
+            totalHours.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            totalHours.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
     }
 

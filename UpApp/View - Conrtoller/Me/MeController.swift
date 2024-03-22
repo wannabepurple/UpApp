@@ -25,14 +25,19 @@ final class MeController: BaseController {
         reloadTableView()
     }
     
-    /// Refactor
     @IBAction func tapPlus(_ sender: Any) {
-        let alert = UIAlertController(title: "Customize your perk", message: nil, preferredStyle: .alert)
-        alert.addTextField()
-        alert.addTextField()
-        alert.textFields![0].placeholder = "Name of the perk (ex: Perk)"
-        alert.textFields![1].placeholder = "Hours, spent on this perk (ex: 45.3)"
-
+        let alert = UIAlertController(title: "", message: nil, preferredStyle: .alert)
+        DispatchQueue.main.async {
+            alert.addTextField { tf in
+                tf.placeholder = "Perk title"
+                tf.delegate = self
+            }
+            alert.addTextField { tf in
+                tf.placeholder = "Spent hours (ex: 45.3)"
+                tf.delegate = self
+            }
+        }
+        alert.setValue(Resources.Common.returnStringWithAttributes(title: "Customize your perk"), forKey: "attributedTitle")
         
         let submitButton = UIAlertAction(title: "Done", style: .default) { (action) in
             let perkTitleTextField = alert.textFields![0]
@@ -40,42 +45,26 @@ final class MeController: BaseController {
             
             // Create new perk
             var incorrectDataFlag = false
-            if perkTitleTextField.text != "" && totalHoursTextField.text != "" {
-                var checkPerk: [Perk] = []
-                Perk.fetchPerkWith(title: perkTitleTextField.text!, perk: &checkPerk, context: self.context)
-                
-                if checkPerk.count > 0 {
-                    incorrectDataFlag = true
-                } else if let hours = Float(totalHoursTextField.text!) {
-                    if hours > 10100 {
-                        print("Too many hours")
-                    } else {
-                        let totalSecondsFromTextField = Int64(hours * 3600)
-                        
-                        MeModel.createNewPerk(context: self.context, perkTitle: perkTitleTextField.text!, time: totalSecondsFromTextField)
-                        self.refetchData()
-                    }
-                } else {
-                    incorrectDataFlag = true
-                }
-            } else {
+            
+            var checkPerk: [Perk] = []
+            Perk.fetchPerkWith(title: perkTitleTextField.text!, perk: &checkPerk, context: self.context)
+            
+            if Float(totalHoursTextField.text!) == nil || Float(totalHoursTextField.text!)! < 0 ||
+                perkTitleTextField.text == "" ||
+                totalHoursTextField.text == "" ||
+                checkPerk.count > 0 {
                 incorrectDataFlag = true
+            } else {
+                let totalSecondsFromTextField = Int64(Float(totalHoursTextField.text!)! * 3600)
+                
+                MeModel.createNewPerk(context: self.context, perkTitle: perkTitleTextField.text!, time: totalSecondsFromTextField)
+                self.refetchData()
             }
             
+            
+            // insert here
             if incorrectDataFlag {
-                self.setWarningLabel()
-                
-                
-                UIView.animate(withDuration: 0.5, animations: {
-                    self.incorrectDataLabel.alpha = 1
-                }) { _ in
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        UIView.animate(withDuration: 0.5) {
-                            self.incorrectDataLabel.alpha = 0
-                        }
-                    }
-                }
-
+                self.showIncorrectDataLabel()
             }
         }
         
@@ -96,6 +85,9 @@ extension MeController {
         
         // Table View
         setTableView()
+        
+        // Warning
+        setWarningLabel()
     }
     
     private func setTopView() {
@@ -214,68 +206,82 @@ extension MeController: ModalViewControllerDelegate {
     }
 }
 
+extension MeController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let textFieldText = textField.text,
+              let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+            return false
+        }
+        
+        let newText = textFieldText.replacingCharacters(in: rangeOfTextToReplace, with: string)
+        return newText.count <= 15
+    }
+}
+
 // MARK: Actions
 extension MeController {
     private func setCellMenu(indexPath: IndexPath) {
         
         // Rename
-        let renameTitle = Resources.Common.returnStringWithAttributes(title: "Rename")
         let rename = UIAction(title: "", image: UIImage(named: "rename")) { _ in
-            let alertTitle = Resources.Common.returnStringWithAttributes(title: "Type a new perk title")
+    
             let alert = UIAlertController(title: "", message: nil, preferredStyle: .alert)
-            alert.setValue(alertTitle, forKey: "attributedTitle")
+            alert.setValue(Resources.Common.returnStringWithAttributes(title: "New perk title"), forKey: "attributedTitle")
             alert.addTextField()
-            
+                        
             let submitButton = UIAlertAction(title: "Done", style: .default) { (action) in
-                let text = alert.textFields?[0].text!
-                if text != "" {
+                let text = alert.textFields![0].text!
+                if text == "" {
+                    self.showIncorrectDataLabel()
+                } else {
                     self.perks[indexPath.section].perkTitle = text
                     Perk.saveContext(context: self.context)
-                    Perk.fetchPerks(perks: &self.perks, context: self.context)
-                } else {
-                    print("Empty text field")
+                    self.refetchData()
                 }
             }
             
             alert.addAction(submitButton)
             self.present(alert, animated: true)
         }
-        rename.setValue(renameTitle, forKey: "attributedTitle")
+        rename.setValue(Resources.Common.returnStringWithAttributes(title: "Rename"), forKey: "attributedTitle")
         
         
         // Recalculate
-        let recalculateTitle = Resources.Common.returnStringWithAttributes(title: "Recalculation")
         let recalculate = UIAction(title: "", image: UIImage(named: "session")) { _ in
-            let alertTitle = Resources.Common.returnStringWithAttributes(title: "Type the total hours")
             let alert = UIAlertController(title: "", message: nil, preferredStyle: .alert)
-            alert.setValue(alertTitle, forKey: "attributedTitle")
+            alert.setValue(Resources.Common.returnStringWithAttributes(title: "Correct spent hours"), forKey: "attributedTitle")
             alert.addTextField()
 
             let submitButton = UIAlertAction(title: "Done", style: .default) { (action) in
-                if let text = Int64(alert.textFields![0].text!) {
-                    self.perks[indexPath.section].perkTitle = String(text)
-                    Perk.saveContext(context: self.context)
-                    Perk.fetchPerks(perks: &self.perks, context: self.context)
+                let hours = Float(alert.textFields![0].text!)
+                if hours == nil || hours! < 0 {
+                    self.showIncorrectDataLabel()
                 } else {
-                    print("Not time")
+                    
                 }
+//                    self.perks[indexPath.section].perkTitle = String(text)
+//                    Perk.saveContext(context: self.context)
+//                    Perk.fetchPerks(perks: &self.perks, context: self.context)
+//                } else {
+//                    print("Not time")
+//                }
             }
+            
+            
             
             alert.addAction(submitButton)
             self.present(alert, animated: true)
         }
-        recalculate.setValue(recalculateTitle, forKey: "attributedTitle")
+        recalculate.setValue(Resources.Common.returnStringWithAttributes(title: "Recalculate"), forKey: "attributedTitle")
 
         
         // Delete
-        let deleteTitle = Resources.Common.returnStringWithAttributes(title: "Delete", color: Resources.Common.Colors.red)
         let delete = UIAction(title: " ", image: UIImage(named: "bin")?.withTintColor(Resources.Common.Colors.red)) { _ in
             Perk.deletePerk(context: self.context, perkToRemove: self.perks[indexPath.section])
             Perk.saveContext(context: self.context)
             self.refetchData()
-            
         }
-        delete.setValue(deleteTitle, forKey: "attributedTitle")
+        delete.setValue(Resources.Common.returnStringWithAttributes(title: "Delete", color: Resources.Common.Colors.red), forKey: "attributedTitle")
         
         cellMenu = UIMenu(title: "", children: [rename, recalculate, delete])
     }
@@ -286,14 +292,27 @@ extension MeController {
     private func refetchData() {
         Perk.fetchPerks(perks: &perks, context: context)
     }
-
+    
     private func reloadTableView() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
+    
+    private func showIncorrectDataLabel() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.incorrectDataLabel.alpha = 1
+        }) { _ in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                UIView.animate(withDuration: 0.3) {
+                    self.incorrectDataLabel.alpha = 0
+                }
+            }
+        }
+    }
+    
+  
 }
-     
 
 // MARK: Constraints
 extension MeController {

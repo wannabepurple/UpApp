@@ -23,7 +23,7 @@ class MeModel {
         
         Perk.saveContext(context: context)
     }
-    
+
     static func calculateAndSaveDataFromSession() {
         var perk: [Perk] = []
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -41,11 +41,11 @@ class MeModel {
         
         Perk.saveContext(context: context)
     }
-    
-    static func clearMeModel() {
-        perkTitle = ""
-        time = ""
-        totalSecFromSession = 0
+  
+    static func recalculateData(context: NSManagedObjectContext, perk: Perk, correctHours: Int64) {
+        let correctSeconds = correctHours * 3600
+        let (_, totalHoursNewPerk, lvlNewPerk, progressNewPerk, toNextLvlNewPerk) = calculatePerkInfo(totalSeconds: correctSeconds)
+        
     }
     
     static func calculatePerkInfo(totalSeconds: Int64) -> (Int64, Float, Int64, Float, Float) {
@@ -92,6 +92,12 @@ class MeModel {
         toNextLvlInHours = Float(String(format: "%.1f", Float(toNextLvl) / 3600.0))!
         
         return (Int64(totalSeconds), totalHours, Int64(lvl), progress, toNextLvlInHours)
+    }
+    
+    static func clearMeModel() {
+        perkTitle = ""
+        time = ""
+        totalSecFromSession = 0
     }
 }
 

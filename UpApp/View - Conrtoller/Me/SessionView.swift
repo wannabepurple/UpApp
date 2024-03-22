@@ -9,7 +9,7 @@ protocol ModalViewControllerDelegate: AnyObject {
 class SessionView: UIViewController {
     weak var delegate: ModalViewControllerDelegate?
     let pauseButton = UIButton()
-    let perk = UILabel()
+    var perk = UILabel()
     let timerLabel = UILabel()
     let timerButton = UIButton()
     
@@ -87,7 +87,9 @@ extension SessionView {
         
         NSLayoutConstraint.activate([
             perk.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
-            perk.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            perk.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            perk.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            perk.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         ])
     }
     
