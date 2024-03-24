@@ -7,7 +7,7 @@ final class MeController: BaseController {
     private let tableView = UITableView()
     private var perks: [Perk] = []
     private var cellMenu = UIMenu()
-    private var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +35,7 @@ extension MeController {
     
     private func setAddPerkButton() {
         view.addSubview(addPerkButton)
-        Resources.Common.setButton(button: addPerkButton, image: nil, backgroundColor: Resources.Common.Colors.green, setPosition: setAddPerkButtonConstraints)
+        Resources.Common.setButton(button: addPerkButton, image: nil, backgroundColor: Resources.Common.Colors.green, setPosition: setAddPerkButtonPosition)
         addPerkButton.setTitle("Perk +", for: .normal)
         addPerkButton.addTarget(self, action: #selector(tapAddPerk), for: .touchUpInside)
     }
@@ -46,7 +46,7 @@ extension MeController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(PerkCell.self, forCellReuseIdentifier: Resources.MeController.PerkCell.cellIdentifier)
-        setTableViewConstraints()
+        setTableViewPosition()
         
         // Opt
         tableView.separatorStyle = .none
@@ -303,9 +303,9 @@ extension MeController {
     }
 }
 
-// MARK: Constraints
+// MARK: Position
 extension MeController {
-    private func setAddPerkButtonConstraints() {
+    private func setAddPerkButtonPosition() {
         addPerkButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -316,7 +316,7 @@ extension MeController {
         ])
     }
     
-    private func setTableViewConstraints() {
+    private func setTableViewPosition() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([

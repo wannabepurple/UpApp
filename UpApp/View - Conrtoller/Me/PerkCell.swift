@@ -42,24 +42,24 @@ extension PerkCell {
         setProgressLine()
 
         // perkTitle
-        Resources.Common.setLabel(label: perk, size: Resources.MeController.PerkCell.perkTitleFont, setPosition: setPerkConstraints)
+        Resources.Common.setLabel(label: perk, size: Resources.MeController.PerkCell.perkTitleFont, setPosition: setPerkPosition)
         
         // lvlLabel
-        Resources.Common.setLabel(label: lvl, size: Resources.MeController.PerkCell.lvlFont,  setPosition: setLvlConstraints)
+        Resources.Common.setLabel(label: lvl, size: Resources.MeController.PerkCell.lvlFont,  setPosition: setLvlPosition)
         
         // toNextLvlLable
-        Resources.Common.setLabel(label: toNextLvl, size: Resources.MeController.PerkCell.lvlFont, setPosition: setToNextLvlConstraints)
+        Resources.Common.setLabel(label: toNextLvl, size: Resources.MeController.PerkCell.lvlFont, setPosition: setToNextLvlPosition)
         
         // totalHours
-        Resources.Common.setLabel(label: totalHours, size: Resources.Common.Sizes.font20, setPosition: setTotalHoursConstraints)
+        Resources.Common.setLabel(label: totalHours, size: Resources.Common.Sizes.font20, setPosition: setTotalHoursPosition)
         
         // startButton
-        Resources.Common.setButton(button: startButton, image: UIImage(named: "start"), backgroundColor: Resources.Common.Colors.green, setPosition: setStartButtonConstraints)
+        Resources.Common.setButton(button: startButton, image: UIImage(named: "start"), backgroundColor: Resources.Common.Colors.green, setPosition: setStartButtonPosition)
         startButton.addTarget(self, action: #selector(tapStart), for: .touchUpInside)
     }
     
     private func setProgressLine() {
-        setProgressConstraints()
+        setProgressPosition()
         progress.layer.cornerRadius = Resources.Common.Sizes.cornerRadius10
         progress.layer.masksToBounds = true
         progress.progressTintColor = Resources.Common.Colors.green
@@ -74,9 +74,9 @@ extension PerkCell {
     }
 }
 
-// MARK: Constraints
+// MARK: Position
 extension PerkCell {
-    private func setTotalHoursConstraints() {
+    private func setTotalHoursPosition() {
         totalHours.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -87,7 +87,7 @@ extension PerkCell {
         ])
     }
 
-    private func setPerkConstraints() {
+    private func setPerkPosition() {
         perk.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             perk.topAnchor.constraint(equalTo: topAnchor, constant: 10),
@@ -95,7 +95,7 @@ extension PerkCell {
         ])
     }
     
-    private func setProgressConstraints() {
+    private func setProgressPosition() {
         progress.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             progress.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
@@ -106,7 +106,7 @@ extension PerkCell {
         ])
     }
 
-    private func setLvlConstraints() {
+    private func setLvlPosition() {
         lvl.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -115,7 +115,7 @@ extension PerkCell {
         ])
     }
 
-    private func setToNextLvlConstraints() {
+    private func setToNextLvlPosition() {
         toNextLvl.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -124,7 +124,7 @@ extension PerkCell {
         ])
     }
     
-    private func setStartButtonConstraints() {
+    private func setStartButtonPosition() {
         startButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([

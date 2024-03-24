@@ -11,7 +11,7 @@ public class AimStat: NSManagedObject {
                 stats = firstResult
             } else {
                 stats = AimStat(context: context)
-                try context.save()
+                AimStat.saveContext(context: context)
             }
         } catch {
             print("Error fetching aim stats: \(error)")

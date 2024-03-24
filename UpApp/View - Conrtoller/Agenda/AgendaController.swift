@@ -7,40 +7,23 @@ final class AgendaController: BaseController {
     private let addAimButton = UIButton()
     private var aims: [Aim] = []
     private var stats: AimStat?
-    private var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
-        fetchAimStat()
+        stats = AimStat(context: context)
+        AimStat.fetchStat(stats: &stats!, context: context)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         refetchData()
         reloadTableView()
     }
-    
-    
-    
 }
 
 // MARK: - Support
 extension AgendaController {
-    private func fetchAimStat() {
-        let fetchRequest: NSFetchRequest<AimStat> = AimStat.fetchRequest()
-        do {
-            let results = try context.fetch(fetchRequest)
-            if let firstResult = results.first {
-                stats = firstResult
-            } else {
-                stats = AimStat(context: context)
-                AimStat.saveContext(context: context)
-            }
-        } catch {
-            print("Error fetching aim stats: \(error)")
-        }
-    }
-    
     private func refetchData() {
         Aim.fetchAims(aims: &aims, context: context)
     }

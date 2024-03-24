@@ -38,7 +38,7 @@ extension SessionView {
         view.addSubview(perk)
         view.addSubview(timerButton)
         
-        Resources.Common.setLabel(label: perk, size: Resources.MeController.SessionView.perkTitleFont, text: MeModel.perkTitle, setPosition: setPerkConstraints)
+        Resources.Common.setLabel(label: perk, size: Resources.MeController.SessionView.perkTitleFont, text: MeModel.perkTitle, setPosition: setPerkPosition)
         
         Resources.Common.setButton(button: timerButton, 
                                    size: Resources.MeController.SessionView.timerButtonFont,
@@ -46,7 +46,7 @@ extension SessionView {
                                    image: nil,
                                    backgroundColor: Resources.Common.Colors.green,
                                    cornerRadius: Resources.MeController.SessionView.timerCornerRadius,
-                                   setPosition: setTimerButtonConstraints)
+                                   setPosition: setTimerButtonPosition)
         timerButton.addTarget(self, action: #selector(tapTimer), for: .touchUpInside)
     }
 }
@@ -80,9 +80,9 @@ extension SessionView {
     
 }
 
-// MARK: Constraints
+// MARK: Position
 extension SessionView {
-    private func setPerkConstraints() {
+    private func setPerkPosition() {
         perk.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -93,7 +93,7 @@ extension SessionView {
         ])
     }
     
-    private func setTimerButtonConstraints() {
+    private func setTimerButtonPosition() {
         timerButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
