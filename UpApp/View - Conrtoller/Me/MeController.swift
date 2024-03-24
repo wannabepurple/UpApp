@@ -1,13 +1,10 @@
 import UIKit
 
 final class MeController: BaseController {
-//    @IBOutlet weak var topView: UIView!
-//    @IBOutlet weak var nick: UITextField!
-//    @IBOutlet weak var plusButton: UIButton!
     
     private let addPerkButton = UIButton()
     private let incorrectDataLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 50))
-    private var tableView = UITableView()
+    private let tableView = UITableView()
     private var perks: [Perk] = [] {
         didSet {
             reloadTableView()
@@ -23,7 +20,6 @@ final class MeController: BaseController {
     
     override func viewWillAppear(_ animated: Bool) {
         refetchData()
-        reloadTableView()
     }
 }
 
@@ -38,6 +34,13 @@ extension MeController {
         
         // Warning
         setWarningLabel()
+    }
+    
+    private func setAddPerkButton() {
+        view.addSubview(addPerkButton)
+        Resources.Common.setButton(button: addPerkButton, image: nil, backgroundColor: Resources.Common.Colors.green, setPosition: setAddPerkButtonConstraints)
+        addPerkButton.setTitle("Perk +", for: .normal)
+        addPerkButton.addTarget(self, action: #selector(tapAddPerk), for: .touchUpInside)
     }
     
     private func setTableView() {
@@ -165,7 +168,7 @@ extension MeController {
             alert.setValue(Resources.Common.returnStringWithAttributes(title: "New perk title"), forKey: "attributedTitle")
             alert.addTextField()
                         
-            let submitButton = UIAlertAction(title: "Done", style: .default) { (action) in
+            let submitButton = UIAlertAction(title: "Yep", style: .default) { (action) in
                 let text = alert.textFields![0].text!
                 if text == "" {
                     self.showIncorrectDataLabel()
@@ -188,7 +191,7 @@ extension MeController {
             alert.setValue(Resources.Common.returnStringWithAttributes(title: "Correct spent hours"), forKey: "attributedTitle")
             alert.addTextField()
 
-            let submitButton = UIAlertAction(title: "Done", style: .default) { (action) in
+            let submitButton = UIAlertAction(title: "Yep", style: .default) { (action) in
                 let hours = Float(alert.textFields![0].text!)
                 if hours == nil || hours! < 0 {
                     self.showIncorrectDataLabel()
@@ -214,17 +217,9 @@ extension MeController {
         
         cellMenu = UIMenu(title: "", children: [rename, recalculate, delete])
     }
-    
-    private func setAddPerkButton() {
-        view.addSubview(addPerkButton)
-        Resources.Common.setButton(button: addPerkButton, image: nil, backgroundColor: Resources.Common.Colors.green, setPosition: setAddPerkButtonConstraints)
-        addPerkButton.setTitle("Add perk +", for: .normal)
-        addPerkButton.addTarget(self, action: #selector(tapAddPerk), for: .touchUpInside)
-    }
 
     @objc func tapAddPerk() {
         let alert = UIAlertController(title: "", message: nil, preferredStyle: .alert)
-        DispatchQueue.main.async {
             alert.addTextField { tf in
                 tf.placeholder = "Perk title"
                 tf.delegate = self
@@ -233,10 +228,10 @@ extension MeController {
                 tf.placeholder = "Spent hours (ex: 45.3)"
                 tf.delegate = self
             }
-        }
-        alert.setValue(Resources.Common.returnStringWithAttributes(title: "Customize your perk"), forKey: "attributedTitle")
+            alert.setValue(Resources.Common.returnStringWithAttributes(title: "Customize your perk"), forKey: "attributedTitle")
         
-        let submitButton = UIAlertAction(title: "Done", style: .default) { (action) in
+        
+        let submitButton = UIAlertAction(title: "Yep", style: .default) { _ /*(action)*/ in
             let perkTitleTextField = alert.textFields![0]
             let totalHoursTextField = alert.textFields![1]
             
@@ -308,7 +303,7 @@ extension MeController {
         NSLayoutConstraint.activate([
             addPerkButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             addPerkButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            addPerkButton.widthAnchor.constraint(equalToConstant: 130),
+            addPerkButton.widthAnchor.constraint(equalToConstant: 100),
             addPerkButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }

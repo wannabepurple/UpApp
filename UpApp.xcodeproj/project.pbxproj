@@ -12,6 +12,8 @@
 		874BBDFA2B92666500934313 /* ProgressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874BBDF92B92666500934313 /* ProgressController.swift */; };
 		875855982B9CDFE000E46007 /* PerkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875855972B9CDFE000E46007 /* PerkCell.swift */; };
 		875946022B9E12F500D6C621 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875946012B9E12F500D6C621 /* Extensions.swift */; };
+		877A091C2BB0287900E2584B /* Aim+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877A091A2BB0287900E2584B /* Aim+CoreDataClass.swift */; };
+		877A091F2BB02F8400E2584B /* AgendaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877A091E2BB02F8400E2584B /* AgendaModel.swift */; };
 		879D0C542B9392B9008D8A5D /* AgendaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879D0C532B9392B9008D8A5D /* AgendaController.swift */; };
 		87B0AAD92B920BBA001A6794 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B0AAD82B920BBA001A6794 /* AppDelegate.swift */; };
 		87B0AADB2B920BBA001A6794 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B0AADA2B920BBA001A6794 /* SceneDelegate.swift */; };
@@ -32,6 +34,8 @@
 		874BBDF92B92666500934313 /* ProgressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressController.swift; sourceTree = "<group>"; };
 		875855972B9CDFE000E46007 /* PerkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerkCell.swift; sourceTree = "<group>"; };
 		875946012B9E12F500D6C621 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		877A091A2BB0287900E2584B /* Aim+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Aim+CoreDataClass.swift"; sourceTree = "<group>"; };
+		877A091E2BB02F8400E2584B /* AgendaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaModel.swift; sourceTree = "<group>"; };
 		879D0C532B9392B9008D8A5D /* AgendaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaController.swift; sourceTree = "<group>"; };
 		87B0AAD52B920BBA001A6794 /* UpApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UpApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87B0AAD82B920BBA001A6794 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -72,17 +76,10 @@
 		874BBDFF2B926F6B00934313 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				875945FE2B9DBFD000D6C621 /* Me */,
+				873CC53B2BA0CC6600D99F9C /* MeModel.swift */,
+				877A091E2BB02F8400E2584B /* AgendaModel.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		875945FE2B9DBFD000D6C621 /* Me */ = {
-			isa = PBXGroup;
-			children = (
-				873CC53B2BA0CC6600D99F9C /* MeModel.swift */,
-			);
-			path = Me;
 			sourceTree = "<group>";
 		};
 		8759460E2B9E44C000D6C621 /* Storage */ = {
@@ -90,6 +87,7 @@
 			children = (
 				87EE607B2BA062CC00158523 /* Storage.xcdatamodeld */,
 				87E525CA2B9EFC3E00926F0E /* Perk+CoreDataClass.swift */,
+				877A091A2BB0287900E2584B /* Aim+CoreDataClass.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -264,7 +262,9 @@
 				87B0AADB2B920BBA001A6794 /* SceneDelegate.swift in Sources */,
 				875946022B9E12F500D6C621 /* Extensions.swift in Sources */,
 				875855982B9CDFE000E46007 /* PerkCell.swift in Sources */,
+				877A091C2BB0287900E2584B /* Aim+CoreDataClass.swift in Sources */,
 				87EE607D2BA062CC00158523 /* Storage.xcdatamodeld in Sources */,
+				877A091F2BB02F8400E2584B /* AgendaModel.swift in Sources */,
 				879D0C542B9392B9008D8A5D /* AgendaController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,7 +1,6 @@
 import UIKit
 import CoreData
 
-
 public class Perk: NSManagedObject {
     // MARK: Read
     // Fetch the data from Core Data to display on the tableView

@@ -120,17 +120,9 @@ enum Resources {
         }
     }
     
-    enum SessionController {
-        enum Images {
-            static let bin = UIImage(named: "bin")
-        }
-        
-        
-    }
-    
     enum MeController {
         enum PerkCell {
-            static let cellIdentifier = "PerkCell"
+            static let cellIdentifier = "perkCell"
             static let perkTitleFont: CGFloat = 20
             static let lvlFont: CGFloat = 15
             static let cellHeight: CGFloat = 300
@@ -142,6 +134,12 @@ enum Resources {
             static let timerButtonFont: CGFloat = 30
             static let timerSide: CGFloat = 200
             static let timerCornerRadius: CGFloat = timerSide / 2
+        }
+    }
+    
+    enum AgendaController {
+        enum AimCell {
+            static let cellIdentifier = "aimCell"
         }
     }
 }
