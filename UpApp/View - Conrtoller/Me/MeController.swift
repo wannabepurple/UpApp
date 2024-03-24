@@ -5,11 +5,7 @@ final class MeController: BaseController {
     private let addPerkButton = UIButton()
     private let incorrectDataLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 50))
     private let tableView = UITableView()
-    private var perks: [Perk] = [] {
-        didSet {
-            reloadTableView()
-        }
-    }
+    private var perks: [Perk] = []
     private var cellMenu = UIMenu()
     private var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -20,6 +16,7 @@ final class MeController: BaseController {
     
     override func viewWillAppear(_ animated: Bool) {
         refetchData()
+        reloadTableView()
     }
 }
 
@@ -46,7 +43,8 @@ extension MeController {
     private func setTableView() {
         // Required
         view.addSubview(tableView)
-        setTableViewDelegates()
+        tableView.delegate = self
+        tableView.dataSource = self
         tableView.register(PerkCell.self, forCellReuseIdentifier: Resources.MeController.PerkCell.cellIdentifier)
         setTableViewConstraints()
         
@@ -55,11 +53,6 @@ extension MeController {
         tableView.layer.cornerRadius = Resources.Common.Sizes.cornerRadius20
         tableView.backgroundColor = Resources.Common.Colors.backgroundGray
         tableView.showsVerticalScrollIndicator = false
-    }
-    
-    private func setTableViewDelegates() {
-        tableView.delegate = self
-        tableView.dataSource = self
     }
     
     private func setWarningLabel() {
@@ -142,6 +135,7 @@ extension MeController: ModalViewControllerDelegate {
     // Method starts when modal view did dissapear
     func didDismissModalViewController() {
         refetchData()
+        reloadTableView()
     }
 }
 
@@ -176,6 +170,7 @@ extension MeController {
                     self.perks[indexPath.section].perkTitle = text
                     Perk.saveContext(context: self.context)
                     self.refetchData()
+                    self.reloadTableView()
                 }
             }
             
@@ -198,6 +193,7 @@ extension MeController {
                 } else {
                     MeModel.recalculateData(context: self.context, perk: &self.perks[indexPath.section], correctHours: hours!)
                     self.refetchData()
+                    self.reloadTableView()
                 }
             }
             
@@ -212,6 +208,7 @@ extension MeController {
             Perk.deletePerk(context: self.context, perkToRemove: self.perks[indexPath.section])
             Perk.saveContext(context: self.context)
             self.refetchData()
+            self.deleteSection(section: indexPath.section)
         }
         delete.setValue(Resources.Common.returnStringWithAttributes(title: "Delete", color: Resources.Common.Colors.red), forKey: "attributedTitle")
         
@@ -251,6 +248,7 @@ extension MeController {
                 
                 MeModel.createNewPerk(context: self.context, perkTitle: perkTitleTextField.text!, time: totalSecondsFromTextField)
                 self.refetchData()
+                self.addSection()
             }
             
             
@@ -280,6 +278,18 @@ extension MeController {
         }
     }
     
+    private func addSection() {
+        tableView.beginUpdates()
+        tableView.insertSections(IndexSet(integer: perks.count - 1), with: .automatic)
+        tableView.endUpdates()
+    }
+    
+    private func deleteSection(section: Int) {
+        tableView.beginUpdates()
+        tableView.deleteSections(IndexSet(integer: section), with: .automatic)
+        tableView.endUpdates()
+    }
+    
     private func showIncorrectDataLabel() {
         UIView.animate(withDuration: 0.3, animations: {
             self.incorrectDataLabel.alpha = 1
@@ -291,8 +301,6 @@ extension MeController {
             }
         }
     }
-    
-  
 }
 
 // MARK: Constraints

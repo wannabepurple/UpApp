@@ -1,6 +1,12 @@
 import UIKit
 import CoreData
 
+// MARK: - Update data model
+// 1 - Add/delete/refactor data
+// 2 - Save data
+// 3 - Refetch data
+// 4 - Update view
+
 class MeModel {
     static var perkTitle: String = ""
     static var time: String = ""
