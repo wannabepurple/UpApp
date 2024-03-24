@@ -5,6 +5,7 @@ final class AgendaController: BaseController {
     private let tableView = UITableView()
     private let addAimButton = UIButton()
     private var aims: [Aim] = []
+    private var stats: [Statistics] = []
     private var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
@@ -21,6 +22,10 @@ final class AgendaController: BaseController {
 
 // MARK: - Support
 extension AgendaController {
+    private func refetchStats() {
+        Statistics.fetchStats(stats: &stats, context: <#T##NSManagedObjectContext#>)
+    }
+    
     private func refetchData() {
         Aim.fetchAims(aims: &aims, context: context)
     }
@@ -62,7 +67,6 @@ extension AgendaController {
         tableView.layer.cornerRadius = Resources.Common.Sizes.cornerRadius20
     }
     
-    
     private func setAddAimButton() {
         view.addSubview(addAimButton)
         
@@ -98,13 +102,34 @@ extension AgendaController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            Aim.deleteAim(context: context, aimToRemove: aims[indexPath.row])
-            Aim.saveContext(context: context)
-            refetchData()
-            deleteRow(row: indexPath.row)
+    // Delete
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, _ in
+            Aim.deleteAim(context: self.context, aimToRemove: self.aims[indexPath.row])
+            Aim.saveContext(context: self.context)
+            self.refetchData()
+            self.deleteRow(row: indexPath.row)
         }
+        deleteAction.backgroundColor = Resources.Common.Colors.red
+        let swipe = UISwipeActionsConfiguration(actions: [deleteAction])
+        return swipe
+    }
+    
+    // Complete
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let completeAction = UIContextualAction(style: .destructive, title: "Complete") { _, _, _ in
+//            AgendaModel.completedAims += 1
+//            print(AgendaModel.completedAims)
+            Statistics.
+            Aim.deleteAim(context: self.context, aimToRemove: self.aims[indexPath.row])
+            Aim.saveContext(context: self.context)
+            self.refetchData()
+            self.deleteRow(row: indexPath.row)
+            
+        }
+        completeAction.backgroundColor = Resources.Common.Colors.green
+        let swipe = UISwipeActionsConfiguration(actions: [completeAction])
+        return swipe
     }
 
 }

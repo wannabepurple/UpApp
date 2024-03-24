@@ -3,6 +3,9 @@
     <entity name="Aim" representedClassName=".Aim" syncable="YES" codeGenerationType="category">
         <attribute name="aimTitle" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="AimStat" representedClassName=".AimStat" syncable="YES" codeGenerationType="category">
+        <attribute name="completedAims" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
     <entity name="Perk" representedClassName=".Perk" syncable="YES" codeGenerationType="category">
         <attribute name="lvl" optional="YES" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="perkTitle" optional="YES" attributeType="String"/>
