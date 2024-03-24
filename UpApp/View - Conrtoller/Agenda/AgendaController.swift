@@ -4,11 +4,7 @@ final class AgendaController: BaseController {
     
     private let tableView = UITableView()
     private let addAimButton = UIButton()
-    private var aims: [Aim] = [] {
-        didSet {
-            reloadTableView()
-        }
-    }
+    private var aims: [Aim] = []
     private var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
@@ -19,6 +15,7 @@ final class AgendaController: BaseController {
     
     override func viewWillAppear(_ animated: Bool) {
         refetchData()
+        reloadTableView()
     }
     
 }
@@ -34,6 +31,18 @@ extension AgendaController {
             self.tableView.reloadData()
         }
     }
+    
+    private func addRow() {
+        tableView.beginUpdates()
+        tableView.insertRows(at: [IndexPath(row: aims.count - 1, section: 0)], with: .automatic)
+        tableView.endUpdates()
+    }
+    
+    private func deleteRow(row: Int) {
+        tableView.beginUpdates()
+        tableView.deleteRows(at: [IndexPath(row: row, section: 0)], with: .automatic)
+        tableView.endUpdates()
+    }
 }
 
 // MARK: - UI
@@ -41,7 +50,6 @@ extension AgendaController {
     private func setUI() {
         setAddAimButton()
         setTableView()
-        
     }
     
     private func setTableView() {
@@ -81,20 +89,21 @@ extension AgendaController: UITableViewDelegate, UITableViewDataSource {
         
         // ADDME - setCellInfo
         cell.textLabel?.text = aimItem.aimTitle
-//        cell.accessoryType = .checkmark
         cell.selectionStyle = .none
         cell.textLabel?.font = Resources.Common.futura(size: Resources.Common.Sizes.font16)
         cell.textLabel?.numberOfLines = 100
         
         return cell
     }
-//    
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            aims.remove(at: indexPath.row)
-//            tableView.deleteRows(at: [indexPath], with: .automatic)
-//        }
-//    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            Aim.deleteAim(context: context, aimToRemove: aims[indexPath.row])
+            Aim.saveContext(context: context)
+            refetchData()
+            deleteRow(row: indexPath.row)
+        }
+    }
 }
 
 // MARK: - Actions
@@ -111,6 +120,7 @@ extension AgendaController {
             
             AgendaModel.createNewAim(context: self.context, aimTitle: aimTitleTextField!)
             self.refetchData()
+            self.addRow()
         }
         
         alert.addAction(submitButton)
