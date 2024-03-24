@@ -54,14 +54,15 @@ extension AgendaController {
     
     private func setTableView() {
         view.addSubview(tableView)
+        setTableViewPosition()
 
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Resources.AgendaController.AimCell.cellIdentifier)
+        tableView.register(AimCell.self, forCellReuseIdentifier: Resources.AgendaController.AimCell.cellIdentifier)
         tableView.backgroundColor = Resources.Common.Colors.backgroundCard
         tableView.layer.cornerRadius = Resources.Common.Sizes.cornerRadius20
         
-        setTableViewPosition()
+
     }
     
     private func setAddAimButton() {
@@ -84,14 +85,12 @@ extension AgendaController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: Resources.AgendaController.AimCell.cellIdentifier)
+        let cell = tableView.dequeueReusableCell(withIdentifier: Resources.AgendaController.AimCell.cellIdentifier, for: indexPath) as! AimCell
         let aimItem = aims[indexPath.row]
         
-        // ADDME - setCellInfo
-        cell.textLabel?.text = aimItem.aimTitle
+        cell.setAimCell(aim: aimItem)
         cell.selectionStyle = .none
-        cell.textLabel?.font = Resources.Common.futura(size: Resources.Common.Sizes.font16)
-        cell.textLabel?.numberOfLines = 100
+        cell.separatorInset = .zero
         
         return cell
     }
@@ -103,6 +102,14 @@ extension AgendaController: UITableViewDelegate, UITableViewDataSource {
             refetchData()
             deleteRow(row: indexPath.row)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
 }
 
