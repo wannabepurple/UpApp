@@ -2,7 +2,7 @@ import UIKit
 
 class AimCell: UITableViewCell {
     private let aimTextView = UITextView()
-    var saveCellInfo: (_ text: String) -> Void = {text in }
+    var saveCellInfo: (_ text: String) -> Void = { text in }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -30,7 +30,6 @@ extension AimCell {
         if aimTextView.isFirstResponder {
             aimTextView.resignFirstResponder()
         } else {
-            // В противном случае начинаем редактирование текстового поля
             aimTextView.becomeFirstResponder()
         }
     }
@@ -47,7 +46,6 @@ extension AimCell {
         setAimTitlePosition()
     }
 }
-
 
 // MARK: - Position
 extension AimCell {

@@ -62,6 +62,7 @@ extension AgendaController {
         tableView.layer.cornerRadius = Resources.Common.Sizes.cornerRadius20
     }
     
+    
     private func setAddAimButton() {
         view.addSubview(addAimButton)
         
@@ -110,25 +111,13 @@ extension AgendaController: UITableViewDelegate, UITableViewDataSource {
 
 // MARK: - Actions
 extension AgendaController {
+    
     @objc func tapAddAim() {
-        let alert = UIAlertController(title: "", message: nil, preferredStyle: .alert)
-        
-        alert.addTextField()
-        
-        alert.setValue(Resources.Common.returnStringWithAttributes(title: "Aim title"), forKey: "attributedTitle")
-        
-        let submitButton = UIAlertAction(title: "Yep", style: .default) { (action) in
-            let aimTitleTextField = alert.textFields![0].text
-            
-            AgendaModel.createNewAim(context: self.context, aimTitle: aimTitleTextField!)
-            self.refetchData()
-            self.addRow()
-        }
-        
-        alert.addAction(submitButton)
-        
-        self.present(alert, animated: true)
+        AgendaModel.createNewAim(context: self.context)
+        self.refetchData()
+        self.addRow()
     }
+     
 }
 
 // MARK: - Position

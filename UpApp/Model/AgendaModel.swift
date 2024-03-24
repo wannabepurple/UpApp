@@ -2,11 +2,8 @@ import UIKit
 import CoreData
 
 class AgendaModel {
-    static func createNewAim(context: NSManagedObjectContext, aimTitle: String) {
+    static func createNewAim(context: NSManagedObjectContext) {
         let newAim = Aim(context: context)
-        
-        newAim.aimTitle = aimTitle
-        
         Aim.saveContext(context: context)
     }
 }
