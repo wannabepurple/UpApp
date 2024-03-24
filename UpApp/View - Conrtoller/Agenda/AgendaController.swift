@@ -9,7 +9,6 @@ final class AgendaController: BaseController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setUI()
     }
     
@@ -61,8 +60,6 @@ extension AgendaController {
         tableView.register(AimCell.self, forCellReuseIdentifier: Resources.AgendaController.AimCell.cellIdentifier)
         tableView.backgroundColor = Resources.Common.Colors.backgroundCard
         tableView.layer.cornerRadius = Resources.Common.Sizes.cornerRadius20
-        
-
     }
     
     private func setAddAimButton() {
@@ -91,10 +88,15 @@ extension AgendaController: UITableViewDelegate, UITableViewDataSource {
         cell.setAimCell(aim: aimItem)
         cell.selectionStyle = .none
         cell.separatorInset = .zero
+        cell.saveCellInfo = { text in
+            self.aims[indexPath.row].aimTitle = text
+            Aim.saveContext(context: self.context)
+            self.refetchData()
+        }
         
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             Aim.deleteAim(context: context, aimToRemove: aims[indexPath.row])
@@ -103,14 +105,7 @@ extension AgendaController: UITableViewDelegate, UITableViewDataSource {
             deleteRow(row: indexPath.row)
         }
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
+
 }
 
 // MARK: - Actions

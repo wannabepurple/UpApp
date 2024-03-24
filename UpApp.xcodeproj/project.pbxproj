@@ -15,7 +15,6 @@
 		877A091C2BB0287900E2584B /* Aim+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877A091A2BB0287900E2584B /* Aim+CoreDataClass.swift */; };
 		877A091F2BB02F8400E2584B /* AgendaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877A091E2BB02F8400E2584B /* AgendaModel.swift */; };
 		877A09212BB0653E00E2584B /* AimCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877A09202BB0653E00E2584B /* AimCell.swift */; };
-		877A09232BB0792000E2584B /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 877A09222BB0792000E2584B /* View.xib */; };
 		879D0C542B9392B9008D8A5D /* AgendaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879D0C532B9392B9008D8A5D /* AgendaController.swift */; };
 		87B0AAD92B920BBA001A6794 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B0AAD82B920BBA001A6794 /* AppDelegate.swift */; };
 		87B0AADB2B920BBA001A6794 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B0AADA2B920BBA001A6794 /* SceneDelegate.swift */; };
@@ -39,7 +38,6 @@
 		877A091A2BB0287900E2584B /* Aim+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Aim+CoreDataClass.swift"; sourceTree = "<group>"; };
 		877A091E2BB02F8400E2584B /* AgendaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaModel.swift; sourceTree = "<group>"; };
 		877A09202BB0653E00E2584B /* AimCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AimCell.swift; sourceTree = "<group>"; };
-		877A09222BB0792000E2584B /* View.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
 		879D0C532B9392B9008D8A5D /* AgendaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaController.swift; sourceTree = "<group>"; };
 		87B0AAD52B920BBA001A6794 /* UpApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UpApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87B0AAD82B920BBA001A6794 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -180,7 +178,6 @@
 			children = (
 				879D0C532B9392B9008D8A5D /* AgendaController.swift */,
 				877A09202BB0653E00E2584B /* AimCell.swift */,
-				877A09222BB0792000E2584B /* View.xib */,
 			);
 			path = Agenda;
 			sourceTree = "<group>";
@@ -244,7 +241,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				87B0AAE52B920BBB001A6794 /* LaunchScreen.storyboard in Resources */,
-				877A09232BB0792000E2584B /* View.xib in Resources */,
 				87B0AAE22B920BBB001A6794 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

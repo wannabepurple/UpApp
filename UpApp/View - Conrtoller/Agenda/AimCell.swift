@@ -1,12 +1,13 @@
 import UIKit
 
 class AimCell: UITableViewCell {
-    let aimTextView = UITextView()
+    private let aimTextView = UITextView()
+    var saveCellInfo: (_ text: String) -> Void = {text in }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         setUI()
+        setTapGestureRecognizer()
     }
     
     required init?(coder: NSCoder) {
@@ -18,7 +19,22 @@ class AimCell: UITableViewCell {
     }
 }
 
-
+// MARK: - Actions
+extension AimCell {
+    private func setTapGestureRecognizer() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnCell))
+        addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func tapOnCell() {
+        if aimTextView.isFirstResponder {
+            aimTextView.resignFirstResponder()
+        } else {
+            // В противном случае начинаем редактирование текстового поля
+            aimTextView.becomeFirstResponder()
+        }
+    }
+}
 
 // MARK: - UI
 extension AimCell {
@@ -26,11 +42,8 @@ extension AimCell {
         // aimTitle
         addSubview(aimTextView)
         aimTextView.font = Resources.Common.futura(size: Resources.Common.Sizes.font16)
-        aimTextView.textAlignment = .natural
         aimTextView.isScrollEnabled = false
-        aimTextView.isEditable = true
         aimTextView.delegate = self
-        
         setAimTitlePosition()
     }
 }
@@ -39,34 +52,36 @@ extension AimCell {
 // MARK: - Position
 extension AimCell {
     private func setAimTitlePosition() {
-        aimTextView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
+        aimTextView.translatesAutoresizingMaskIntoConstraints = false 
+        [
             aimTextView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            aimTextView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
             aimTextView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             aimTextView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-        ])
+            aimTextView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+        ].forEach { $0.isActive = true }
     }
-    
 }
 
 
 // MARK: - TextView
 extension AimCell: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        updateTextViewHeight()
-    }
-    
-    private func updateTextViewHeight() {
-        let fixedWidth = aimTextView.frame.size.width
-        let newSize = aimTextView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
-        aimTextView.constraints.forEach {
-            if $0.firstAttribute == .height {
-                $0.constant = newSize.height
+        let size = CGSize(width: frame.width, height: .infinity)
+        let estimatedSize = textView.sizeThatFits(size)
+        
+        textView.constraints.forEach { (constraint) in
+            if constraint.firstAttribute == .height {
+                constraint.constant = estimatedSize.height
             }
         }
-        self.layoutIfNeeded()
+        
+        if let tableView = superview as? UITableView {
+            tableView.beginUpdates()
+            tableView.endUpdates()
+        }
+        
+        saveCellInfo(textView.text)
     }
 }
+ 
 
