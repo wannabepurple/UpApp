@@ -1,16 +1,18 @@
 import UIKit
+import CoreData
 
 final class AgendaController: BaseController {
     
     private let tableView = UITableView()
     private let addAimButton = UIButton()
     private var aims: [Aim] = []
-    private var stats: [Statistics] = []
+    private var stats: AimStat?
     private var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
+        fetchAimStat()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -18,12 +20,25 @@ final class AgendaController: BaseController {
         reloadTableView()
     }
     
+    
+    
 }
 
 // MARK: - Support
 extension AgendaController {
-    private func refetchStats() {
-        Statistics.fetchStats(stats: &stats, context: <#T##NSManagedObjectContext#>)
+    private func fetchAimStat() {
+        let fetchRequest: NSFetchRequest<AimStat> = AimStat.fetchRequest()
+        do {
+            let results = try context.fetch(fetchRequest)
+            if let firstResult = results.first {
+                stats = firstResult
+            } else {
+                stats = AimStat(context: context)
+                AimStat.saveContext(context: context)
+            }
+        } catch {
+            print("Error fetching aim stats: \(error)")
+        }
     }
     
     private func refetchData() {
@@ -118,9 +133,10 @@ extension AgendaController: UITableViewDelegate, UITableViewDataSource {
     // Complete
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let completeAction = UIContextualAction(style: .destructive, title: "Complete") { _, _, _ in
-//            AgendaModel.completedAims += 1
-//            print(AgendaModel.completedAims)
-            Statistics.
+            self.stats?.completedAims += 1
+            print(self.stats!.completedAims)
+            AimStat.saveContext(context: self.context)
+            
             Aim.deleteAim(context: self.context, aimToRemove: self.aims[indexPath.row])
             Aim.saveContext(context: self.context)
             self.refetchData()

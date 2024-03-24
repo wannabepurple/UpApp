@@ -44,6 +44,7 @@ extension AimCell {
         aimTextView.font = Resources.Common.futura(size: Resources.Common.Sizes.font16)
         aimTextView.isScrollEnabled = false
         aimTextView.delegate = self
+        aimTextView.autocorrectionType = .no
         setAimTitlePosition()
     }
 }
