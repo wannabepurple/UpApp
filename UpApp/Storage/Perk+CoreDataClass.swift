@@ -1,4 +1,3 @@
-import UIKit
 import CoreData
 
 public class Perk: NSManagedObject {

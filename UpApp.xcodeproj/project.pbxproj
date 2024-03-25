@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		872535622BB1EB420080B9F0 /* PerkStat+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872535602BB1EB420080B9F0 /* PerkStat+CoreDataClass.swift */; };
 		873CC53C2BA0CC6600D99F9C /* MeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873CC53B2BA0CC6600D99F9C /* MeModel.swift */; };
 		874BBDF42B925FC600934313 /* MeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874BBDF32B925FC600934313 /* MeController.swift */; };
 		874BBDFA2B92666500934313 /* ProgressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874BBDF92B92666500934313 /* ProgressController.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		872535602BB1EB420080B9F0 /* PerkStat+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PerkStat+CoreDataClass.swift"; sourceTree = "<group>"; };
 		873CC53B2BA0CC6600D99F9C /* MeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeModel.swift; sourceTree = "<group>"; };
 		874BBDF32B925FC600934313 /* MeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeController.swift; sourceTree = "<group>"; };
 		874BBDF92B92666500934313 /* ProgressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressController.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				87EE607B2BA062CC00158523 /* Storage.xcdatamodeld */,
+				872535602BB1EB420080B9F0 /* PerkStat+CoreDataClass.swift */,
 				877A095A2BB0B37C00E2584B /* AimStat+CoreDataClass.swift */,
 				87E525CA2B9EFC3E00926F0E /* Perk+CoreDataClass.swift */,
 				877A091A2BB0287900E2584B /* Aim+CoreDataClass.swift */,
@@ -268,6 +271,7 @@
 				87B0AADB2B920BBA001A6794 /* SceneDelegate.swift in Sources */,
 				877A09212BB0653E00E2584B /* AimCell.swift in Sources */,
 				875946022B9E12F500D6C621 /* Extensions.swift in Sources */,
+				872535622BB1EB420080B9F0 /* PerkStat+CoreDataClass.swift in Sources */,
 				875855982B9CDFE000E46007 /* PerkCell.swift in Sources */,
 				877A091C2BB0287900E2584B /* Aim+CoreDataClass.swift in Sources */,
 				87EE607D2BA062CC00158523 /* Storage.xcdatamodeld in Sources */,
