@@ -9,7 +9,6 @@ public class AimStat: NSManagedObject {
                let res = try context.fetch(fetchRequest)
                if let firstStat = res.first {
                    stats = firstStat
-                   print(res)
                } else {
                    stats = AimStat(context: context)
                    print("В базе данных нет объектов AimStat")
