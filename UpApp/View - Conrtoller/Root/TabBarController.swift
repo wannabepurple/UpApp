@@ -31,7 +31,7 @@ final class TabBarController: UITabBarController {
         // Making controllers
         let meController = MeController()
         let agendaController = AgendaController()
-        let progressController = ProgressController()
+//        let progressController = ProgressController()
                 
         meController.tabBarItem = UITabBarItem(title: Resources.TabBar.Titles.me,
                                                image: Resources.TabBar.Images.me,
@@ -39,10 +39,11 @@ final class TabBarController: UITabBarController {
         agendaController.tabBarItem = UITabBarItem(title: Resources.TabBar.Titles.agenda,
                                                    image: Resources.TabBar.Images.agenda,
                                                    tag: Tabs.agenda.rawValue)
+        /*
         progressController.tabBarItem = UITabBarItem(title: Resources.TabBar.Titles.progress,
                                                      image: Resources.TabBar.Images.progress,
                                                      tag: Tabs.progress.rawValue)
-        
+        */
         let attributes = [
             NSAttributedString.Key.font: Resources.Common.futura(size: 12) as Any,
             NSAttributedString.Key.foregroundColor: Resources.Common.Colors.backgroundCard
@@ -50,7 +51,7 @@ final class TabBarController: UITabBarController {
         
         meController.tabBarItem.setTitleTextAttributes(attributes, for: .normal)
         agendaController.tabBarItem.setTitleTextAttributes(attributes, for: .normal)
-        progressController.tabBarItem.setTitleTextAttributes(attributes, for: .normal)
+//        progressController.tabBarItem.setTitleTextAttributes(attributes, for: .normal)
         
         // Nav bar example
         /*
@@ -71,8 +72,8 @@ final class TabBarController: UITabBarController {
          
         // Adding controllers to tabBar
         setViewControllers([meController,
-                            agendaController,
-                            progressController], animated: false)
+                            agendaController/*,
+                            progressController*/], animated: false)
         
     }
 }

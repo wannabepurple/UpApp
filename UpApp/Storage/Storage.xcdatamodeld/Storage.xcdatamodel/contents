@@ -7,8 +7,6 @@
         <attribute name="completedAims" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <entity name="Perk" representedClassName=".Perk" syncable="YES" codeGenerationType="category">
-        <attribute name="attribute" optional="YES"/>
-        <attribute name="attribute1" optional="YES"/>
         <attribute name="lvl" optional="YES" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="perkTitle" optional="YES" attributeType="String"/>
         <attribute name="progress" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -16,8 +14,5 @@
         <attribute name="toNextLvl" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="totalHours" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="totalSeconds" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-    </entity>
-    <entity name="PerkStat" representedClassName=".PerkStat" syncable="YES" codeGenerationType="category">
-        <attribute name="totalityHours" optional="YES" attributeType="Float" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
 </model>

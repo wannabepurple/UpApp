@@ -5,7 +5,6 @@ class ProgressController: BaseController {
    
     private let aimsLabel = UILabel()
     private var aims: AimStat?
-    private var totalHours: 
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     
