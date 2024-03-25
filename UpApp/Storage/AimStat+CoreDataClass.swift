@@ -3,19 +3,18 @@ import CoreData
 
 public class AimStat: NSManagedObject {    
     // MARK: Fetch
-    static func fetchStat(stats: inout AimStat, context: NSManagedObjectContext) {
+    static func fetchStat(stats: inout AimStat?, context: NSManagedObjectContext) {
         let fetchRequest: NSFetchRequest<AimStat> = AimStat.fetchRequest()
-        do {
-            let results = try context.fetch(fetchRequest)
-            if let firstResult = results.first {
-                stats = firstResult
-            } else {
-                stats = AimStat(context: context)
-                AimStat.saveContext(context: context)
-            }
-        } catch {
-            print("Error fetching aim stats: \(error)")
-        }
+           do {
+               let res = try context.fetch(fetchRequest)
+               if let firstStat = res.first {
+                   stats = firstStat
+                   print(res)
+               } else {
+                   stats = AimStat(context: context)
+                   print("В базе данных нет объектов AimStat")
+               }
+           } catch { }
     }
     
     // MARK: Save

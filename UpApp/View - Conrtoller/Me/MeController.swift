@@ -169,7 +169,7 @@ extension MeController {
                 } else {
                     self.perks[indexPath.section].perkTitle = text
                     Perk.saveContext(context: self.context)
-                    self.refetchData()
+//                    self.refetchData() DELETEME
                     self.reloadTableView()
                 }
             }
@@ -192,7 +192,7 @@ extension MeController {
                     self.showIncorrectDataLabel()
                 } else {
                     MeModel.recalculateData(context: self.context, perk: &self.perks[indexPath.section], correctHours: hours!)
-                    self.refetchData()
+//                    self.refetchData() DELETEME
                     self.reloadTableView()
                 }
             }

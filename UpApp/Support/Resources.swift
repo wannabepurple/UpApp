@@ -97,6 +97,28 @@ enum Resources {
             label.adjustsFontSizeToFitWidth = true
             label.minimumScaleFactor = 0.5
         }
+        
+        static func clearEntityStorage(title: String) {
+            // Получаем доступ к контексту Core Data
+            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
+            // Создаем запрос для получения всех сущностей
+            let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: title)
+
+            do {
+                // Получаем все объекты из базы данных
+                let objects = try context.fetch(fetchRequest)
+
+                // Проходимся по всем объектам и удаляем их из контекста
+                for object in objects {
+                    context.delete(object as! NSManagedObject)
+                }
+
+                // Сохраняем контекст, чтобы изменения вступили в силу
+                try context.save()
+            } catch { }
+
+        }
     }
     
     enum TabBar {

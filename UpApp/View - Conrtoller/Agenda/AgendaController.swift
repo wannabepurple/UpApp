@@ -12,8 +12,7 @@ final class AgendaController: BaseController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
-        stats = AimStat(context: context)
-        AimStat.fetchStat(stats: &stats!, context: context)
+        AimStat.fetchStat(stats: &stats, context: context)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -116,10 +115,7 @@ extension AgendaController: UITableViewDelegate, UITableViewDataSource {
     // Complete
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let completeAction = UIContextualAction(style: .destructive, title: "Complete") { _, _, _ in
-            self.stats?.completedAims += 1
-            print(self.stats!.completedAims)
-            AimStat.saveContext(context: self.context)
-            
+            self.stats?.completedAims += 1            
             Aim.deleteAim(context: self.context, aimToRemove: self.aims[indexPath.row])
             Aim.saveContext(context: self.context)
             self.refetchData()
