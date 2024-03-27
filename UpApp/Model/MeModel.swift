@@ -122,23 +122,25 @@ class MeTimer {
     static var remainingMinutes = 0
     static var remainingSeconds = 0
     
-    
+
     static func startTimer(updateClosure: @escaping (String) -> Void) {
         if timer == nil {
             timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
                 totalSeconds += 1
                 hours = totalSeconds / 3600
-                remainingMinutes = (totalSeconds % 3600) / 60
+                remainingMinutes = 6 + (totalSeconds % 3600) / 60
                 remainingSeconds = totalSeconds % 60
                 
                 let timeString = String(format: "%02d:%02d:%02d", hours, remainingMinutes, remainingSeconds)
                 DispatchQueue.main.async {
                     updateClosure(timeString)
                 }
+                print(timeString)
             }
         }
+        
     }
-    
+
     static func pauseTimer() {
         timer?.invalidate()
         timer = nil

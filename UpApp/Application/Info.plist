@@ -4,7 +4,7 @@
 <dict>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
-		<string>com.UpApp.timer</string>
+		<string>ilya.ilyansky.UpApp</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
@@ -25,6 +25,7 @@
 	</dict>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>audio</string>
 		<string>processing</string>
 	</array>
 </dict>

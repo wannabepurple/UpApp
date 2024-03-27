@@ -12,6 +12,8 @@ class SessionView: UIViewController {
     var perk = UILabel()
     let timerLabel = UILabel()
     let timerButton = UIButton()
+    private var backgroundTask: UIBackgroundTaskIdentifier = .invalid
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,8 +54,7 @@ extension SessionView {
 }
 
 // MARK: Actions
-extension SessionView {
-    
+extension SessionView {    
     private func timerProcess() {
         // Start timer
         MeTimer.startTimer() { [weak self] timeString in
