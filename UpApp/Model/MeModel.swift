@@ -128,7 +128,7 @@ class MeTimer {
             timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
                 totalSeconds += 1
                 hours = totalSeconds / 3600
-                remainingMinutes = 6 + (totalSeconds % 3600) / 60
+                remainingMinutes = (totalSeconds % 3600) / 60
                 remainingSeconds = totalSeconds % 60
                 
                 let timeString = String(format: "%02d:%02d:%02d", hours, remainingMinutes, remainingSeconds)
